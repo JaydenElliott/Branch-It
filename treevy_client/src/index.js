@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
-
-function App() {
-  return <div>treevy</div>;
-}
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap-theme.css";
 
 ReactDom.render(<App />, document.getElementById("root"));
