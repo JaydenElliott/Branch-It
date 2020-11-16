@@ -1,16 +1,16 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.css";
-import treevyItem from "./components/treevyItem";
+import TreevyItem from "./components/treevyItem";
 import TreevyList from "./components/treevyList";
 import ListState from "./components/treevyList";
-import ItemState from "./components/treevyList";         
+import {ItemState} from "./components/treevyItem";
 
 
 interface AppState {
   // Local scope
   cstring: string;
-  items: [];
+  items: ItemState[];
   // list: TreevyList;
 }
 

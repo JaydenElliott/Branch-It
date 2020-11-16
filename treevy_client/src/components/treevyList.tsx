@@ -7,10 +7,10 @@ import treevyItem from "./treevyItem"
 
 export interface ListState {
   // Local scope
-  items: Array<treevyItem>;
+  items: ItemState[];
 }
 
-}
+
 class TreevyList extends Component<{}, ListState> {
   constructor(props: ListState) {
     super(props);
