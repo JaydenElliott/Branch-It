@@ -1,10 +1,19 @@
 import React from "react";
 import { Component } from "react";
 
-class treevyItem extends Component {
-  render() {
-    return <h1>Hi</h1>;
-  }
+
+export interface ItemState {
+  done: boolean,
+  content: string
 }
 
-export default treevyItem;
+export default class treevyItem extends Component<{},ItemState> {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      done: false,
+      content: "",
+    };
+  }
+}
