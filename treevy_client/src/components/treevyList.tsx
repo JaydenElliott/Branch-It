@@ -11,7 +11,8 @@ export interface ListState {
 }
 
 
-class TreevyList extends Component<{}, ListState> {
+// TODO: Make treevylist generate the items
+class TreevyList extends Component<any, ListState> {
   constructor(props: ListState) {
     super(props);
 

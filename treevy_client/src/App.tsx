@@ -28,6 +28,7 @@ class App extends Component<{}, AppState> {
 
   // Keyboard input field
   onInputChange(e: ChangeEvent<HTMLInputElement>): void {
+    
     this.setState({
       cstring: e.currentTarget.value,
     });
@@ -41,14 +42,16 @@ class App extends Component<{}, AppState> {
     }
 
     
+    // Generate the item state to be passed to the list
+    // treevyList should do this
     const item : ItemState = {
       done : false,
       content : this.state.cstring
     }
-    // this.state.items.push(this.state.cstring);
-    // this.setState({
-    //   cstring: "",
-    // });
+    this.state.items.push(item);
+    this.setState({
+      cstring: "",
+    });
   }
 
   render() {
@@ -66,7 +69,7 @@ class App extends Component<{}, AppState> {
               />
               <button className="button" type="submit" />
             </form>
-            {/* <TreevyList items={this.state.items} /> */}
+            <TreevyList items={this.state.items} />
           </div>
         </div>
       </header>
