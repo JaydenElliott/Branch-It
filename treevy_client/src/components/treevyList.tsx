@@ -1,15 +1,14 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Component } from "react";
-import ItemState from "./treevyItem";
-import treevyItem from "./treevyItem"
 // import { AppState } from "../App";
 
 
 export interface ListState {
   // Local scope
-  items: ItemState[];
+  lists: TreevyList[];
+  done: boolean;
+  content: string;
 }
-
 
 // TODO: Make treevylist generate the items
 class TreevyList extends Component<any, ListState> {
@@ -17,29 +16,52 @@ class TreevyList extends Component<any, ListState> {
     super(props);
 
     this.state = {
-      items: []
+      lists: [],
+      done: false,
+      content: props.content ? props.content : ""
+    }
+  }
+
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      content: e.currentTarget.value
+    })
+  }
+
+  submitItem = (_e: any): void => {
+    _e.preventDefault();
+    if (this.state.content == "") {
+      return;
+    }
+  
+    const list : ListState = {
+      lists: [],
+      done : false,
+      content : this.state.content
     }
 
-    this.createItem = this.createItem.bind(this);
-
+    
+    this.state.lists.push(new TreevyList(list));
+    this.setState({
+      content: "",
+    });
   }
-
-  // Creates an item node - from treevyItem.tsx
-  createItem(itemState: ItemState) : boolean {
-    const item : treevyItem = new treevyItem(itemState);
-    this.state.items.push(item);
-    return true;
-  }
-
 
   render() {
     return (
       <div>
-        <ul>
-          {this.state.items.map((item, _) => {
-            return <li>{item.state.content}</li>;
-          })}
-        </ul>
+        <form onSubmit={this.submitItem}>
+          <input
+            type="text"
+            value= {this.state.content}
+            onChange={this.handleInputChange}
+          >
+          </input>
+        </form>
+        
+        {this.state.lists.map((list, _) => {
+          return <TreevyList content={list.state.content} />
+        })}
       </div>
     );
   }

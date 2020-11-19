@@ -1,16 +1,14 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.css";
-import TreevyItem from "./components/treevyItem";
-import TreevyList from "./components/treevyList";
-import ListState from "./components/treevyList";
-import {ItemState} from "./components/treevyItem";
+import TreevyList, { ListState } from "./components/treevyList";
+
 
 
 interface AppState {
   // Local scope
   cstring: string;
-  items: ItemState[];
+  items: ListState[];
   // list: TreevyList;
 }
 
@@ -40,15 +38,12 @@ class App extends Component<{}, AppState> {
     if (this.state.cstring == "") {
       return;
     }
-
-    
-    // Generate the item state to be passed to the list
-    // treevyList should do this
-    const item : ItemState = {
+    const list : ListState = {
+      lists: [],
       done : false,
       content : this.state.cstring
     }
-    this.state.items.push(item);
+    this.state.items.push(list);
     this.setState({
       cstring: "",
     });
