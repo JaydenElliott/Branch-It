@@ -3,8 +3,6 @@ import { Component } from "react";
 import "./App.css";
 import TreevyList, { ListState } from "./components/treevyList";
 
-
-
 interface AppState {
   // Local scope
   cstring: string;
@@ -26,7 +24,6 @@ class App extends Component<{}, AppState> {
 
   // Keyboard input field
   onInputChange(e: ChangeEvent<HTMLInputElement>): void {
-    
     this.setState({
       cstring: e.currentTarget.value,
     });
@@ -38,18 +35,26 @@ class App extends Component<{}, AppState> {
     if (this.state.cstring == "") {
       return;
     }
-    const list : ListState = {
+    const list: ListState = {
       lists: [],
-      done : false,
-      content : this.state.cstring
-    }
-    this.state.items.push(list);
+      done: false,
+      content: this.state.cstring,
+    };
+
+    const updatedItems = [...this.state.items, list];
     this.setState({
+      items: updatedItems,
       cstring: "",
     });
   }
 
   render() {
+    const renderList = () => {
+      /* Only call this is there is content to display */
+      if (this.state.items.length != 0) {
+        return <TreevyList items={this.state.items} />;
+      }
+    };
     return (
       <header className="header">
         <div className="todoapp">
@@ -64,7 +69,7 @@ class App extends Component<{}, AppState> {
               />
               <button className="button" type="submit" />
             </form>
-            <TreevyList items={this.state.items} />
+            {renderList()}
           </div>
         </div>
       </header>
