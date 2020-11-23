@@ -1,5 +1,6 @@
 import React from "react";
 import { Component } from "react";
+import "../components/renderItem.css";
 
 export default class RenderList extends Component<any, any> {
   constructor(props: any) {
@@ -7,9 +8,13 @@ export default class RenderList extends Component<any, any> {
   }
   render() {
     return (
-      <div>
-        <ul>
+      <div className="listChild" id={"arranged"}>
+        <div className="listItem">
+          <span>&#8226;</span>
           {this.props.content}
+        </div>
+
+        <div className="listButton" id={"goToLeft"}>
           <button
             type="button"
             className="close"
@@ -17,7 +22,7 @@ export default class RenderList extends Component<any, any> {
           >
             &times;
           </button>
-        </ul>
+        </div>
       </div>
     );
   }

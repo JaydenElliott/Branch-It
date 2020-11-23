@@ -58,7 +58,7 @@ class App extends Component<{}, AppState> {
 
   renderList = () => {
     return (
-      <div>
+      <div id="listParent">
         {this.state.items.map((item, index) => (
           <TreevyList item={item} index={index} deleteList={this.deleteList} />
         ))}
@@ -77,7 +77,9 @@ class App extends Component<{}, AppState> {
             onChange={this.onInputChange}
             value={this.state.cstring}
           />
-          <button className="button" type="submit" />
+          <button id="submitBtn" type="submit">
+            {"Submit"}
+          </button>
         </form>
         {this.renderList()}
       </div>

@@ -1,0 +1,13 @@
+#arranged {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 100%;
+  gap: 0px 0px;
+  grid-template-areas: ". .";
+}
+
+#goToLeft {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

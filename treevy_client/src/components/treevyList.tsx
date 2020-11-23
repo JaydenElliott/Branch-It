@@ -68,12 +68,7 @@ class TreevyList extends Component<any, ListState> {
 
   render() {
     return (
-      <div>
-        <RenderList
-          content={this.state.content}
-          onClickDel={this.onClickClose}
-        />
-      </div>
+      <RenderList content={this.state.content} onClickDel={this.onClickClose} />
     );
   }
 }
