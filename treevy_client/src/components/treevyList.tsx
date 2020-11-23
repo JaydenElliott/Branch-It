@@ -10,13 +10,13 @@ export interface ListState {
 }
 
 class TreevyList extends Component<any, ListState> {
-  constructor(props: ListState) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
-      lists: props.lists,
-      done: props.done,
-      content: props.content ? props.content : "",
+      lists: this.props.item.lists,
+      done: this.props.item.done,
+      content: this.props.item.content,
     };
   }
 
@@ -25,6 +25,10 @@ class TreevyList extends Component<any, ListState> {
       content: e.currentTarget.value,
     });
   };
+
+  removeItem(e: string) {
+    this.props.deleteList(e);
+  }
 
   submitItem = (_e: any): void => {
     _e.preventDefault();
@@ -55,31 +59,9 @@ class TreevyList extends Component<any, ListState> {
     return itemList;
   };
 
-  /**
-   * TESTING PURPOSES ONLY --- delete later
-   */
-  testing = () => {
-    const list: ListState = {
-      lists: [],
-      done: false,
-      content: "Do the washing",
-    };
-    const list2: ListState = {
-      lists: [],
-      done: false,
-      content: "cook",
-    };
-    let a = new TreevyList(list);
-    let b = new TreevyList(list2);
-
-    this.state.lists.push(a);
-    this.state.lists.push(b);
-  };
-
   // GOAL: App calls each treevy list. Each treevy list renders itself and has a seperate method called "render children"
   // Render children : renders children if there are any
 
-  // good to have a temp content and a hard coded one so it doesnt change on keybaord input? wont matter after a button
   render() {
     return (
       <div>

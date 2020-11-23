@@ -27,6 +27,7 @@ class App extends Component<{}, AppState> {
     this.setState({
       cstring: e.currentTarget.value,
     });
+    console.log(this.state);
   }
 
   // On 'enter' push string to state.
@@ -48,31 +49,38 @@ class App extends Component<{}, AppState> {
     });
   }
 
-  render() {
-    const renderList = () => {
-      /* Only call this is there is content to display */
-      if (this.state.items.length != 0) {
-        return <TreevyList items={this.state.items} />;
-      }
-    };
+  deleteList = (name: string) => {
+    this.setState({
+      // items: this.state.lists.filter((el) => el !== name),
+      items: this.state.items.filter((el) => el.content !== name),
+    });
+  };
+
+  renderList = () => {
     return (
-      <header className="header">
-        <div className="todoapp">
-          <div className="center">
-            <h2>To-Do List</h2>
-            <form onSubmit={this.submitItem}>
-              <input
-                className="new-todo"
-                type="text"
-                onChange={this.onInputChange}
-                value={this.state.cstring}
-              />
-              <button className="button" type="submit" />
-            </form>
-            {renderList()}
-          </div>
-        </div>
-      </header>
+      <div>
+        {this.state.items.map((item) => (
+          <TreevyList item={item} delete={this.deleteList} />
+        ))}
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <div className="center">
+        <h2>To-Do List</h2>
+        <form onSubmit={this.submitItem}>
+          <input
+            className="new-todo"
+            type="text"
+            onChange={this.onInputChange}
+            value={this.state.cstring}
+          />
+          <button className="button" type="submit" />
+        </form>
+        {this.renderList()}
+      </div>
     );
   }
 }
