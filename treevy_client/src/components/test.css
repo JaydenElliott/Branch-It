@@ -1,0 +1,9 @@
+#test {
+  list-style-position: inside;
+  display: table;
+  list-style-type: circle;
+  grid-template-columns: 10% 70% 20%;
+  grid-template-rows: 100%;
+  gap: 0px 0px;
+  grid-template-areas: ". . .";
+}

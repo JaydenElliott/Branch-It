@@ -1,6 +1,8 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
+import "../components/test.css";
 // import { AppState } from "../App";
+import RenderList from "../components/renderItem";
 
 export interface ListState {
   // Local scope
@@ -26,9 +28,14 @@ class TreevyList extends Component<any, ListState> {
     });
   };
 
-  removeItem(e: string) {
+  deleteItem(e: number) {
     this.props.deleteList(e);
   }
+
+  onClickClose = () => {
+    var index = parseInt(this.props.index);
+    this.deleteItem(index);
+  };
 
   submitItem = (_e: any): void => {
     _e.preventDefault();
@@ -59,28 +66,29 @@ class TreevyList extends Component<any, ListState> {
     return itemList;
   };
 
-  // GOAL: App calls each treevy list. Each treevy list renders itself and has a seperate method called "render children"
-  // Render children : renders children if there are any
-
   render() {
     return (
       <div>
-        <li>{this.state.content}</li>
+        <RenderList
+          content={this.state.content}
+          onClickDel={this.onClickClose}
+        />
       </div>
     );
   }
 }
 
-{
-  /* Submit Child List Method */
-}
-{
-  /* <form onSubmit={this.submitItem}> 
-          <input
-            type="text"
-            value={this.state.content}
-            onChange={this.handleInputChange}
-          ></input>
-        </form> */
-}
 export default TreevyList;
+
+// render() {
+//   return (
+//     <div>
+//       <ul>
+//         {this.state.content}
+//         <button type="button" className="close" onClick={this.onClickClose}>
+//           &times;
+//         </button>
+//       </ul>
+//     </div>
+//   );
+// }

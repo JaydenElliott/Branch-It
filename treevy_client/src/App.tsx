@@ -49,18 +49,18 @@ class App extends Component<{}, AppState> {
     });
   }
 
-  deleteList = (name: string) => {
-    this.setState({
-      // items: this.state.lists.filter((el) => el !== name),
-      items: this.state.items.filter((el) => el.content !== name),
-    });
+  // Delete treevy list
+  deleteList = (itemIndex: number) => {
+    const updatedItems = this.state.items;
+    updatedItems.splice(itemIndex, 1);
+    this.setState({ items: updatedItems });
   };
 
   renderList = () => {
     return (
       <div>
-        {this.state.items.map((item) => (
-          <TreevyList item={item} delete={this.deleteList} />
+        {this.state.items.map((item, index) => (
+          <TreevyList item={item} index={index} deleteList={this.deleteList} />
         ))}
       </div>
     );
