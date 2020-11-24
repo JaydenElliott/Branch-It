@@ -1,16 +1,12 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.css";
-import TreevyItem from "./components/treevyItem";
-import TreevyList from "./components/treevyList";
-import ListState from "./components/treevyList";
-import {ItemState} from "./components/treevyItem";
-
+import TreevyList, { ListState } from "./components/treevyList";
 
 interface AppState {
   // Local scope
   cstring: string;
-  items: ItemState[];
+  items: ListState[];
   // list: TreevyList;
 }
 
@@ -28,7 +24,6 @@ class App extends Component<{}, AppState> {
 
   // Keyboard input field
   onInputChange(e: ChangeEvent<HTMLInputElement>): void {
-    
     this.setState({
       cstring: e.currentTarget.value,
     });
@@ -40,21 +35,26 @@ class App extends Component<{}, AppState> {
     if (this.state.cstring == "") {
       return;
     }
+    const list: ListState = {
+      lists: [],
+      done: false,
+      content: this.state.cstring,
+    };
 
-    
-    // Generate the item state to be passed to the list
-    // treevyList should do this
-    const item : ItemState = {
-      done : false,
-      content : this.state.cstring
-    }
-    this.state.items.push(item);
+    const updatedItems = [...this.state.items, list];
     this.setState({
+      items: updatedItems,
       cstring: "",
     });
   }
 
   render() {
+    const renderList = () => {
+      /* Only call this is there is content to display */
+      if (this.state.items.length != 0) {
+        return <TreevyList items={this.state.items} />;
+      }
+    };
     return (
       <header className="header">
         <div className="todoapp">
@@ -69,7 +69,7 @@ class App extends Component<{}, AppState> {
               />
               <button className="button" type="submit" />
             </form>
-            <TreevyList items={this.state.items} />
+            {renderList()}
           </div>
         </div>
       </header>
