@@ -14,13 +14,22 @@ export default class RenderList extends Component<any, any> {
           {this.props.content}
         </div>
 
-        <div className="listButton" id={"goToLeft"}>
+        <div className="AddButton" id={"goToLeft"}>
+          <button
+            type="button"
+            className="close"
+            // onClick={this.props.onClickAdd}
+          >
+            +
+          </button>
+        </div>
+        <div className="Remove Button" id={"goToLeft"}>
           <button
             type="button"
             className="close"
             onClick={this.props.onClickDel}
           >
-            &times;
+            -
           </button>
         </div>
       </div>

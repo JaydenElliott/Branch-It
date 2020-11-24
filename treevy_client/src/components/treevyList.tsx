@@ -66,9 +66,24 @@ class TreevyList extends Component<any, ListState> {
     return itemList;
   };
 
+  onClickAdd = () => {
+    const list: ListState = {
+      lists: [],
+      done: false,
+      content: "",
+    };
+    let a = new TreevyList(list);
+
+    this.state.lists.push(a);
+  };
+
   render() {
     return (
-      <RenderList content={this.state.content} onClickDel={this.onClickClose} />
+      <RenderList
+        content={this.state.content}
+        childLists={this.state.lists}
+        onClickDel={this.onClickClose}
+      />
     );
   }
 }

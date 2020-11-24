@@ -1,9 +1,9 @@
 #arranged {
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 20% 1% 78%;
   grid-template-rows: 100%;
-  gap: 0px 0px;
-  grid-template-areas: ". .";
+  gap: 0px 0px 0px;
+  grid-template-areas: ". . .";
 }
 
 #goToLeft {
