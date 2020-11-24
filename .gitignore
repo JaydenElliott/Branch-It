@@ -1,5 +1,11 @@
-treevy_client/node_modules
+# IDE
 .DS_Store
 .idea
 .vs
 .vscode
+
+# Development folders
+build
+dist
+serc/treevy.egg-info/
+treevy_client/node_modules
