@@ -2,8 +2,8 @@ import ListState from '../components/treevyList';
 
 // API urls TODO: placeholders
 const API_BASE_URL = "http://localhost:" + (process.env.PORT || 8080) + "/";
-const API_RETRIEVE_URL = API_BASE_URL + "Retrieve/";
-const API_REGISTER_URL = API_BASE_URL + "Retrieve/";
+const API_RETRIEVE_URL = API_BASE_URL + "retrieve/";
+const API_REGISTER_URL = API_BASE_URL + "register/";
 
 // Defines login/register format to be sent to the backend
 interface UserDetails {
