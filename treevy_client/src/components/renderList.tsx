@@ -1,7 +1,9 @@
 import React from "react";
 import { Component } from "react";
-import "../components/renderItem.css";
 
+/**
+ * Class to create beatifully rendered lists
+ */
 export default class RenderList extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -18,12 +20,12 @@ export default class RenderList extends Component<any, any> {
           <button
             type="button"
             className="close"
-            // onClick={this.props.onClickAdd}
+            // onClick={this.props.onClickAdd} // add later
           >
             +
           </button>
         </div>
-        <div className="Remove Button" id={"goToLeft"}>
+        <div className="RemoveButton" id={"goToLeft"}>
           <button
             type="button"
             className="close"

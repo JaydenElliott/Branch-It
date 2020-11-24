@@ -56,11 +56,18 @@ class App extends Component<{}, AppState> {
     this.setState({ items: updatedItems });
   };
 
+  insertNode = () => {};
+
   renderList = () => {
     return (
       <div id="listParent">
         {this.state.items.map((item, index) => (
-          <TreevyList item={item} index={index} deleteList={this.deleteList} />
+          <TreevyList
+            item={item}
+            index={index}
+            deleteList={this.deleteList}
+            insertNode={this.insertNode}
+          />
         ))}
       </div>
     );
