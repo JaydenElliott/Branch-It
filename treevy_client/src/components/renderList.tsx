@@ -4,17 +4,17 @@ import "../components/renderList.css";
 import Modal from "react-modal";
 import TreevyList, { ListState } from "../components/treevyList";
 
-// Temporary
-// const modalStyle = {
-//   content: {
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     marginRight: "-50%",
-//     transform: "translate(-50%, -50%)",
-//   },
-// };
+// Temporary - make an actual style later
+const modalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 /**
  * Class to create beatifully rendered lists
  */
@@ -75,7 +75,6 @@ export default class RenderList extends Component<any, any> {
   render() {
     return (
       <div className="listChild" id={"arranged"}>
-        {/* {this.styleContent()} */}
         <div
           style={{
             marginLeft:
@@ -90,8 +89,8 @@ export default class RenderList extends Component<any, any> {
             +
           </button>
           <div className="modal">
-            <Modal isOpen={this.state.modalShow} id={"modalStyle"}>
-              <h3>Add nested item</h3>
+            <Modal isOpen={this.state.modalShow} style={modalStyle}>
+              Add nested item
               <form onSubmit={this.submitChildList}>
                 <input
                   className="new-todo"
@@ -118,7 +117,3 @@ export default class RenderList extends Component<any, any> {
     );
   }
 }
-
-// call app.tsx submit item
-
-// need form to call parent list methods
