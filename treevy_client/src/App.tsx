@@ -3,14 +3,11 @@ import { Component } from "react";
 import "./App.css";
 import TreevyList, { ListState } from "./components/treevyList";
 import Modal from "react-modal";
+import RenderList from "./components/renderList";
+
 interface AppState {
-  // Local scope
   listName: string;
-  items: ListState[];
-
-  modalShow: boolean;
-
-  // list: TreevyList;
+  items: TreevyList[];
 }
 
 class App extends Component<{}, AppState> {
@@ -20,11 +17,10 @@ class App extends Component<{}, AppState> {
     this.state = {
       listName: "",
       items: [],
-      modalShow: false,
     };
   }
 
-  // Keyboard input field
+  // Keyboard Input Utility
   onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     this.setState({
       listName: e.currentTarget.value,
@@ -32,7 +28,7 @@ class App extends Component<{}, AppState> {
     console.log(this.state);
   };
 
-  // On 'enter' push string to state.
+  // Keyboard Input Utility
   submitItem = (_e: any): void => {
     _e.preventDefault();
     if (this.state.listName == "") {
@@ -42,39 +38,33 @@ class App extends Component<{}, AppState> {
       lists: [],
       done: false,
       content: this.state.listName,
+      location: [1, this.state.items.length + 1], // app level always parses layer 1
     };
-
-    const updatedItems = [...this.state.items, list];
+    let newList = new TreevyList(list);
+    console.log("hello");
+    const updatedItems = [...this.state.items, newList];
     this.setState({
       items: updatedItems,
       listName: "",
     });
   };
 
-  // Delete treevy list
-  deleteList = (itemIndex: number) => {
+  deleteList = (itemIndex: string) => {
+    var index = parseInt(itemIndex);
     const updatedItems = this.state.items;
-    updatedItems.splice(itemIndex, 1);
+    updatedItems.splice(index, 1);
     this.setState({ items: updatedItems });
   };
 
-  insertNode = () => {};
-
-  setModalShow = (set: boolean) => {
-    this.setState({
-      modalShow: set,
-    });
-  };
-
+  // Render method
   renderList = () => {
     return (
-      <div id="listParent">
-        {this.state.items.map((item, index) => (
-          <TreevyList
-            item={item}
-            index={index}
-            deleteList={this.deleteList}
-            insertNode={this.insertNode}
+      <div>
+        {this.state.items.map((list, _e) => (
+          <RenderList
+            content={list.state.content}
+            childLists={list.state.lists}
+            onClickDel={this.deleteList}
           />
         ))}
       </div>
@@ -98,32 +88,9 @@ class App extends Component<{}, AppState> {
       </div>
     );
   }
-
-  // render() {
-  //   return (
-  //     <div className="modal-open-close">
-  //       <button onClick={() => this.setModalShow(true)}>Open Modal</button>
-  //       <Modal isOpen={this.state.modalShow}>
-  //         <h2>Title</h2>
-  //         <p>body</p>
-  //         <button onClick={() => this.setModalShow(false)}>Close Modal</button>
-  //       </Modal>
-  //     </div>
-  //   );
-  // }
 }
 
 export default App;
-
-// render(){
-//   return (
-// <RenderList
-//         content={this.state.content}
-//         childLists={this.state.lists}
-//         onClickDel={this.onClickClose}
-//       />
-//   )
-// }
 
 // 1st: create button on treevy list that renders pop up with input
 // - need to do this last
