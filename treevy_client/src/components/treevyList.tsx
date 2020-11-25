@@ -7,7 +7,9 @@ export interface ListState {
   lists: TreevyList[];
   done: boolean;
   content: string;
-  location: [number, number];
+  location: [number, number]; // [layer, item # in layer]
+  parent?: TreevyList;
+  tempString: string;
 }
 
 class TreevyList extends Component<any, ListState> {
@@ -19,31 +21,38 @@ class TreevyList extends Component<any, ListState> {
       done: this.props.done,
       content: this.props.content,
       location: this.props.location,
+      parent: this.props.parent,
+      tempString: "",
     };
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({
-      content: e.currentTarget.value,
+      tempString: e.currentTarget.value,
     });
   };
 
+  testingtesting = () => {};
+
   submitItem = (_e: any): void => {
     _e.preventDefault();
-    if (this.state.content == "") {
+    if (this.state.tempString == "") {
       return;
     }
 
+    // fix this later
     const list: ListState = {
       lists: [],
       done: false,
-      content: this.state.content,
+      content: this.state.tempString,
       location: [0, 0], // fix later
+      parent: this.props.parent,
+      tempString: "",
     };
 
     this.state.lists.push(new TreevyList(list));
     this.setState({
-      content: "",
+      tempString: "",
     });
   };
 }

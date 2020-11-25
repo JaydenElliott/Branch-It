@@ -2,8 +2,8 @@ import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.css";
 import TreevyList, { ListState } from "./components/treevyList";
-import Modal from "react-modal";
 import RenderList from "./components/renderList";
+import { TupleType } from "typescript";
 
 interface AppState {
   listName: string;
@@ -25,11 +25,10 @@ class App extends Component<{}, AppState> {
     this.setState({
       listName: e.currentTarget.value,
     });
-    console.log(this.state);
   };
 
   // Keyboard Input Utility
-  submitItem = (_e: any): void => {
+  submitItem = (_e: any, layer = 1): void => {
     _e.preventDefault();
     if (this.state.listName == "") {
       return;
@@ -38,10 +37,10 @@ class App extends Component<{}, AppState> {
       lists: [],
       done: false,
       content: this.state.listName,
-      location: [1, this.state.items.length + 1], // app level always parses layer 1
+      location: [layer, this.state.items.length + 1],
+      tempString: "",
     };
     let newList = new TreevyList(list);
-    console.log("hello");
     const updatedItems = [...this.state.items, newList];
     this.setState({
       items: updatedItems,
@@ -56,15 +55,42 @@ class App extends Component<{}, AppState> {
     this.setState({ items: updatedItems });
   };
 
-  // Render method
+  submitChildList = (childList: TreevyList, parentLocation: Array<number>) => {
+    let parentIdx = null;
+    let insertIdx = null;
+    for (let i = 0; i < this.state.items.length; i++) {
+      if (this.state.items[i].state.location == parentLocation) {
+        parentIdx = i;
+      }
+    }
+    if (parentIdx == null) {
+      throw "CHILD LIST INSERT CANNOT FIND PARENT";
+    } else {
+      let i = parentIdx + 1;
+      while (
+        i < this.state.items.length &&
+        this.state.items[i].state.location[0] ===
+          this.state.items[parentIdx].state.location[0] + 1
+      ) {
+        i += 1;
+      }
+      insertIdx = i;
+      let updatedItems = this.state.items.slice();
+      updatedItems.splice(insertIdx, 0, childList);
+      this.setState({
+        items: updatedItems,
+      });
+    }
+  };
+
   renderList = () => {
     return (
       <div>
-        {this.state.items.map((list, _e) => (
+        {this.state.items.map((list, index) => (
           <RenderList
-            content={list.state.content}
-            childLists={list.state.lists}
             onClickDel={this.deleteList}
+            parent={list}
+            submitChildList={this.submitChildList}
           />
         ))}
       </div>
@@ -91,9 +117,3 @@ class App extends Component<{}, AppState> {
 }
 
 export default App;
-
-// 1st: create button on treevy list that renders pop up with input
-// - need to do this last
-// 2nd: if list is created through initial app interface - give it layer 1
-// 3rd: if list is created through pop up interface - give it layer parent + 1
-//              - with item numeber, length + 1 of list[]

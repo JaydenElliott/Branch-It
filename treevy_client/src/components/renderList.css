@@ -3,7 +3,7 @@
   grid-template-columns: 20% 1% 78%;
   grid-template-rows: 100%;
   gap: 0px 0px 0px;
-  grid-template-areas: ". . .";
+  grid-template-areas: . . .;
 }
 
 #goToLeft {
@@ -11,3 +11,23 @@
   flex-direction: row;
   justify-content: flex-start;
 }
+
+.modalStyle {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-left: -50%;
+  transform: translate(-50%, -50%);
+}
+
+/* .modalStyle {
+  content: {
+    top: 50%,
+    left: 50%,
+    right: auto,
+    bottom: auto,
+    marginRight: -50%,
+    transform: translate(-50%, -50%),
+  },
+}; */
