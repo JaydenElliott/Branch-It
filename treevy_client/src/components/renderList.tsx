@@ -27,26 +27,42 @@ export default class RenderList extends Component<any, any> {
     };
   }
 
+  /**
+   * Modal Utility Method
+   */
   setModalOn = () => {
     this.setState({
       modalShow: true,
     });
   };
-
+  /**
+   * Modal Utility Method
+   */
   setModalOff = () => {
     this.setState({
       modalShow: false,
     });
   };
 
+  /**
+   * Keyboard Utility Method
+   */
   onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     this.setState({
       tempString: e.currentTarget.value,
     });
   };
 
-  // Keyboard Input Utility
-  submitChildList = (_e: any, layer = 1): void => {
+  /**
+   * Generates and submits a child list to it's parent
+   *
+   * @param _e: used to prevent page refresh
+   * @param layer: layer of the new list being inserted
+   *
+   * @returns: void => sends new list to submitChildList() method
+   * to be rendered
+   */
+  genChildList = (_e: any, layer = 1): void => {
     _e.preventDefault();
     if (this.state.tempString == "") {
       return;
@@ -78,7 +94,8 @@ export default class RenderList extends Component<any, any> {
         <div
           style={{
             marginLeft:
-              (this.props.parent.state.location[0] * 5).toString() + "px",
+              ((this.props.parent.state.location[0] - 1) * 20).toString() +
+              "px",
           }}
         >
           <span>&#8226;</span>
@@ -91,7 +108,7 @@ export default class RenderList extends Component<any, any> {
           <div className="modal">
             <Modal isOpen={this.state.modalShow} style={modalStyle}>
               Add nested item
-              <form onSubmit={this.submitChildList}>
+              <form onSubmit={this.genChildList}>
                 <input
                   className="new-todo"
                   type="text"

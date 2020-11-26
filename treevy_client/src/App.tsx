@@ -3,7 +3,6 @@ import { Component } from "react";
 import "./App.css";
 import TreevyList, { ListState } from "./components/treevyList";
 import RenderList from "./components/renderList";
-import { TupleType } from "typescript";
 
 interface AppState {
   listName: string;
@@ -55,7 +54,17 @@ class App extends Component<{}, AppState> {
     this.setState({ items: updatedItems });
   };
 
-  submitChildList = (childList: TreevyList, parentLocation: Array<number>) => {
+  /**
+   * Takes child list submitted via genChildList and inserts it into
+   * state.items at the appropriate location.
+   *
+   * @param childList
+   * @param parentLocation
+   */
+  submitChildList = (
+    childList: TreevyList,
+    parentLocation: Array<number>
+  ): void => {
     let parentIdx = null;
     let insertIdx = null;
     for (let i = 0; i < this.state.items.length; i++) {

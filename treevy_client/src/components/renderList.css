@@ -12,14 +12,8 @@
   justify-content: flex-start;
 }
 
-.modal {
-  top: "35%";
-  left: "50%";
-  right: "auto";
-  bottom: "auto";
-  width: "60%";
-  transform: "translate(-40%, -10%)";
-}
+
+
 /* .modalStyle {
   content: {
     top: 50%,
