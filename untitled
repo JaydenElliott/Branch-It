@@ -1,0 +1,3 @@
+
+- links dependencies to my-sql-manager
+	- pip install --editable /Users/jaydenelliott/Documents/Projects/Libraries/mysql-manager

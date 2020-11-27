@@ -3,6 +3,7 @@ import { Component } from "react";
 import "./App.css";
 import TreevyList, { ListState } from "./components/treevyList";
 import RenderList from "./components/renderList";
+import ListBoard from "./components/listBoard";
 
 interface AppState {
   listName: string;
@@ -55,6 +56,15 @@ class App extends Component<{}, AppState> {
   };
 
   /**
+   * Iterates through app list and deletes all elements
+   * to the right of @param list until it reaches an
+   * element with the same layer as 'list'
+   */
+  deleteAll = (list: TreevyList) => {
+    let listLayer = list.state.location[0];
+  };
+
+  /**
    * Takes child list submitted via genChildList and inserts it into
    * state.items at the appropriate location.
    *
@@ -94,20 +104,6 @@ class App extends Component<{}, AppState> {
 
   renderList = () => {
     return (
-      <div>
-        {this.state.items.map((list, index) => (
-          <RenderList
-            onClickDel={this.deleteList}
-            parent={list}
-            submitChildList={this.submitChildList}
-          />
-        ))}
-      </div>
-    );
-  };
-
-  render() {
-    return (
       <div className="center">
         <h2>To-Do List</h2>
         <form onSubmit={this.submitItem}>
@@ -119,7 +115,28 @@ class App extends Component<{}, AppState> {
           />
           <button id="submitBtn" type="submit"></button>
         </form>
-        {this.renderList()}
+        <div>
+          {this.state.items.map((list, index) => (
+            <RenderList
+              onClickDel={this.deleteList}
+              parent={list}
+              submitChildList={this.submitChildList}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  renderListBoard = () => {
+    return <ListBoard />;
+  };
+
+  render() {
+    return (
+      <div>
+        <div>{this.renderList()}</div>
+        {/* <div>{this.renderListBoard()}</div> */}
       </div>
     );
   }
