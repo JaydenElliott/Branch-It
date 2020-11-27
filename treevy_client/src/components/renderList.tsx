@@ -94,8 +94,7 @@ export default class RenderList extends Component<any, any> {
         <div
           style={{
             marginLeft:
-              ((this.props.parent.state.location[0] - 1) * 20).toString() +
-              "px",
+              (this.props.parent.state.location[0] * 20).toString() + "px",
           }}
         >
           <span>&#8226;</span>

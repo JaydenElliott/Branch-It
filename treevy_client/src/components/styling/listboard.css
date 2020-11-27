@@ -5,7 +5,8 @@
 }
 .layer {
   /* display: flex; */
-  background: #ede7f6;
+  /* background: #ede7f6; */
+  background: #ffffff;
   display: flex;
   justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
@@ -13,7 +14,7 @@
   width: 100vw;
   height: 100px;
   padding-top: 10px;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
 }
 body {
   margin: 2rem;
@@ -21,6 +22,7 @@ body {
 }
 
 #box {
+  text-align: center;
   width: 25%;
   height: 50px;
   background-color: coral;

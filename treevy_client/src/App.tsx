@@ -28,7 +28,7 @@ class App extends Component<{}, AppState> {
   };
 
   // Keyboard Input Utility
-  submitItem = (_e: any, layer = 1): void => {
+  submitItem = (_e: any, layer = 0): void => {
     _e.preventDefault();
     if (this.state.listName == "") {
       return;
@@ -62,6 +62,19 @@ class App extends Component<{}, AppState> {
    */
   deleteAll = (list: TreevyList) => {
     let listLayer = list.state.location[0];
+  };
+
+  /**
+   * Gets number of layers
+   */
+  getLayers = () => {
+    let max = 0;
+    for (let i = 0; i < this.state.items.length; i++) {
+      if (this.state.items[i].state.location[0] > max) {
+        max = this.state.items[i].state.location[0];
+      }
+    }
+    return max;
   };
 
   /**
@@ -129,14 +142,19 @@ class App extends Component<{}, AppState> {
   };
 
   renderListBoard = () => {
-    return <ListBoard />;
+    // let max = this.getLayers();
+    let max = 2;
+    if (max > 1) {
+      return <ListBoard lists={this.state.items} maxLayer={max} />;
+    }
+    return;
   };
 
   render() {
     return (
       <div>
-        <div>{this.renderList()}</div>
-        {/* <div>{this.renderListBoard()}</div> */}
+        {this.renderList()}
+        {this.renderListBoard()}
       </div>
     );
   }
