@@ -24,7 +24,7 @@ export default class ListBoard extends Component<any, any> {
    */
   testing = (layers: number) => {
     let dict: any[] = [];
-    for (let i = 0; i < layers; i++) {
+    for (let i = 0; i <= layers; i++) {
       dict.push(["Layer " + i.toString(), []]);
     }
 
@@ -40,8 +40,8 @@ export default class ListBoard extends Component<any, any> {
   getMaxLayer = () => {
     let max = 0;
     for (let i = 0; i < this.props.lists.length; i++) {
-      if (this.props.lists.location[0] > max) {
-        max = this.props.lists.location[0];
+      if (this.props.lists[i].state.location[0] > max) {
+        max = this.props.lists[i].state.location[0];
       }
     }
     return max;
@@ -73,7 +73,7 @@ export default class ListBoard extends Component<any, any> {
   };
 
   render() {
-    const tomap = this.testing(4);
+    const tomap = this.testing(this.getMaxLayer());
     return (
       <div>
         {tomap.map((value) => {

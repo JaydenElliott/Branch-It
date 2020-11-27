@@ -67,7 +67,7 @@ class App extends Component<{}, AppState> {
   /**
    * Gets number of layers
    */
-  getLayers = () => {
+  maxLayers = () => {
     let max = 0;
     for (let i = 0; i < this.state.items.length; i++) {
       if (this.state.items[i].state.location[0] > max) {
@@ -143,9 +143,13 @@ class App extends Component<{}, AppState> {
 
   renderListBoard = () => {
     // let max = this.getLayers();
-    let max = 2;
+    let max = this.maxLayers();
     if (max > 1) {
-      return <ListBoard lists={this.state.items} maxLayer={max} />;
+      return (
+        <div>
+          <ListBoard lists={this.state.items} maxLayer={5} />;
+        </div>
+      );
     }
     return;
   };
@@ -154,7 +158,8 @@ class App extends Component<{}, AppState> {
     return (
       <div>
         {this.renderList()}
-        {this.renderListBoard()}
+        {/* {this.renderListBoard()} */}
+        {<ListBoard lists={this.state.items} maxLayer={5} />}
       </div>
     );
   }
