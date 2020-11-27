@@ -49,7 +49,6 @@ class App extends Component<{}, AppState> {
   };
 
   deleteList = (index: number) => {
-    alert(index);
     const updatedItems = this.state.items;
     updatedItems.splice(index, 1);
     this.setState({ items: updatedItems });
