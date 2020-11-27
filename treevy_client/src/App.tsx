@@ -4,6 +4,8 @@ import "./App.css";
 import TreevyList, { ListState } from "./components/treevyList";
 import RenderList from "./components/renderList";
 import ListBoard from "./components/listBoard";
+import HomePage from "./components/homePage";
+import WelcomePage from "./components/welcomePage";
 
 interface AppState {
   listName: string;
@@ -157,8 +159,9 @@ class App extends Component<{}, AppState> {
   render() {
     return (
       <div>
+        {/* <HomePage /> */}
+        {/* <WelcomePage /> */}
         {this.renderList()}
-        {/* {this.renderListBoard()} */}
         {<ListBoard lists={this.state.items} maxLayer={5} />}
       </div>
     );

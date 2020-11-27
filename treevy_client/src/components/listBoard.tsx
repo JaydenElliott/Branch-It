@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "../components/styling/listboard.css";
-import Xarrow from "react-xarrows";
-import { textSpanIsEmpty } from "typescript";
 import TreevyList, { ListState } from "./treevyList";
 
 export default class ListBoard extends Component<any, any> {
@@ -33,7 +31,6 @@ export default class ListBoard extends Component<any, any> {
       let layer = list.state.location[0];
       dict[layer][1].push(list);
     }
-
     return dict;
   };
 

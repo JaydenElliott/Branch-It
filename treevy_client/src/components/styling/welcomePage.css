@@ -1,0 +1,39 @@
+.grid-container {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.6fr 0.6fr 0.3fr 0.5fr;
+  gap: 0px 0px;
+  background-color: #ffffff;
+  grid-template-areas:
+    "logo-container"
+    "treevy"
+    "sign-in"
+    "sign-up";
+}
+
+.logo-container {
+  grid-area: logo-container;
+  background-color: #ffffff;
+  border-bottom: #ededed solid 1px;
+}
+
+.treevy {
+  grid-area: treevy;
+  border-bottom: #ededed solid 1px;
+}
+
+.sign-in {
+  grid-area: sign-in;
+  border-bottom: #ededed solid 1px;
+}
+
+.sign-up {
+  grid-area: sign-up;
+  background-color: #e1ffd3;
+}
+
+#logo {
+  opacity: 20%;
+}

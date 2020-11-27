@@ -38,5 +38,8 @@
   "resolutions": {
     "**/@typescript-eslint/eslint-plugin": "^4.1.1",
     "**/@typescript-eslint/parser": "^4.1.1"
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0"
   }
 }
