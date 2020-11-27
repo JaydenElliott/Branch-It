@@ -50,8 +50,7 @@ class App extends Component<{}, AppState> {
     });
   };
 
-  deleteList = (itemIndex: string) => {
-    var index = parseInt(itemIndex);
+  deleteList = (index: number) => {
     const updatedItems = this.state.items;
     updatedItems.splice(index, 1);
     this.setState({ items: updatedItems });
@@ -133,7 +132,7 @@ class App extends Component<{}, AppState> {
         <div>
           {this.state.items.map((list, index) => (
             <RenderList
-              onClickDel={this.deleteList}
+              onClickDel={() => this.deleteList(index)}
               parent={list}
               submitChildList={this.submitChildList}
             />

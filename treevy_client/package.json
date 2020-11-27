@@ -12,6 +12,7 @@
     "react-dom": "^16.13.1",
     "react-modal": "^3.12.1",
     "react-scripts": "3.4.3",
+    "react-xarrows": "^1.5.2",
     "typescript": "^3.9.7"
   },
   "scripts": {
