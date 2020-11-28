@@ -5,7 +5,7 @@ from flask_restful import Resource
 
 # Project Resources
 from backend.flask_server_play._api.users import Users
-# from api.errors import forbidden
+
 
 class SignUpAPI (Resource):
     """
@@ -24,6 +24,7 @@ class SignUpAPI (Resource):
         """
 
         # Gather user info
+        # MAKE THIS A DICT
         user_information = request.get_json()
 
         # Check for empty fields
@@ -42,7 +43,7 @@ class SignUpAPI (Resource):
     def get(self) -> Response:
 
         """
-        get response method for displaying sign-up page
+        GET response method for displaying sign-up page
 
         Authorisation not required
 

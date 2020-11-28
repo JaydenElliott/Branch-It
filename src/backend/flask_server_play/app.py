@@ -8,7 +8,18 @@ from backend.flask_server_play._api.routes import create_routes
 # external packages
 
 
+# Mysql config
+# For connecting db later
+mysql_details = {
+    # Database connection (FIX: currently local)
+    "host": "localhost",    # 18.221.221.228
+    "user": "root",         # far
+    "passwd": "password",   # Mysql_password2020
 
+    # Databases
+    "users_database":"Users",
+    "treevys_database":"Treevys"
+}
 
 
 def get_flask_app() -> app.Flask:
@@ -25,6 +36,7 @@ def get_flask_app() -> app.Flask:
     create_routes(api=api)
 
     # init mysql database
+    
     # db = mysql
 
     return flask_app
