@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../components/styling/listboard.css";
+import "../styles/component-styles/listboard.css";
 import TreevyList, { ListState } from "./treevyList";
 
 export default class ListBoard extends Component<any, any> {

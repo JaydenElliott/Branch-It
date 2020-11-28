@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component } from "react";
-import "../components/styling/homePage.css";
+import "../styles/page-styles/homePage.css";
 
 export default class HomePage extends Component<any, any> {
   render() {

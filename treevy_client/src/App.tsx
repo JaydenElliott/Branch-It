@@ -143,25 +143,17 @@ class App extends Component<{}, AppState> {
   };
 
   renderListBoard = () => {
-    // let max = this.getLayers();
-    let max = this.maxLayers();
-    if (max > 1) {
-      return (
-        <div>
-          <ListBoard lists={this.state.items} maxLayer={5} />;
-        </div>
-      );
-    }
-    return;
+    return <ListBoard lists={this.state.items} maxLayer={this.maxLayers()} />;
   };
 
   render() {
     return (
       <div>
         {/* <HomePage /> */}
-        {/* <WelcomePage /> */}
-        {this.renderList()}
-        {<ListBoard lists={this.state.items} maxLayer={5} />}
+        <WelcomePage />
+        {/* {this.renderList()} */}
+        {/* {this.renderListBoard()} */}
+        {}
       </div>
     );
   }

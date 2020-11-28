@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
-import "../components/renderList.css";
+import "../styles/component-styles/renderList.css";
 import Modal from "react-modal";
 import TreevyList, { ListState } from "../components/treevyList";
 

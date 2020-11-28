@@ -1,0 +1,96 @@
+.grid-container {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.6fr 0.6fr 0.3fr 0.5fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "logo-container"
+    "treevy-text"
+    "sign-in"
+    "sign-up";
+}
+
+.logo-wrapper {
+  display: grid;
+  /* background-color: #4b232356; */
+  grid-template-columns: 33% 34% 33%;
+  grid-template-rows: 100%;
+  gap: 0px 0px;
+  grid-template-areas: ". logo-container .";
+}
+
+.logo-container {
+  display: flex;
+  /* background-color: #4b232356; */
+  flex-direction: row;
+  justify-content: center;
+  grid-area: logo-container;
+  background-color: #ffffff;
+  border-bottom: #ededed solid 1px;
+}
+#logo {
+  opacity: 20%;
+  width: 800px;
+  height: 350px;
+  fill: #ffffff56;
+
+  /* background-color: #4b232356; */
+}
+
+.treevy-text-wrapper {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  grid-template-rows: 100%;
+  gap: 0px 0px;
+  grid-template-areas: ". treevy-text .";
+}
+
+.treevy-text {
+  grid-area: treevy-text;
+  border-bottom: #ededed solid 1px;
+  font-size: 30px;
+  font-size: 5vw;
+  text-align: center;
+  font-family: SFUIDisplay-Semibold;
+  color: #e1ffd3;
+  letter-spacing: 2px;
+}
+
+.sign-in-wrapper {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  grid-template-rows: 100%;
+  gap: 0px 0px;
+  grid-template-areas: ". sign-in .";
+  background-color: #ffffff56;
+  outline: none !important;
+}
+
+.sign-in {
+  grid-area: sign-in;
+  background: #72dde3;
+  border-radius: 40px;
+  font-size: 25px;
+  font-size: 5vw;
+  text-align: center;
+  font-family: SFUIDisplay-Semibold;
+  color: #ffffff;
+  letter-spacing: 2px;
+  padding-top: 1vw;
+  border-color: #ffffff;
+  outline: none !important;
+}
+
+.sign-up {
+  grid-area: sign-up;
+  background-color: #e1ffd3;
+}
+
+/* #button-sign-in {
+  width: 50px;
+  background: #72dde3;
+  border-radius: 40px;
+  border-color: #ffffff;
+} */
