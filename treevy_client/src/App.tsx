@@ -50,7 +50,22 @@ class App extends Component<{}, AppState> {
     });
   };
 
+  /**
+   * Recursively deletes all child items of the provided index as well as the index item itself.
+   * 
+   * @param index of item to be deleted
+   */
   deleteList = (index: number) => {
+    // Delete all child items and their childern recusively
+    const thisLocation = this.state.items[index].state.location;  // Current list location
+    for (let i = 0; i < this.state.items.length; i++) {
+      if (this.state.items[i].state.parent?.state.location === thisLocation) {
+        this.deleteList(i);
+        i = 0;  // Resets search to account for change in list
+      }
+    }
+
+    // Delete this item
     const updatedItems = this.state.items;
     updatedItems.splice(index, 1);
     this.setState({ items: updatedItems });
@@ -150,8 +165,8 @@ class App extends Component<{}, AppState> {
     return (
       <div>
         {/* <HomePage /> */}
-        <WelcomePage />
-        {/* {this.renderList()} */}
+        {/* <WelcomePage /> */}
+        {this.renderList()}
         {/* {this.renderListBoard()} */}
         {}
       </div>
