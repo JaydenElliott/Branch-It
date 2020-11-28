@@ -1,5 +1,16 @@
 {
   "name": "treevy_client",
+  "description": "Frontned of treevy: a todo list app with tree rendering",
+  "contributors": [
+    {
+      "name": "Jayden Elliott",
+      "email": "Jayden.Elliott@outlook.com"
+    },
+    {
+      "name": "Ethal Askander",
+      "email": "Ethal.Askander@outlook.com"
+    }
+  ],
   "version": "0.1.0",
   "private": true,
   "dependencies": {
