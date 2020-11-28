@@ -1,5 +1,13 @@
 # Files and Directories
 
+## mysql_handler
+- Contains MySQLHandler class which establishes a connection to mysql using the utilities provided in util
+- MySQLHandler also contains methods to execute mysql commands.
+
+## util
+- Contains utility values used by the backend to connect and execute commands to mysql.
+- COntains commands for setup.
+- Contains general command templates.
 
 <br />
 
