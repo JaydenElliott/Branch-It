@@ -23,24 +23,24 @@ setup_databases = '''
 
 # Creates a users table to hold user information if the table does not already exist
 setup_users_table = '''CREATE TABLE IF NOT EXISTS {} (
-  uID INT unsigned AUTO_INCREMENT NOT NULL,
-  name VARCHAR(16),
+  user_id INT unsigned AUTO_INCREMENT NOT NULL,
+  username VARCHAR(16),
   email VARCHAR(50),
   access VARCHAR(16),
   use_case VARCHAR(16),
   phone VARCHAR(12),
   password VARCHAR(64),
 
-  PRIMARY KEY (uID)
+  PRIMARY KEY (user_id)
 );'''.format(mysql_details["users_table"])
 
 setup_treevys_table = '''CREATE TABLE IF NOT EXISTS {} (
-  tID INT unsigned AUTO_INCREMENT NOT NULL,
-  uID INT unsigned NOT NULL,
+  treevy_id INT unsigned AUTO_INCREMENT NOT NULL,
+  user_id INT unsigned NOT NULL,
   treevy JSON,
 
-  PRIMARY KEY (tID),
-  FOREIGN KEY (uID) REFERENCES users(uID)
+  PRIMARY KEY (treevy_id),
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
 )'''.format(mysql_details["treevys_table"])
 
 # Delete commands

@@ -102,4 +102,5 @@ class MySQLHandler:
 
 # TESTING: Trying to fix error "Commands out of sync; you can't run this command now"
 sql = MySQLHandler()
+# sql.do(util.drop_database)
 # print(sql.fetch("SHOW DATABASES;"))
