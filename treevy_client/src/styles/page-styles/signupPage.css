@@ -1,0 +1,81 @@
+.page-container {
+  width: 80vw;
+  height: 100vh;
+  display: grid;
+  margin-left: 10vw;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 10% 80% 10%;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". . ."
+    ". grid-container ."
+    ". . .";
+}
+
+.grid-container {
+  display: grid;
+  grid-area: grid-container;
+  grid-template-rows: 1fr;
+  grid-template-columns: 50% 50%;
+  gap: 5px;
+  grid-template-areas:
+    "sign-up-image"
+    "create-account";
+}
+
+.sign-up-image {
+  grid-area: "sign-up-image";
+  background-color: rgba(12, 181, 55, 0.488);
+}
+
+.create-account {
+  grid-area: "create-account";
+  display: grid;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% 4% 10% 4% 10% 4% 10% 48%;
+  gap: 0px;
+  grid-template-areas:
+    "top-container"
+    "above-button-text"
+    "input-field"
+    "above-button-text"
+    "input-field"
+    "above-button-text"
+    "input-field"
+    "bottom-container";
+}
+
+.top-container {
+  grid-area: "top-container";
+  background-color: #ffffff8c;
+}
+
+.input-field {
+  grid-area: "input-field";
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: rgb(157, 157, 157) solid 1px;
+}
+
+.above-button-text {
+  grid-area: "above-button-text";
+  background-color: white;
+  font-size: 10px;
+  text-align: left;
+  font-family: SFUIDisplay-Semibold;
+  color: black;
+  letter-spacing: 2px;
+}
+
+.bottom-container {
+  grid-area: "bottom-container";
+  background-color: #ffffff8c;
+}
+
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
+}

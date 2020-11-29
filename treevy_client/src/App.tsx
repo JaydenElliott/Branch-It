@@ -6,6 +6,8 @@ import RenderList from "./components/renderList";
 import ListBoard from "./components/listBoard";
 import HomePage from "./components/homePage";
 import WelcomePage from "./components/welcomePage";
+import SignUpPage from "./components/signupPage";
+import axios from "axios";
 
 interface AppState {
   listName: string;
@@ -52,16 +54,16 @@ class App extends Component<{}, AppState> {
 
   /**
    * Recursively deletes all child items of the provided index as well as the index item itself.
-   * 
+   *
    * @param index of item to be deleted
    */
   deleteList = (index: number) => {
     // Delete all child items and their childern recusively
-    const thisLocation = this.state.items[index].state.location;  // Current list location
+    const thisLocation = this.state.items[index].state.location; // Current list location
     for (let i = 0; i < this.state.items.length; i++) {
       if (this.state.items[i].state.parent?.state.location === thisLocation) {
         this.deleteList(i);
-        i = 0;  // Resets search to account for change in list
+        i = 0; // Resets search to account for change in list
       }
     }
 
@@ -131,9 +133,20 @@ class App extends Component<{}, AppState> {
     }
   };
 
+  testFlask = () => {
+    axios
+      .post("http://0.0.0.0:5000/api/v1/login", {
+        data: "Jayden is awesome.",
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
   renderList = () => {
     return (
       <div className="center">
+        <button onClick={this.testFlask}> Olala</button>
         <h2>To-Do List</h2>
         <form onSubmit={this.submitItem}>
           <input
@@ -142,7 +155,7 @@ class App extends Component<{}, AppState> {
             onChange={this.onInputChange}
             value={this.state.listName}
           />
-          <button id="submitBtn" type="submit"></button>
+          <button id="submitBtn" type="submit" />
         </form>
         <div>
           {this.state.items.map((list, index) => (
@@ -166,9 +179,9 @@ class App extends Component<{}, AppState> {
       <div>
         {/* <HomePage /> */}
         {/* <WelcomePage /> */}
-        {this.renderList()}
+        {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}
-        {}
+        <SignUpPage />
       </div>
     );
   }
