@@ -6,6 +6,11 @@
     - Sets up the mysql relevant databases and tables.
     - Contains methods to execute mysql commands.
 
+## mysql_communcator
+- Used by API to conduct MySQL operations relevant to the backend such as:
+    - Inserting, deleting and updating user details
+    - Inserting, deleting and updating treevys
+
 ## util
 - Contains utility values used by the backend to connect and execute commands to mysql.
 - Contains commands for setup.
