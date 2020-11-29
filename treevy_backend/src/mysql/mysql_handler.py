@@ -6,12 +6,16 @@ class MySQLHandler:
     """
         Class sets up MySQL database connection and allows for MySQL interaction
     """
-    def __init__(self):
+    def __init__(self, db: str = None):
+        """
+            Establishes MySQL connection and sets up database.
+        """
         # Obtaining connection to MySQL
         self.open(
             host = util.mysql_details["host"],
             user = util.mysql_details["user"],
-            passwd = util.mysql_details["passwd"]
+            passwd = util.mysql_details["passwd"],
+            db=db
         )
 
         # Setup databases and tables
@@ -49,8 +53,10 @@ class MySQLHandler:
             Conducts necessary database setup.
         """
         self.do(util.setup_databases)   # Creates the relevant databases if they do not already exist
-        self.do(util.select_database.format(db=util.mysql_details["users_database"]))   # Selects the users database
-        self.do(util.setup_users_table) # Creates the relevant table if it does not already exist
+        # Creates the relevant tables if they does not already exist
+        self.do(util.select_database.format(db=util.mysql_details["treevy_database"]))   # Selects the users database
+        self.do(util.setup_users_table)
+        self.do(util.setup_treevys_table)
 
     def setDatabase(self, db: str):
         """
@@ -62,7 +68,6 @@ class MySQLHandler:
         """
             Attempts to conduct a 'do' query.
         """
-
         #Determine if query is is a multi query.
         multiline : bool = len(query.split(";")) > 2
         try:
@@ -83,7 +88,6 @@ class MySQLHandler:
             Attempts to conduct a 'fetch' query.
             Fetch queries have an expected return from MySQL.
         """
-
         #Determine if query is is a multi query.
         multiline : bool = len(query.split(";")) > 2
         try:
@@ -98,4 +102,4 @@ class MySQLHandler:
 
 # TESTING: Trying to fix error "Commands out of sync; you can't run this command now"
 sql = MySQLHandler()
-print(sql.fetch("SHOW DATABASES;"))
+# print(sql.fetch("SHOW DATABASES;"))
