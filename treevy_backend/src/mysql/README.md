@@ -1,3 +1,37 @@
+# Python MySQL Backend
+This backend written in python for treevy is designed to communicate with a MySQL database. It is self contained and aims to allow the API to easily conduct MySQL commands necessary for the treevy web application.
+
+The current layer structure is as follows:
+
+<strong>Frontend <--> API <--> <u>Backend</u> <--> MySQL</strong>
+
+<br />
+
+# Treevy Database Design
+## users table
+| Field            | Type         | Null | Key | Default | Extra          |
+|------------------|--------------|------|-----|---------|----------------|
+| user_id          | int unsigned | NO   | PRI | NULL    | auto_increment |
+| username         | varchar(16)  | YES  |     | NULL    |                |
+| email            | varchar(50)  | YES  | UNI | NULL    |                |
+| access           | varchar(16)  | YES  |     | NULL    |                |
+| use_case         | varchar(16)  | YES  |     | NULL    |                |
+| phone            | varchar(12)  | YES  |     | NULL    |                |
+| password         | varchar(64)  | YES  |     | NULL    |                |
+| time_of_deletion | timestamp    | YES  |     | NULL    |                |
+
+<br />
+
+## treevys table
+| Field            | Type         | Null | Key | Default | Extra          |
+|------------------|--------------|------|-----|---------|----------------|
+| treevy_id        | int unsigned | NO   | PRI | NULL    | auto_increment |
+| user_id          | int unsigned | NO   | MUL | NULL    |                |
+| treevy           | json         | YES  |     | NULL    |                |
+| time_of_deletion | timestamp    | YES  |     | NULL    |                |
+
+<br />
+
 # Files and Directories
 
 ## mysql_handler
@@ -10,6 +44,7 @@
 - Used by API to conduct MySQL operations relevant to the backend such as:
     - Inserting, deleting and updating user details
     - Inserting, deleting and updating treevys
+- Using this, the program should not crash and will always get a return. Failures are indicated by either 'none' or 'False'.
 
 ## util
 - Contains utility values used by the backend to connect and execute commands to mysql.
