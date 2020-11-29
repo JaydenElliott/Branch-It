@@ -68,9 +68,9 @@ insert_user = 'INSERT INTO ' + mysql_details["users_table"] + '''
 # Insert treevy command
 # Note that the JSON object treevy is passed as a string. This is how JSONs are inserted into MySQL.
 insert_treevy = 'INSERT INTO ' + mysql_details["treevys_table"] + '''
-  (treevy_id, users_id, treevy)
+  (user_id, treevy)
   VALUES
-  ({treevy_id}, {users_id}, '{treevy}');
+  ({user_id}, '{treevy}');
 '''
 
 # Delete user command
@@ -98,4 +98,5 @@ update_user = 'UPDATE ' + mysql_details["users_table"] + '''
 # General commands
 delete_database = 'DROP DATABASE {db}'                          # Delete database
 select_database = 'USE {db}'                                    # Selects a database
-get_user_id = "SELECT user_id FROM " + mysql_details["users_table"] + " WHERE email = '{email}';"  # Gets user_id from a email
+get_user_id = "SELECT user_id FROM " + mysql_details["users_table"] + " WHERE email = '{email}';"           # Gets user_id from a email
+get_treevy_ids = "SELECT treevy_id FROM " + mysql_details["treevys_table"] + " WHERE user_id = '{user_id}';" # Gets treevy_ids from a user_id
