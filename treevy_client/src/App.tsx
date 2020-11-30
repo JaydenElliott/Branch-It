@@ -179,11 +179,11 @@ class App extends Component<{}, AppState> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        <HomePage />
+        {/* <HomePage /> */}
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}
-        {/* <SignUpPage /> */}
+        <SignUpPage />
       </div>
     );
   }

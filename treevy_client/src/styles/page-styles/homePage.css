@@ -11,14 +11,16 @@
     "content-container";
 }
 
+/*
+Top bar styling
+*/
 .topbar-container {
   grid-area: topbar-container;
   display: grid;
   background-color: #dee0e0;
-  grid-template-columns: 5% 25% 5% 10% 10% 10% 10% 20%;
+  grid-template-columns: 3% 1% 10% 10% 40% 10% 5% 10%;
   grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas: "top-logo top-search-bar Blank Save Share . top-log-in";
+  grid-template-areas: "top-logo placeholder Blank Save Title Share Maple Log-in";
 }
 
 .top-logo {
@@ -27,12 +29,7 @@
   align-items: center;
   justify-content: center;
 }
-.top-search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  grid-area: top-search-bar;
-}
+
 .Blank {
   grid-area: Blank;
 }
@@ -42,18 +39,44 @@
   align-items: center;
   justify-content: center;
 }
+
+.Title {
+  grid-area: Title;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-family: "SillyHandScript-Regular";
+  font-size: 30px;
+  color: #608c4c;
+  letter-spacing: 1px;
+}
 .Share {
   grid-area: Share;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.top-log-in {
-  grid-area: top-log-in;
+.Maple {
+  grid-area: Maple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.Log-in {
+  grid-area: Log-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+Middle styling
+*/
+
 .content-container {
   display: grid;
-  grid-template-columns: 20% 40% 40%;
+  grid-template-columns: 25% 35% 40%;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-template-areas: "sidebar-container list-container graph-container";
@@ -61,9 +84,23 @@
   background-color: #ffffff;
 }
 
+/*
+Sidebar styling
+*/
+
 .sidebar-container {
   grid-area: sidebar-container;
   background-color: #f2f2f2;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  grid-template-areas: "side-search-bar";
+}
+
+.side-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: side-search-bar;
 }
 
 .list-container {
