@@ -8,8 +8,6 @@ __pycache__
 # Development folders
 build
 dist
-
-
 treevy_client/node_modules
 
 # misc
