@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: treevy-backend
+Version: 0.0
+Summary: Backend of treevy: a to do list app with tree rendering. This python backend communicates with a MySQL database
+Home-page: UNKNOWN
+Author: Jayden Elliott, Ethal Askander
+Author-email: Jayden.Elliott@outlook.com, Ethal.Askander@outlook.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Provides-Extra: dev

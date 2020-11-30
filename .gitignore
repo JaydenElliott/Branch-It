@@ -9,3 +9,6 @@ build
 dist
 serc/treevy.egg-info/
 treevy_client/node_modules
+
+# misc
+*.pyc
