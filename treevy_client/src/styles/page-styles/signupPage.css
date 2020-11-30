@@ -1,5 +1,6 @@
 .page-container {
-  width: 80vw;
+  /* background-color: grey; */
+  width: 100vw;
   height: 100vh;
   display: grid;
   margin-left: 10vw;
@@ -13,11 +14,13 @@
 }
 
 .grid-container {
+  background-color: white;
   display: grid;
+
   grid-area: grid-container;
   grid-template-rows: 1fr;
-  grid-template-columns: 50% 50%;
-  gap: 5px;
+  grid-template-columns: 48% 50%;
+  column-gap: 2%;
   grid-template-areas:
     "sign-up-image"
     "create-account";
@@ -31,10 +34,9 @@
 .create-account {
   grid-area: "create-account";
   display: grid;
-  display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 20% 4% 10% 4% 10% 4% 10% 48%;
-  gap: ;
+  grid-template-rows: 15% 4% 10% 4% 10% 4% 10% 43%;
+  gap: 0px;
   grid-template-areas:
     "top-container"
     "above-button-text"
@@ -47,12 +49,43 @@
 }
 
 .top-container {
-  grid-area: "top-container";
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "."
+    "top-container_text"
+    "top-container_orsignin";
+
+  background-color: #ffffff8c;
+}
+
+.top-container_text {
+  grid-area: "top-container_text";
+
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+
+  font-size: 20px;
+  font-family: SFUIDisplay-Semibold;
+  background-color: #ffffff8c;
+}
+
+.top-container_orsignin {
+  grid-area: "top-container_orsignin";
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  font-size: 10px;
+  font-family: SFUIDisplay-Semibold;
   background-color: #ffffff8c;
 }
 
 .input-field {
   grid-area: "input-field";
+  width: 98%;
   border-radius: 6px;
   background-color: #ffffff;
   border: rgb(157, 157, 157) solid 1px;
@@ -61,17 +94,13 @@
 .above-button-text {
   grid-area: "above-button-text";
   height: 100%;
+  width: 98%;
   vertical-align: bottom;
   font-size: 10px;
   text-align: left;
   font-family: SFUIDisplay-Semibold;
   color: black;
   letter-spacing: 2px;
-}
-
-.bottom-container {
-  grid-area: "bottom-container";
-  background-color: #ffffff8c;
 }
 
 .alignleft {
@@ -87,4 +116,81 @@
   font-size: 20px;
   font-family: SFUIDisplay-Semibold;
   letter-spacing: 2px;
+}
+
+.bottom-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "news-button"
+    "TandC"
+    "sign-up-button-wrapper"
+    "or-text"
+    "sign-up-facebook-wrapper";
+}
+
+.news-button {
+  grid-area: news-button;
+  font-size: 10px;
+  font-family: SFUIDisplay-Semibold;
+}
+
+.TandC {
+  grid-area: TandC;
+  font-size: 20px;
+  font-family: SFUIDisplay-Semibold;
+}
+
+.sign-up-button-wrapper {
+  display: grid;
+  grid-template-columns: 0.75fr 1.5 0.75fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". sign-up-button .";
+  grid-area: sign-up-button-wrapper;
+}
+
+.sign-up-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #bfe7dc;
+  border-radius: 10px;
+  font-family: SFUIDisplay-Semibold;
+  color: #ffffff;
+  border: 1px solid #d9d9d9;
+}
+
+.or-text {
+  grid-area: or-text;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 15px;
+  opacity: 60%;
+  font-family: SFUIDisplay-Semibold;
+}
+
+.sign-up-facebook-wrapper {
+  display: grid;
+  grid-template-columns: 0.75fr 1.5 0.75fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: ". sign-up-facebook .";
+  grid-area: sign-up-facebook-wrapper;
+}
+
+.sign-up-facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5e77f9;
+  border-radius: 10px;
+  font-family: SFUIDisplay-Semibold;
+  color: #ffffff;
+  border: 1px solid #d9d9d9;
+  /* text-shadow: 1px 1px #fff; */
 }

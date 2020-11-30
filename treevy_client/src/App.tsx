@@ -136,7 +136,7 @@ class App extends Component<{}, AppState> {
   testFlask = () => {
     axios
       .post("http://0.0.0.0:5000/api/v1/login", {
-        data: "Jayden is awesome.",
+        data: "Treevy is awesome.",
       })
       .then((res) => {
         console.log(res);
@@ -176,12 +176,12 @@ class App extends Component<{}, AppState> {
 
   render() {
     return (
-      <div>
-        {/* <HomePage /> */}
+      <div className="maindiv">
+        <HomePage />
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}
-        <SignUpPage />
+        {/* <SignUpPage /> */}
       </div>
     );
   }

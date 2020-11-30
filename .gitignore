@@ -3,12 +3,15 @@
 .idea
 .vs
 .vscode
+__pycache__
 
 # Development folders
 build
 dist
-serc/treevy.egg-info/
+
+
 treevy_client/node_modules
 
 # misc
 *.pyc
+* .egg-info/
