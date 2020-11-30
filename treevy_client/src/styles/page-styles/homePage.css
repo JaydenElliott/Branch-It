@@ -18,7 +18,7 @@ Top bar styling
   grid-area: topbar-container;
   display: grid;
   background-color: #dee0e0;
-  grid-template-columns: 3% 1% 10% 10% 40% 10% 5% 10%;
+  grid-template-columns: 3% 10% 10% 10% 40% 10% 5% 10%;
   grid-template-rows: 1fr;
   grid-template-areas: "top-logo placeholder Blank Save Title Share Maple Log-in";
 }
