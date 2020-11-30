@@ -8,10 +8,8 @@ __pycache__
 # Development folders
 build
 dist
-
-
 treevy_client/node_modules
 
 # misc
 *.pyc
-* .egg-info/
+*.egg-info/
