@@ -7,6 +7,7 @@ import ListBoard from "./components/listBoard";
 import HomePage from "./components/homePage";
 import WelcomePage from "./components/welcomePage";
 import SignUpPage from "./components/signupPage";
+import TestingGrounds from "./components/testingGrounds";
 import axios from "axios";
 
 interface AppState {
@@ -177,6 +178,7 @@ class App extends Component<{}, AppState> {
   render() {
     return (
       <div className="maindiv">
+        {/* <TestingGrounds /> */}
         <HomePage />
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}

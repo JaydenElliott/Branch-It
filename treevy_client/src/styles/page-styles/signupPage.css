@@ -121,11 +121,12 @@
 .bottom-container {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 10% 10% 20% 20% 20% 20%;
   gap: 0px 0px;
   grid-template-areas:
     "news-button"
     "TandC"
+    "."
     "sign-up-button-wrapper"
     "or-text"
     "sign-up-facebook-wrapper";
@@ -182,15 +183,15 @@
   grid-template-areas: ". sign-up-facebook .";
   grid-area: sign-up-facebook-wrapper;
 }
-
+/* 
 .sign-up-facebook {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #5e77f9;
-  border-radius: 10px;
+  border-radius: 15px;
   font-family: SFUIDisplay-Semibold;
   color: #ffffff;
   border: 1px solid #d9d9d9;
   /* text-shadow: 1px 1px #fff; */
-}
+/* } */
