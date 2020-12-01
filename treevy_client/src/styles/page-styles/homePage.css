@@ -18,9 +18,9 @@ Top bar styling
   grid-area: topbar-container;
   display: grid;
   background-color: #dee0e0;
-  grid-template-columns: 3% 10% 10% 10% 40% 10% 5% 10%;
+  grid-template-columns: 3% 10% 10% 10% 45% 5% 5% 5% 5%;
   grid-template-rows: 1fr;
-  grid-template-areas: "top-logo placeholder Blank Save Title Share Maple Log-in";
+  grid-template-areas: "top-logo placeholder Blank Save Title Share Maple Log-in Sign-out";
 }
 
 .top-logo {
@@ -70,6 +70,13 @@ Top bar styling
   justify-content: center;
 }
 
+.Sign-out {
+  grid-area: Sign-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*
 Middle styling
 */
@@ -113,4 +120,14 @@ Sidebar styling
   grid-area: graph-container;
   background-color: #ffffff;
   border-left: #ededed solid 1px;
+}
+
+#login-modal > .MuiDialog-container > .MuiPaper-root {
+  position: absolute;
+  right: 0;
+  top: 20px;
+}
+
+#login-modal > .MuiBackdrop-root {
+  display: none;
 }

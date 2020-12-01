@@ -2,16 +2,23 @@
 import React, { ChangeEvent, Component } from "react";
 import "../styles/page-styles/homePage.css";
 
-// Button & Icons
+// Button
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton"; // for sign-out
+
+// Icons
+import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
 import ShareIcon from "@material-ui/icons/Share";
 import PersonIcon from "@material-ui/icons/Person";
 import EcoIcon from "@material-ui/icons/Eco";
 import logo from "../logo/templogo.svg";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp"; // for sign-out
+import SearchIcon from "@material-ui/icons/Search";
 
 // Search Bar
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 // Log-in Dialog (modal)
 import Dialog from "@material-ui/core/Dialog";
@@ -128,12 +135,16 @@ export default class HomePage extends Component<any, HomePageState> {
             style={{ height: "100%" }}
           >
             <TextField
-              id="search-bar"
+              id="input-with-icon-textfield"
               placeholder="Search"
               variant="filled"
               size="small"
-              InputLabelProps={{ shrink: true }}
               inputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
                 style: {
                   fontSize: "large",
                   fontFamily: "handWritten",
@@ -207,6 +218,7 @@ export default class HomePage extends Component<any, HomePageState> {
                 open={this.state.modalOpen}
                 onClose={this.modalClickClose}
                 aria-labelledby="form-dialog-title"
+                id="login-modal"
               >
                 <DialogTitle id="form-dialog-title">
                   <span style={{ fontSize: "25px" }}>Welcome Back</span>
@@ -245,6 +257,15 @@ export default class HomePage extends Component<any, HomePageState> {
                 </DialogActions>
               </Dialog>
             </div>
+          </div>
+          <div className="Sign-out">
+            {/* <IconButton style={{ backgroundColor: "#608C4C" }}>
+              <ExitToAppIcon
+                style={{
+                  color: "#ffffff",
+                }}
+              />
+            </IconButton> */}
           </div>
         </div>
 
