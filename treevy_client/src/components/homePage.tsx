@@ -27,6 +27,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TreevyList from "./treevyList";
+import { Typography } from "@material-ui/core";
 
 interface HomePageState {
   // Search-Bar
@@ -37,6 +38,9 @@ interface HomePageState {
   loggedIn: boolean; // is the user logged in
   emailString: string; // input field  email string
   passwordString: string; //input field  password string
+  passwordErrorMessage: string;
+  logInAttempts: number;
+  logInLock: boolean;
 
   // Todo-list
   selectedList: string;
@@ -60,6 +64,9 @@ export default class HomePage extends Component<any, HomePageState> {
       selectedList: "",
       emailString: "",
       passwordString: "",
+      passwordErrorMessage: "",
+      logInAttempts: 0,
+      logInLock: false,
     };
   }
 
@@ -135,12 +142,19 @@ export default class HomePage extends Component<any, HomePageState> {
       this.state.emailString,
       this.state.passwordString
     );
-    if (checkStatus) {
+    if (checkStatus == true) {
       this.setState({
-        modalOpen: false,
+        modalOpen: false, // correct password was entered
       });
     } else {
-      // TODO: add error message to modal !!!!!
+      if (this.state.logInAttempts > 4) {
+        this.setState({
+          logInLock: true,
+        });
+      }
+      this.setState({
+        passwordErrorMessage: "Incorrect email and/or password: Try Again",
+      });
     }
   };
 
@@ -169,16 +183,19 @@ export default class HomePage extends Component<any, HomePageState> {
             loggedIn: true,
             emailString: "",
             passwordString: "",
+            passwordErrorMessage: "",
+            logInAttempts: 0,
           });
           return true;
         } else {
           return false;
         }
-      } else {
-        continue;
       }
     }
 
+    this.setState({
+      logInAttempts: this.state.logInAttempts + 1,
+    });
     return false; // reached end of email database; no matching email
   };
 
@@ -275,10 +292,11 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="Log-in">
           <Button
             startIcon={<PersonIcon />}
+            disabled={this.state.logInLock}
             onClick={this.modalClickOpen}
             variant="contained"
             style={{
-              backgroundColor: "#608C4C",
+              backgroundColor: this.state.logInLock ? "#C9CAD3" : "#608C4C",
               height: "80%",
               color: "#ffffff",
             }}
@@ -287,7 +305,7 @@ export default class HomePage extends Component<any, HomePageState> {
           </Button>
           <div style={{ display: "flex", alignItems: "flex-end" }}>
             <Dialog
-              open={this.state.modalOpen}
+              open={this.state.modalOpen && !this.state.logInLock}
               onClose={this.modalClickClose}
               aria-labelledby="form-dialog-title"
               id="login-modal"
@@ -296,6 +314,9 @@ export default class HomePage extends Component<any, HomePageState> {
                 <span style={{ fontSize: "25px" }}>Welcome Back</span>
               </DialogTitle>
               <DialogContent>
+                <Typography style={{ color: "red" }}>
+                  {this.state.passwordErrorMessage}
+                </Typography>
                 <TextField
                   autoFocus
                   margin="dense"
