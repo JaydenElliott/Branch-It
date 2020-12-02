@@ -8,7 +8,8 @@ import HomePage from "./components/homePage";
 import WelcomePage from "./components/welcomePage";
 import SignUpPage from "./components/signupPage";
 import TestingGrounds from "./components/testingGrounds";
-import LoginButton from "./components/loginButton";
+import AccountButton from "./components/accountButton";
+import LogInButton from "./components/loginButton";
 import axios from "axios";
 
 interface AppState {
@@ -180,16 +181,17 @@ class App extends Component<{}, AppState> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        <LoginButton />
-        {/* <HomePage
+        {/* <AccountButton /> */}
+        {/* <LogInButton /> */}
+        <HomePage
           toDoLists={[
             "Frontend",
             "Backend",
             "My lists button",
             "Shared lists button",
             "Fixing the search bar grid...",
-          ]} */}
-        {/* /> */}
+          ]}
+        />
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}

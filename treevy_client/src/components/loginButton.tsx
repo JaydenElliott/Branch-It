@@ -1,58 +1,31 @@
 import React, { ChangeEvent, Component } from "react";
-import "../styles/page-styles/signupPage.css";
 import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+
+// Modal
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import TreevyList from "./treevyList";
+import { Typography } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+// Icons
+import PersonIcon from "@material-ui/icons/Person";
 
 export default class LoginButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      accountModalOpenBool: false,
-      modalOpen: false,
-      loggedIn: false,
       emailString: "",
       passwordString: "",
       passwordErrorMessage: "",
-      logInAttempts: 0,
-      logInLock: false,
+      logInAttempts: "",
+      loggingIn: false,
     };
   }
-
-  /**
-   *
-   * FUNCTIONALITY: LOG-IN BUTTON - Modal
-   *
-   * Modal open and close state manipulation
-   */
-  handleLogInModalClick = () => {
-    this.setState({
-      modalOpen: true,
-    });
-  };
-  modalLogInClose = () => {
-    this.setState({
-      modalOpen: false,
-    });
-  };
-
-  /**
-   *
-   * FUNCTIONALITY: ACCOUNT BUTTON - Modal
-   *
-   * Modal open and close state manipulation
-   */
-  handleAccountModalOpen = () => {
-    this.setState({
-      accountModalOpenBool: true,
-    });
-  };
-
-  handleAccountModalClose = () => {
-    this.setState({
-      accountModalOpenBool: false,
-    });
-  };
 
   /**
    * FUNCTIONALITY: LOG-IN
@@ -74,28 +47,41 @@ export default class LoginButton extends Component<any, any> {
 
   /**
    * FUNCTIONALITY: LOG-IN
+   * Async as it must make an asynchronous backend call.
    *
    * Calls the appropriate functions when login is called
    */
-  handleLogInClick = () => {
-    let checkStatus = this.logInCheck(
-      this.state.emailString,
-      this.state.passwordString
-    );
-    if (checkStatus == true) {
-      this.setState({
-        modalOpen: false, // correct password was entered
-      });
-    } else {
-      if (this.state.logInAttempts > 4) {
+  handleLogInClick = async () => {
+    // Set state to logging in.
+    this.setState({ loggingIn: true });
+
+    // Awaits a return from the login async method before taking action.
+    await this.logInCheck(this.state.emailString, this.state.passwordString)
+      .then((checkStatus: any) => {
+        if (checkStatus == true) {
+          this.props.setLoggedIn();
+          this.props.modalClickClose();
+        } else {
+          if (this.state.logInAttempts > 4) {
+            this.props.setLogInLockOn();
+          }
+          this.setState({
+            passwordErrorMessage: "Incorrect email and/or password: Try Again",
+          });
+        }
+      })
+      .catch((err) => {
+        // Some error occurs. Perhaps a connection failure.
+        console.log("Error when trying to login: " + err);
         this.setState({
-          logInLock: true,
+          passwordErrorMessage:
+            "Failed to connect, please check your connection and try again",
         });
-      }
-      this.setState({
-        passwordErrorMessage: "Incorrect email and/or password: Try Again",
+      })
+      .finally(() => {
+        // This will be run regardless of whether it was successful or not.
+        this.setState({ loggingIn: false });
       });
-    }
   };
 
   /**
@@ -108,8 +94,21 @@ export default class LoginButton extends Component<any, any> {
    *
    * @returns boolean: if log in was successful
    */
+  logInCheck = async (email: string, password: string): Promise<boolean> => {
+    // Simulating a call to the backend
+    //TODO: actually call the backend.
+    await new Promise(function (resolve, reject) {
+      // Timeout if no response is provided.
+      setTimeout(resolve, 1000);
+    })
+      .then((res) => {
+        // Successful retrieval from backend
+      })
+      .catch((err) => {
+        // Error. Was unable to retrieve data.
+        console.log("ERROR:", err.message);
+      });
 
-  logInCheck = (email: string, password: string): boolean => {
     // Suppose the following is a cache of the emails and passwords
     // Example:
     let userpass: [string, string][] = [
@@ -142,44 +141,92 @@ export default class LoginButton extends Component<any, any> {
     return false; // reached end of email database; no matching email
   };
 
-  /**
-   *
-   * FUNCTIONALITY: LOG-OUT
-   *
-   * Logs user out and changes button state from "Account" -> "Log-in"
-   */
-  logout = () => {
-    this.setState({
-      loggedIn: false,
-    });
-  };
-
-  renderAccountButton = () => {
+  renderLogInButton = () => {
     return (
-      <div className="AccountButton">
+      <div style={{ height: "80%" }}>
         <Button
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={this.handleAccountModalOpen}
-          style={{ backgroundColor: "black", color: "#ffffff" }}
+          startIcon={<PersonIcon />}
+          disabled={this.props.logInLock}
+          onClick={this.props.modalClickOpen}
+          variant="contained"
+          style={{
+            backgroundColor: this.props.logInLock ? "#C9CAD3" : "#608C4C",
+            height: "100%",
+            color: "#ffffff",
+          }}
         >
-          Check
+          Log-in
         </Button>
-        <Menu
-          id="simple-menu"
-          // anchorEl={anchorEl}
-          keepMounted
-          open={this.state.accountModalOpenBool}
-          onClose={this.handleAccountModalClose}
-        >
-          <MenuItem onClick={this.handleAccountModalClose}>Profile</MenuItem>
-          <MenuItem onClick={this.handleAccountModalClose}>My account</MenuItem>
-          <MenuItem onClick={this.handleAccountModalClose}>Logout</MenuItem>
-        </Menu>
+        <div style={{ display: "flex", alignItems: "flex-end" }}>
+          <Dialog
+            open={this.props.logInModalOpen && !this.props.logInLock}
+            onClose={this.props.modalClickClose}
+            aria-labelledby="form-dialog-title"
+            id="login-modal"
+          >
+            <DialogTitle id="form-dialog-title">
+              <span style={{ fontSize: "25px" }}>Welcome Back</span>
+            </DialogTitle>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <DialogContent>
+                <Typography style={{ color: "red" }}>
+                  {this.state.passwordErrorMessage}
+                </Typography>
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Email Address"
+                  type="email"
+                  value={this.state.emailString}
+                  onChange={this.handleLogInEmailChange}
+                  fullWidth
+                  inputProps={{
+                    style: {
+                      fontSize: "large",
+                    },
+                  }}
+                />
+
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Password"
+                  type="password"
+                  value={this.state.passwordString}
+                  onChange={this.handleLogInPasswordChange}
+                  fullWidth
+                  inputProps={{
+                    style: {
+                      fontSize: "large",
+                    },
+                  }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.props.modalClickClose}>Cancel</Button>
+                <Button
+                  disabled={this.state.loggingIn}
+                  type="submit"
+                  onClick={this.handleLogInClick}
+                >
+                  {this.state.loggingIn ? (
+                    <CircularProgress size={24} />
+                  ) : (
+                    "Log-in"
+                  )}
+                </Button>
+              </DialogActions>
+            </form>
+          </Dialog>
+        </div>
       </div>
     );
   };
+
   render() {
-    return <div>{this.renderAccountButton()}</div>;
+    return this.renderLogInButton();
   }
 }

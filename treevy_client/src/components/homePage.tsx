@@ -1,6 +1,7 @@
 // Project Imports
 import React, { ChangeEvent, Component } from "react";
 import "../styles/page-styles/homePage.css";
+import LoginButton from "./loginButton";
 
 // Button
 import Button from "@material-ui/core/Button";
@@ -15,7 +16,7 @@ import EcoIcon from "@material-ui/icons/Eco";
 import logo from "../logo/templogo.svg";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"; // for sign-out
 import SearchIcon from "@material-ui/icons/Search";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Search Bar
 import TextField from "@material-ui/core/TextField";
@@ -35,14 +36,9 @@ interface HomePageState {
   sString: string;
 
   // Log-in
-  modalOpen: boolean; // log-in button pressed?
+  logInModalOpen: boolean; // log-in button pressed?
   loggedIn: boolean; // is the user logged in
-  emailString: string; // input field  email string
-  passwordString: string; //input field  password string
-  passwordErrorMessage: string;
-  logInAttempts: number;
   logInLock: boolean;
-  loggingIn: boolean;
 
   // Todo-list
   selectedList: string;
@@ -61,15 +57,10 @@ export default class HomePage extends Component<any, HomePageState> {
     this.state = {
       sString: "",
       displayedToDoLists: this.props.toDoLists,
-      modalOpen: false,
+      logInModalOpen: false,
       loggedIn: false,
       selectedList: "",
-      emailString: "",
-      passwordString: "",
-      passwordErrorMessage: "",
-      logInAttempts: 0,
       logInLock: false,
-      loggingIn: false,
     };
   }
 
@@ -108,130 +99,16 @@ export default class HomePage extends Component<any, HomePageState> {
    */
   modalClickOpen = () => {
     this.setState({
-      modalOpen: true,
+      logInModalOpen: true,
     });
   };
   modalClickClose = () => {
     this.setState({
-      modalOpen: false,
+      logInModalOpen: false,
     });
   };
 
   /**
-   * FUNCTIONALITY: LOG-IN
-   *
-   * Handles input change for the log-in email and password fields
-   */
-
-  handleLogInEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      emailString: e.target.value,
-    });
-  };
-
-  handleLogInPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      passwordString: e.target.value,
-    });
-  };
-
-  /**
-   * FUNCTIONALITY: LOG-IN
-   * Async as it must make an asynchronous backend call.
-   * 
-   * Calls the appropriate functions when login is called
-   */
-  handleLogInClick = async () => {
-    // Set state to logging in.
-    this.setState({loggingIn: true})
-
-    // Awaits a return from the login async method before taking action.
-    await this.logInCheck(
-      this.state.emailString,
-      this.state.passwordString
-    ).then(checkStatus => {
-      if (checkStatus == true) {
-        this.setState({
-          modalOpen: false, // correct password was entered
-        });
-      } else {
-        if (this.state.logInAttempts > 4) {
-          this.setState({
-            logInLock: true,
-          });
-        }
-        this.setState({
-          passwordErrorMessage: "Incorrect email and/or password: Try Again",
-        });
-      }
-    }).catch(err => {
-      // Some error occurs. Perhaps a connection failure.
-      console.log("Error when trying to login: " + err);
-      this.setState({
-        passwordErrorMessage: "Failed to connect, please check your connection and try again"
-      });
-    }).finally(() => {
-      // This will be run regardless of whether it was successful or not.
-      this.setState({loggingIn: false})
-    });
-  };
-
-  /**
-   * FUNCTIONALITY: LOG-IN
-   *
-   * Checks log-in details: if correct, user is logged in and
-   * button changes from "LOG-IN" to "ACCOUNT"
-   * @param Email
-   * @param Password
-   *
-   * @returns boolean: if log in was successful
-   */
-  logInCheck = async (email: string, password: string): Promise<boolean> => {
-    // Simulating a call to the backend. TODO: actually call the backend.
-    await new Promise(function(resolve, reject) {
-      // Timeout if no response is provided.
-      setTimeout(resolve, 1000);
-    }).then(res => {
-      // Successful retrieval from backend
-    }).catch(err => {
-      // Error. Was unable to retrieve data.
-      console.log("ERROR:", err.message);
-    })
-
-    // Suppose the following is a cache of the emails and passwords
-    // Example:
-    let userpass: [string, string][] = [
-      ["jayden.elliott@outlook.com", "password123"],
-    ];
-
-    for (let i = 0; i < userpass.length; i++) {
-      if (email == userpass[i][0]) {
-        if (password == userpass[i][1]) {
-          this.setState({
-            loggedIn: true,
-            emailString: "",
-            passwordString: "",
-            passwordErrorMessage: "",
-            logInAttempts: 0,
-          });
-          return true;
-        } else {
-          this.setState({
-            logInAttempts: this.state.logInAttempts + 1,
-          });
-          return false;
-        }
-      }
-    }
-
-    this.setState({
-      logInAttempts: this.state.logInAttempts + 1,
-    });
-    return false; // reached end of email database; no matching email
-  };
-
-  /**
-   *
    * FUNCTIONALITY: LOG-OUT
    *
    * Logs user out and changes button state from "Account" -> "Log-in"
@@ -239,6 +116,24 @@ export default class HomePage extends Component<any, HomePageState> {
   logout = () => {
     this.setState({
       loggedIn: false,
+    });
+  };
+
+  /**
+   * FUNCTIONALITY: INTERACTION <LoginButton/> <HomePage/>
+   *
+   * 1. Set logged-in
+   * 2. Set log-in lock
+   */
+  _LoginButtonLoggedIn = () => {
+    this.setState({
+      loggedIn: true,
+    });
+  };
+
+  _LoginButtonLogInLockOn = () => {
+    this.setState({
+      logInLock: true,
     });
   };
 
@@ -321,86 +216,16 @@ export default class HomePage extends Component<any, HomePageState> {
           </Button>
         </div>
         <div className="Log-in">
-          <Button
-            startIcon={<PersonIcon />}
-            disabled={this.state.logInLock}
-            onClick={this.modalClickOpen}
-            variant="contained"
-            style={{
-              backgroundColor: this.state.logInLock ? "#C9CAD3" : "#608C4C",
-              height: "80%",
-              color: "#ffffff",
-            }}
-          >
-            {this.state.loggedIn ? "Account" : "Log-in"}
-          </Button>
-          <div style={{ display: "flex", alignItems: "flex-end" }}>
-            <Dialog
-              open={this.state.modalOpen && !this.state.logInLock}
-              onClose={this.modalClickClose}
-              aria-labelledby="form-dialog-title"
-              id="login-modal"
-            >
-              <DialogTitle id="form-dialog-title">
-                <span style={{ fontSize: "25px" }}>Welcome Back</span>
-              </DialogTitle>
-              <form onSubmit={(e) => e.preventDefault()}>
-              <DialogContent>
-                <Typography style={{ color: "red" }}>
-                  {this.state.passwordErrorMessage}
-                </Typography>
-                
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    value={this.state.emailString}
-                    onChange={this.handleLogInEmailChange}
-                    fullWidth
-                    inputProps={{
-                      style: {
-                        fontSize: "large",
-                      },
-                    }}
-                  />
-                  
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Password"
-                    type="password"
-                    value={this.state.passwordString}
-                    onChange={this.handleLogInPasswordChange}
-                    fullWidth
-                    inputProps={{
-                      style: {
-                        fontSize: "large",
-                      },
-                    }}
-                  />
-                
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.modalClickClose}>Cancel</Button>
-                <Button disabled={this.state.loggingIn} type="submit" onClick={this.handleLogInClick}>{this.state.loggingIn ? < CircularProgress size={24} /> : "Log-in"}</Button>
-                
-              </DialogActions>
-              </form>
-            </Dialog>
-          </div>
+          <LoginButton
+            logInLock={this.state.logInLock}
+            modalClickOpen={this.modalClickOpen}
+            modalClickClose={this.modalClickClose}
+            logInModalOpen={this.state.logInModalOpen}
+            setLoggedIn={this._LoginButtonLoggedIn}
+            setLogInLockOn={this._LoginButtonLogInLockOn}
+          />
         </div>
-        <div className="Sign-out">
-          {/* <IconButton style={{ backgroundColor: "#608C4C" }}>
-              <ExitToAppIcon
-                style={{
-                  color: "#ffffff",
-                }}
-              />
-            </IconButton> */}
-        </div>
+        <div className="Sign-out"></div>
       </div>
     );
   };

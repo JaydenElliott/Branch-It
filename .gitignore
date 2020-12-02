@@ -13,3 +13,4 @@ treevy_client/node_modules
 # misc
 *.pyc
 *.egg-info/
+*node_modules
