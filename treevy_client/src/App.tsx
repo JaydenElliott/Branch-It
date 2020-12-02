@@ -8,14 +8,22 @@ import HomePage from "./components/homePage";
 import WelcomePage from "./components/welcomePage";
 import SignUpPage from "./components/signupPage";
 import TestingGrounds from "./components/testingGrounds";
-import AccountButton from "./components/accountButton";
-import LogInButton from "./components/loginButton";
+import AccountButton from "./components//homePageButtons/accountButton";
+import LogInButton from "./components/homePageButtons/loginButton";
 import axios from "axios";
 
 interface AppState {
   listName: string;
   items: TreevyList[];
 }
+
+const temptodo = [
+  "Frontend",
+  "Backend",
+  "My lists button",
+  "Shared lists button",
+  "Fixing the search bar grid...",
+];
 
 class App extends Component<{}, AppState> {
   constructor(props: any) {
@@ -181,17 +189,7 @@ class App extends Component<{}, AppState> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        {/* <AccountButton /> */}
-        {/* <LogInButton /> */}
-        <HomePage
-          toDoLists={[
-            "Frontend",
-            "Backend",
-            "My lists button",
-            "Shared lists button",
-            "Fixing the search bar grid...",
-          ]}
-        />
+        <HomePage toDoLists={temptodo} />
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}

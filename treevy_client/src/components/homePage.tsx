@@ -1,7 +1,12 @@
 // Project Imports
 import React, { ChangeEvent, Component } from "react";
 import "../styles/page-styles/homePage.css";
-import LoginButton from "./loginButton";
+
+// Button Components
+import LoginButton from "./homePageButtons/loginButton";
+import MapleButton from "./homePageButtons/mapleButton";
+import ShareButton from "./homePageButtons/shareButton";
+import SaveButton from "./homePageButtons/saveButton";
 
 // Button
 import Button from "@material-ui/core/Button";
@@ -9,10 +14,7 @@ import IconButton from "@material-ui/core/IconButton"; // for sign-out
 
 // Icons
 import AddIcon from "@material-ui/icons/Add";
-import SaveIcon from "@material-ui/icons/Save";
-import ShareIcon from "@material-ui/icons/Share";
 import PersonIcon from "@material-ui/icons/Person";
-import EcoIcon from "@material-ui/icons/Eco";
 import logo from "../logo/templogo.svg";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"; // for sign-out
 import SearchIcon from "@material-ui/icons/Search";
@@ -176,44 +178,14 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="Blank" />
         <div className="Blank" />
         <div className="Save">
-          <Button
-            startIcon={<SaveIcon />}
-            variant="contained"
-            style={{
-              backgroundColor: "#608C4C",
-              height: "80%",
-              color: "#ffffff",
-            }}
-          >
-            Save
-          </Button>
+          <SaveButton />
         </div>
         <div className="Title">Treevy</div>
         <div className="Share">
-          <Button
-            startIcon={<ShareIcon />}
-            variant="contained"
-            style={{
-              backgroundColor: "#608C4C",
-              height: "80%",
-              color: "#ffffff",
-            }}
-          >
-            Share
-          </Button>
+          <ShareButton />
         </div>
         <div className="Maple">
-          <Button
-            startIcon={<EcoIcon />}
-            variant="contained"
-            style={{
-              backgroundColor: "#2196f3",
-              height: "80%",
-              color: "#ffffff",
-            }}
-          >
-            Maple
-          </Button>
+          <MapleButton />
         </div>
         <div className="Log-in">
           <LoginButton
