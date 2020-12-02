@@ -301,7 +301,7 @@ export default class HomePage extends Component<any, HomePageState> {
               color: "#ffffff",
             }}
           >
-            Log-in
+            {this.state.loggedIn ? "Account" : "Log-in"}
           </Button>
           <div style={{ display: "flex", alignItems: "flex-end" }}>
             <Dialog
