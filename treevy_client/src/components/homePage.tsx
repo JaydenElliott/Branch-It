@@ -26,6 +26,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import TreevyList from "./treevyList";
 
 //
 
@@ -48,9 +49,17 @@ interface HomePageState {
   sString: string; // Search string
   displayedToDoLists: string[]; // To-do lists displayed to the user according to the search
   modalOpen: boolean;
+
+  // To-do list related
+  selectedList: string;
 }
 
 export default class HomePage extends Component<any, HomePageState> {
+  /**
+   * 
+   * @param props:
+   *    - toDoLists: string[] // FIX: change to a TreevyList[] (add 'name' to TreevyList state)
+   */
   constructor(props: any) {
     super(props);
 
@@ -58,6 +67,8 @@ export default class HomePage extends Component<any, HomePageState> {
       sString: "",
       displayedToDoLists: this.props.toDoLists,
       modalOpen: false,
+
+      selectedList: "",
     };
   }
 
@@ -90,25 +101,6 @@ export default class HomePage extends Component<any, HomePageState> {
 
   /**
    *
-   * FUNCTIONALITY: SEARCH BAR
-   *
-   * Displays the user's to-do lists given the current search input.
-   */
-  displayToDoLists = (): JSX.Element | void => {
-    // If the to-do list is not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined) return;
-
-    return (
-      <div>
-        {this.state.displayedToDoLists.map((list) => (
-          <div>{list}</div>
-        ))}
-      </div>
-    );
-  };
-
-  /**
-   *
    * FUNCTIONALITY: LOG-IN BUTTON - Modal
    *
    * Modal open and close state manipulation
@@ -124,10 +116,12 @@ export default class HomePage extends Component<any, HomePageState> {
     });
   };
 
-  render() {
+  /**
+   * RENDERING: top bar of home page
+   */
+  renderTopBar = () : JSX.Element => {
     return (
-      <div className="grid-container">
-        <div className="topbar-container">
+      <div className="topbar-container">
           {/* Search bar */}
           <form
             autoComplete="off"
@@ -268,7 +262,69 @@ export default class HomePage extends Component<any, HomePageState> {
             </IconButton> */}
           </div>
         </div>
+    );
+  }
 
+  /**
+   *
+   * FUNCTIONALITY: SEARCH BAR
+   *
+   * Displays the user's to-do lists given the current search input.
+   */
+  displayToDoLists = (): JSX.Element | void => {
+    // If the to-do list is not provided, do nothing.
+    if (this.state.displayedToDoLists === undefined) return;
+
+    return (
+      <div style={{marginLeft: "auto", marginRight: "auto"}}>
+        {this.state.displayedToDoLists.map((list) => (
+          <div>{this.renderListOption(list)}</div>
+        ))}
+      </div>
+    );
+  };
+
+  /**
+   * RENDERING: displays a button (in the side-search-bar) which can be pressed to select that particular list to display (in the list-container).
+   * 
+   * @param listOption a displayed selectable list option
+   */
+  renderListOption = (listOption: string) : JSX.Element => {
+    return (
+      <Button
+        disableRipple  
+        variant="contained"
+        style={listOption === this.state.selectedList ?
+          {fontSize: "2vh", textTransform: "none", display: "flex", margin: "4%", width: "20vw", boxShadow: "none", backgroundColor: 'darkgreen', borderColor: "black"}
+          :
+          {fontSize: "2vh", textTransform: "none", display: "flex", margin: "4%", width: "20vw"}
+        }
+
+        onClick={() => this.setState({selectedList: listOption})}
+      >
+        {listOption}
+      </Button>
+    );
+  }
+
+  /**
+   * RENDERING: provided a treevylist (or null) will render it.
+   * 
+   * @param toDo list 
+   */
+  renderList = (toDo: string | null) : JSX.Element | null => {  // TODO: should render the list, not just a string of the list!
+    // If null, do nothing. Note that void is not assignable to a react node so null must be returned instead.
+    if (toDo === null || toDo == "") return null;
+
+    return (
+      <div>This is the {toDo} list!</div>
+    );
+  };
+
+  render() {
+    return (
+      <div className="grid-container">
+        {this.renderTopBar()}
         <div className="content-container">
           <div className="sidebar-container">
             {this.displayToDoLists()}
@@ -276,7 +332,9 @@ export default class HomePage extends Component<any, HomePageState> {
               {/* <input type="text" id="keyboardInput" /> */}
             </div>
           </div>
-          <div className="list-container"></div>
+          <div className="list-container">
+            {this.renderList(this.state.selectedList)}
+          </div>
           <div className="graph-container"></div>
         </div>
       </div>

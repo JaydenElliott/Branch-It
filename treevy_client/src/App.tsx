@@ -179,7 +179,7 @@ class App extends Component<{}, AppState> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        <HomePage toDoLists={["Frontend", "Backend"]} />
+        <HomePage toDoLists={["Frontend", "Backend", "My lists button", "Shared lists button", "Fixing the search bar grid..."]} />
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}
