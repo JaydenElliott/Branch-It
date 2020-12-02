@@ -15,6 +15,7 @@ import EcoIcon from "@material-ui/icons/Eco";
 import logo from "../logo/templogo.svg";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"; // for sign-out
 import SearchIcon from "@material-ui/icons/Search";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Search Bar
 import TextField from "@material-ui/core/TextField";
@@ -41,6 +42,7 @@ interface HomePageState {
   passwordErrorMessage: string;
   logInAttempts: number;
   logInLock: boolean;
+  loggingIn: boolean;
 
   // Todo-list
   selectedList: string;
@@ -67,6 +69,7 @@ export default class HomePage extends Component<any, HomePageState> {
       passwordErrorMessage: "",
       logInAttempts: 0,
       logInLock: false,
+      loggingIn: false,
     };
   }
 
@@ -134,28 +137,43 @@ export default class HomePage extends Component<any, HomePageState> {
 
   /**
    * FUNCTIONALITY: LOG-IN
-   *
+   * Async as it must make an asynchronous backend call.
+   * 
    * Calls the appropriate functions when login is called
    */
-  handleLogInClick = () => {
-    let checkStatus = this.logInCheck(
+  handleLogInClick = async () => {
+    // Set state to logging in.
+    this.setState({loggingIn: true})
+
+    // Awaits a return from the login async method before taking action.
+    await this.logInCheck(
       this.state.emailString,
       this.state.passwordString
-    );
-    if (checkStatus == true) {
-      this.setState({
-        modalOpen: false, // correct password was entered
-      });
-    } else {
-      if (this.state.logInAttempts > 4) {
+    ).then(checkStatus => {
+      if (checkStatus == true) {
         this.setState({
-          logInLock: true,
+          modalOpen: false, // correct password was entered
+        });
+      } else {
+        if (this.state.logInAttempts > 4) {
+          this.setState({
+            logInLock: true,
+          });
+        }
+        this.setState({
+          passwordErrorMessage: "Incorrect email and/or password: Try Again",
         });
       }
+    }).catch(err => {
+      // Some error occurs. Perhaps a connection failure.
+      console.log("Error when trying to login: " + err);
       this.setState({
-        passwordErrorMessage: "Incorrect email and/or password: Try Again",
+        passwordErrorMessage: "Failed to connect, please check your connection and try again"
       });
-    }
+    }).finally(() => {
+      // This will be run regardless of whether it was successful or not.
+      this.setState({loggingIn: false})
+    });
   };
 
   /**
@@ -168,8 +186,18 @@ export default class HomePage extends Component<any, HomePageState> {
    *
    * @returns boolean: if log in was successful
    */
+  logInCheck = async (email: string, password: string): Promise<boolean> => {
+    // Simulating a call to the backend. TODO: actually call the backend.
+    await new Promise(function(resolve, reject) {
+      // Timeout if no response is provided.
+      setTimeout(resolve, 1000);
+    }).then(res => {
+      // Successful retrieval from backend
+    }).catch(err => {
+      // Error. Was unable to retrieve data.
+      console.log("ERROR:", err.message);
+    })
 
-  logInCheck = (email: string, password: string): boolean => {
     // Suppose the following is a cache of the emails and passwords
     // Example:
     let userpass: [string, string][] = [
@@ -316,45 +344,51 @@ export default class HomePage extends Component<any, HomePageState> {
               <DialogTitle id="form-dialog-title">
                 <span style={{ fontSize: "25px" }}>Welcome Back</span>
               </DialogTitle>
+              <form onSubmit={(e) => e.preventDefault()}>
               <DialogContent>
                 <Typography style={{ color: "red" }}>
                   {this.state.passwordErrorMessage}
                 </Typography>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Email Address"
-                  type="email"
-                  value={this.state.emailString}
-                  onChange={this.handleLogInEmailChange}
-                  fullWidth
-                  inputProps={{
-                    style: {
-                      fontSize: "large",
-                    },
-                  }}
-                />
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Password"
-                  type="password"
-                  value={this.state.passwordString}
-                  onChange={this.handleLogInPasswordChange}
-                  fullWidth
-                  inputProps={{
-                    style: {
-                      fontSize: "large",
-                    },
-                  }}
-                />
+                
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email Address"
+                    type="email"
+                    value={this.state.emailString}
+                    onChange={this.handleLogInEmailChange}
+                    fullWidth
+                    inputProps={{
+                      style: {
+                        fontSize: "large",
+                      },
+                    }}
+                  />
+                  
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Password"
+                    type="password"
+                    value={this.state.passwordString}
+                    onChange={this.handleLogInPasswordChange}
+                    fullWidth
+                    inputProps={{
+                      style: {
+                        fontSize: "large",
+                      },
+                    }}
+                  />
+                
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.modalClickClose}>Cancel</Button>
-                <Button onClick={this.handleLogInClick}>Log-in</Button>
+                <Button disabled={this.state.loggingIn} type="submit" onClick={this.handleLogInClick}>{this.state.loggingIn ? < CircularProgress size={24} /> : "Log-in"}</Button>
+                
               </DialogActions>
+              </form>
             </Dialog>
           </div>
         </div>
