@@ -188,6 +188,9 @@ export default class HomePage extends Component<any, HomePageState> {
           });
           return true;
         } else {
+          this.setState({
+            logInAttempts: this.state.logInAttempts + 1,
+          });
           return false;
         }
       }
