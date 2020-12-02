@@ -28,35 +28,24 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TreevyList from "./treevyList";
 
-//
-
-// Defines the layout pallete for the different UI elements.
-const pallete = {
-  // Image pallete
-  imgFill: "#608C4C",
-
-  // Standard button pallete
-  buttonBackgroundColour: "#608C4C",
-  buttonTextColour: "#ffffff",
-  buttonHeight: "80%",
-  buttonVariant: "contained",
-
-  // Premium pallete
-  permiumButtonColour: "#2196f3",
-};
-
 interface HomePageState {
-  sString: string; // Search string
-  displayedToDoLists: string[]; // To-do lists displayed to the user according to the search
-  modalOpen: boolean;
+  // Search-Bar
+  sString: string;
 
-  // To-do list related
+  // Log-in
+  modalOpen: boolean; // log-in button pressed?
+  loggedIn: boolean; // is the user logged in
+  emailString: string; // input field  email string
+  passwordString: string; //input field  password string
+
+  // Todo-list
   selectedList: string;
+  displayedToDoLists: string[]; // To-do lists displayed to the user according to the search
 }
 
 export default class HomePage extends Component<any, HomePageState> {
   /**
-   * 
+   *
    * @param props:
    *    - toDoLists: string[] // FIX: change to a TreevyList[] (add 'name' to TreevyList state)
    */
@@ -67,8 +56,10 @@ export default class HomePage extends Component<any, HomePageState> {
       sString: "",
       displayedToDoLists: this.props.toDoLists,
       modalOpen: false,
-
+      loggedIn: false,
       selectedList: "",
+      emailString: "",
+      passwordString: "",
     };
   }
 
@@ -117,153 +108,244 @@ export default class HomePage extends Component<any, HomePageState> {
   };
 
   /**
+   * FUNCTIONALITY: LOG-IN
+   *
+   * Handles input change for the log-in email and password fields
+   */
+
+  handleLogInEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      emailString: e.target.value,
+    });
+  };
+
+  handleLogInPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      passwordString: e.target.value,
+    });
+  };
+
+  /**
+   * FUNCTIONALITY: LOG-IN
+   *
+   * Calls the appropriate functions when login is called
+   */
+  handleLogInClick = () => {
+    let checkStatus = this.logInCheck(
+      this.state.emailString,
+      this.state.passwordString
+    );
+    if (checkStatus) {
+      this.setState({
+        modalOpen: false,
+      });
+    } else {
+      // TODO: add error message to modal !!!!!
+    }
+  };
+
+  /**
+   * FUNCTIONALITY: LOG-IN
+   *
+   * Checks log-in details: if correct, user is logged in and
+   * button changes from "LOG-IN" to "ACCOUNT"
+   * @param Email
+   * @param Password
+   *
+   * @returns boolean: if log in was successful
+   */
+
+  logInCheck = (email: string, password: string): boolean => {
+    // Suppose the following is a cache of the emails and passwords
+    // Example:
+    let userpass: [string, string][] = [
+      ["jayden.elliott@outlook.com", "password123"],
+    ];
+
+    for (let i = 0; i < userpass.length; i++) {
+      if (email == userpass[i][0]) {
+        if (password == userpass[i][1]) {
+          this.setState({
+            loggedIn: true,
+            emailString: "",
+            passwordString: "",
+          });
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        continue;
+      }
+    }
+
+    return false; // reached end of email database; no matching email
+  };
+
+  /**
+   *
+   * FUNCTIONALITY: LOG-OUT
+   *
+   * Logs user out and changes button state from "Account" -> "Log-in"
+   */
+  logout = () => {
+    this.setState({
+      loggedIn: false,
+    });
+  };
+
+  /**
    * RENDERING: top bar of home page
    */
-  renderTopBar = () : JSX.Element => {
+  renderTopBar = (): JSX.Element => {
     return (
       <div className="topbar-container">
-          {/* Search bar */}
-          <form
-            autoComplete="off"
-            onSubmit={(e) => e.preventDefault()}
-            style={{ height: "100%" }}
-          >
-            <TextField
-              id="input-with-icon-textfield"
-              placeholder="Search"
-              variant="filled"
-              size="small"
-              inputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-                style: {
-                  fontSize: "large",
-                  fontFamily: "handWritten",
-                },
-              }}
-              onChange={this.onSearchChange}
-              style={{ width: "221%", minHeight: "10px" }}
-            ></TextField>
-          </form>
+        {/* Search bar */}
+        <form
+          autoComplete="off"
+          onSubmit={(e) => e.preventDefault()}
+          style={{ height: "100%" }}
+        >
+          <TextField
+            id="input-with-icon-textfield"
+            placeholder="Search"
+            variant="filled"
+            size="small"
+            inputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+              style: {
+                fontSize: "large",
+                fontFamily: "handWritten",
+              },
+            }}
+            onChange={this.onSearchChange}
+            style={{ width: "221%", minHeight: "10px" }}
+          ></TextField>
+        </form>
 
-          <div className="top-logo">
-            <img src={logo} style={{ fill: "#608c4c" }} />
-          </div>
-          <div className="Blank" />
-          <div className="Blank" />
-          <div className="Save">
-            <Button
-              startIcon={<SaveIcon />}
-              variant="contained"
-              style={{
-                backgroundColor: "#608C4C",
-                height: "80%",
-                color: "#ffffff",
-              }}
+        <div className="top-logo">
+          <img src={logo} style={{ fill: "#608c4c" }} />
+        </div>
+        <div className="Blank" />
+        <div className="Blank" />
+        <div className="Save">
+          <Button
+            startIcon={<SaveIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#608C4C",
+              height: "80%",
+              color: "#ffffff",
+            }}
+          >
+            Save
+          </Button>
+        </div>
+        <div className="Title">Treevy</div>
+        <div className="Share">
+          <Button
+            startIcon={<ShareIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#608C4C",
+              height: "80%",
+              color: "#ffffff",
+            }}
+          >
+            Share
+          </Button>
+        </div>
+        <div className="Maple">
+          <Button
+            startIcon={<EcoIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#2196f3",
+              height: "80%",
+              color: "#ffffff",
+            }}
+          >
+            Maple
+          </Button>
+        </div>
+        <div className="Log-in">
+          <Button
+            startIcon={<PersonIcon />}
+            onClick={this.modalClickOpen}
+            variant="contained"
+            style={{
+              backgroundColor: "#608C4C",
+              height: "80%",
+              color: "#ffffff",
+            }}
+          >
+            Log-in
+          </Button>
+          <div style={{ display: "flex", alignItems: "flex-end" }}>
+            <Dialog
+              open={this.state.modalOpen}
+              onClose={this.modalClickClose}
+              aria-labelledby="form-dialog-title"
+              id="login-modal"
             >
-              Save
-            </Button>
+              <DialogTitle id="form-dialog-title">
+                <span style={{ fontSize: "25px" }}>Welcome Back</span>
+              </DialogTitle>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Email Address"
+                  type="email"
+                  value={this.state.emailString}
+                  onChange={this.handleLogInEmailChange}
+                  fullWidth
+                  inputProps={{
+                    style: {
+                      fontSize: "large",
+                    },
+                  }}
+                />
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Password"
+                  type="password"
+                  value={this.state.passwordString}
+                  onChange={this.handleLogInPasswordChange}
+                  fullWidth
+                  inputProps={{
+                    style: {
+                      fontSize: "large",
+                    },
+                  }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.modalClickClose}>Cancel</Button>
+                <Button onClick={this.handleLogInClick}>Log-in</Button>
+              </DialogActions>
+            </Dialog>
           </div>
-          <div className="Title">Treevy</div>
-          <div className="Share">
-            <Button
-              startIcon={<ShareIcon />}
-              variant="contained"
-              style={{
-                backgroundColor: "#608C4C",
-                height: "80%",
-                color: "#ffffff",
-              }}
-            >
-              Share
-            </Button>
-          </div>
-          <div className="Maple">
-            <Button
-              startIcon={<EcoIcon />}
-              variant="contained"
-              style={{
-                backgroundColor: "#2196f3",
-                height: "80%",
-                color: "#ffffff",
-              }}
-            >
-              Maple
-            </Button>
-          </div>
-          <div className="Log-in">
-            <Button
-              startIcon={<PersonIcon />}
-              onClick={this.modalClickOpen}
-              variant="contained"
-              style={{
-                backgroundColor: "#608C4C",
-                height: "80%",
-                color: "#ffffff",
-              }}
-            >
-              Log-in
-            </Button>
-            <div style={{ display: "flex", alignItems: "flex-end" }}>
-              <Dialog
-                open={this.state.modalOpen}
-                onClose={this.modalClickClose}
-                aria-labelledby="form-dialog-title"
-                id="login-modal"
-              >
-                <DialogTitle id="form-dialog-title">
-                  <span style={{ fontSize: "25px" }}>Welcome Back</span>
-                </DialogTitle>
-                <DialogContent>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email Address"
-                    type="email"
-                    fullWidth
-                    inputProps={{
-                      style: {
-                        fontSize: "large",
-                      },
-                    }}
-                  />
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Password"
-                    type="password"
-                    fullWidth
-                    inputProps={{
-                      style: {
-                        fontSize: "large",
-                      },
-                    }}
-                  />
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={this.modalClickClose}>Cancel</Button>
-                  <Button onClick={this.modalClickClose}>Log-in</Button>
-                </DialogActions>
-              </Dialog>
-            </div>
-          </div>
-          <div className="Sign-out">
-            {/* <IconButton style={{ backgroundColor: "#608C4C" }}>
+        </div>
+        <div className="Sign-out">
+          {/* <IconButton style={{ backgroundColor: "#608C4C" }}>
               <ExitToAppIcon
                 style={{
                   color: "#ffffff",
                 }}
               />
             </IconButton> */}
-          </div>
         </div>
+      </div>
     );
-  }
+  };
 
   /**
    *
@@ -276,7 +358,7 @@ export default class HomePage extends Component<any, HomePageState> {
     if (this.state.displayedToDoLists === undefined) return;
 
     return (
-      <div style={{marginLeft: "auto", marginRight: "auto"}}>
+      <div style={{ marginLeft: "auto", marginRight: "auto" }}>
         {this.state.displayedToDoLists.map((list) => (
           <div>{this.renderListOption(list)}</div>
         ))}
@@ -285,40 +367,57 @@ export default class HomePage extends Component<any, HomePageState> {
   };
 
   /**
-   * RENDERING: displays a button (in the side-search-bar) which can be pressed to select that particular list to display (in the list-container).
-   * 
+   * RENDERING: displays a button (in the side-search-bar) which can be
+   *            pressed to select that particular list to display
+   *            (in the list-container).
+   *
    * @param listOption a displayed selectable list option
    */
-  renderListOption = (listOption: string) : JSX.Element => {
+  renderListOption = (listOption: string): JSX.Element => {
     return (
       <Button
-        disableRipple  
+        disableRipple
         variant="contained"
-        style={listOption === this.state.selectedList ?
-          {fontSize: "2vh", textTransform: "none", display: "flex", margin: "4%", width: "20vw", boxShadow: "none", backgroundColor: 'darkgreen', borderColor: "black"}
-          :
-          {fontSize: "2vh", textTransform: "none", display: "flex", margin: "4%", width: "20vw"}
-        }
+        style={
+          listOption === this.state.selectedList
+            ? {
+                fontSize: "2vh",
+                textTransform: "none",
+                display: "flex",
+                margin: "4%",
+                width: "20vw",
+                boxShadow: "none",
+                backgroundColor: "#608C4C",
+                borderColor: "black",
+                color: "#ffffff",
+              }
+            : {
+                fontSize: "2vh",
 
-        onClick={() => this.setState({selectedList: listOption})}
+                textTransform: "none",
+                display: "flex",
+                margin: "4%",
+                width: "20vw",
+              }
+        }
+        onClick={() => this.setState({ selectedList: listOption })}
       >
         {listOption}
       </Button>
     );
-  }
+  };
 
   /**
    * RENDERING: provided a treevylist (or null) will render it.
-   * 
-   * @param toDo list 
+   *
+   * @param toDo list
    */
-  renderList = (toDo: string | null) : JSX.Element | null => {  // TODO: should render the list, not just a string of the list!
+  renderList = (toDo: string | null): JSX.Element | null => {
+    // TODO: should render the list, not just a string of the list!
     // If null, do nothing. Note that void is not assignable to a react node so null must be returned instead.
     if (toDo === null || toDo == "") return null;
 
-    return (
-      <div>This is the {toDo} list!</div>
-    );
+    return <div>This is the {toDo} list!</div>;
   };
 
   render() {
