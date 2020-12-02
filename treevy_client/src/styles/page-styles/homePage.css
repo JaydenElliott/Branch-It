@@ -131,3 +131,21 @@ Sidebar styling
 #login-modal > .MuiBackdrop-root {
   display: none;
 }
+
+#input-with-icon-textfield > .MuiFormControl-root > .MuiInputBase-root {
+  height: 100%;
+}
+
+#input-with-icon-textfield > .MuiFormControl-root > {
+  height: 50%;
+}
+
+#input-with-icon-textfield {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#input-with-icon-textfield > .MuiFormControl-root > .MuiInputBase-root > input {
+  padding: 0;
+}

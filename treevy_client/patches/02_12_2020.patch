@@ -1,0 +1,140 @@
+diff --git a/treevy_client/src/App.tsx b/treevy_client/src/App.tsx
+index f4907e8b..0af3f2f9 100644
+--- a/treevy_client/src/App.tsx
++++ b/treevy_client/src/App.tsx
+@@ -8,6 +8,7 @@ import HomePage from "./components/homePage";
+ import WelcomePage from "./components/welcomePage";
+ import SignUpPage from "./components/signupPage";
+ import TestingGrounds from "./components/testingGrounds";
++import LoginButton from "./components/loginButton";
+ import axios from "axios";
+ 
+ interface AppState {
+@@ -179,7 +180,16 @@ class App extends Component<{}, AppState> {
+     return (
+       <div className="maindiv">
+         {/* <TestingGrounds /> */}
+-        <HomePage toDoLists={["Frontend", "Backend", "My lists button", "Shared lists button", "Fixing the search bar grid..."]} />
++        <LoginButton />
++        {/* <HomePage
++          toDoLists={[
++            "Frontend",
++            "Backend",
++            "My lists button",
++            "Shared lists button",
++            "Fixing the search bar grid...",
++          ]} */}
++        {/* /> */}
+         {/* <WelcomePage /> */}
+         {/* {this.renderList()} */}
+         {/* {this.renderListBoard()} */}
+diff --git a/treevy_client/src/components/homePage.tsx b/treevy_client/src/components/homePage.tsx
+index 30a76577..6672b44e 100644
+--- a/treevy_client/src/components/homePage.tsx
++++ b/treevy_client/src/components/homePage.tsx
+@@ -223,11 +223,11 @@ export default class HomePage extends Component<any, HomePageState> {
+         {/* Search bar */}
+         <form
+           autoComplete="off"
++          id="input-with-icon-textfield"
+           onSubmit={(e) => e.preventDefault()}
+           style={{ height: "100%" }}
+         >
+           <TextField
+-            id="input-with-icon-textfield"
+             placeholder="Search"
+             variant="filled"
+             size="small"
+diff --git a/treevy_client/src/components/testingGrounds.tsx b/treevy_client/src/components/testingGrounds.tsx
+index 5357ce20..8a64dc0a 100644
+--- a/treevy_client/src/components/testingGrounds.tsx
++++ b/treevy_client/src/components/testingGrounds.tsx
+@@ -1,5 +1,4 @@
+ import React, { ChangeEvent, Component } from "react";
+-import Button from "@material-ui/core/Button";
+ import SaveIcon from "@material-ui/icons/Save";
+ import ShareIcon from "@material-ui/icons/Share";
+ import PersonIcon from "@material-ui/icons/Person";
+@@ -8,8 +7,55 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
+ import Checkbox from "@material-ui/core/Checkbox";
+ import TextField from "@material-ui/core/TextField";
+ import { withStyles } from "@material-ui/core/styles";
++import Button from "@material-ui/core/Button";
++import Menu from "@material-ui/core/Menu";
++import MenuItem from "@material-ui/core/MenuItem";
++
+ export default class TestingGrounds extends Component<any, any> {
++  constructor(props: any) {
++    super(props);
++    this.state = {
++      modalOpen: false,
++    };
++  }
++
++  handleClick = () => {
++    this.setState({
++      modalOpen: true,
++    });
++  };
++
++  handleClose = () => {
++    this.setState({
++      modalOpen: false,
++    });
++  };
++
++
++
+   render() {
+-    return <div>asdf</div>;
++    return (
++      <div>
++        <Button
++          aria-controls="simple-menu"
++          aria-haspopup="true"
++          onClick={this.handleClick}
++          style={{ backgroundColor: "black", color: "#ffffff" }}
++        >
++          Check
++        </Button>
++        <Menu
++          id="simple-menu"
++          // anchorEl={anchorEl}
++          keepMounted
++          open={this.state.modalOpen}
++          onClose={this.handleClose}
++        >
++          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
++          <MenuItem onClick={this.handleClose}>My account</MenuItem>
++          <MenuItem onClick={this.handleClose}>Logout</MenuItem>
++        </Menu>
++      </div>
++    );
+   }
+ }
+diff --git a/treevy_client/src/styles/page-styles/homePage.css b/treevy_client/src/styles/page-styles/homePage.css
+index 5ad135dd..99d829bf 100644
+--- a/treevy_client/src/styles/page-styles/homePage.css
++++ b/treevy_client/src/styles/page-styles/homePage.css
+@@ -131,3 +131,21 @@ Sidebar styling
+ #login-modal > .MuiBackdrop-root {
+   display: none;
+ }
++
++#input-with-icon-textfield > .MuiFormControl-root > .MuiInputBase-root {
++  height: 100%;
++}
++
++#input-with-icon-textfield > .MuiFormControl-root > {
++  height: 50%;
++}
++
++#input-with-icon-textfield {
++  display: flex;
++  flex-direction: column;
++  justify-content: center;
++}
++
++#input-with-icon-textfield > .MuiFormControl-root > .MuiInputBase-root > input {
++  padding: 0;
++}

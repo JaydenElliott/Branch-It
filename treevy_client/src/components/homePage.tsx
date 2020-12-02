@@ -223,11 +223,11 @@ export default class HomePage extends Component<any, HomePageState> {
         {/* Search bar */}
         <form
           autoComplete="off"
+          id="input-with-icon-textfield"
           onSubmit={(e) => e.preventDefault()}
           style={{ height: "100%" }}
         >
           <TextField
-            id="input-with-icon-textfield"
             placeholder="Search"
             variant="filled"
             size="small"
