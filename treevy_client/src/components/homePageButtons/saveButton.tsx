@@ -8,7 +8,6 @@ export default class SaveButton extends Component<any, any> {
     super(props);
     this.state = {};
   }
-
   render() {
     return (
       <div className="Save">

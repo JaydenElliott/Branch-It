@@ -33,12 +33,6 @@ Top bar styling
 .Blank {
   grid-area: Blank;
 }
-.Save {
-  grid-area: Save;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .Title {
   grid-area: Title;
