@@ -11,3 +11,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.search-bar {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 25px;
+  background-color: transparent;
+  width: 221%;
+  border: 0;
+  border-bottom: 3px solid black;
+}
+
+.search-bar:focus {
+  border-bottom: 3px solid green;
+}
