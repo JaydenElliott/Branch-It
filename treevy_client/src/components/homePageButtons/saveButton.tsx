@@ -2,6 +2,7 @@ import React, { ChangeEvent, Component } from "react";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 
+import "./homePageButtonsCSS/saveButton.css";
 export default class SaveButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -10,7 +11,7 @@ export default class SaveButton extends Component<any, any> {
 
   render() {
     return (
-      <div>
+      <div className="Save">
         <Button
           startIcon={<SaveIcon />}
           variant="contained"

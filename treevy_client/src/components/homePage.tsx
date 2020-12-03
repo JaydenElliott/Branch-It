@@ -177,26 +177,20 @@ export default class HomePage extends Component<any, HomePageState> {
         </div>
         <div className="Blank" />
         <div className="Blank" />
-        <div className="Save">
-          <SaveButton />
-        </div>
+        <SaveButton />
         <div className="Title">Treevy</div>
-        <div className="Share">
-          <ShareButton />
-        </div>
-        <div className="Maple">
-          <MapleButton />
-        </div>
-        <div className="Log-in">
-          <LoginButton
-            logInLock={this.state.logInLock}
-            modalClickOpen={this.modalClickOpen}
-            modalClickClose={this.modalClickClose}
-            logInModalOpen={this.state.logInModalOpen}
-            setLoggedIn={this._LoginButtonLoggedIn}
-            setLogInLockOn={this._LoginButtonLogInLockOn}
-          />
-        </div>
+
+        <ShareButton />
+        <MapleButton />
+        <LoginButton
+          logInLock={this.state.logInLock}
+          modalClickOpen={this.modalClickOpen}
+          modalClickClose={this.modalClickClose}
+          logInModalOpen={this.state.logInModalOpen}
+          setLoggedIn={this._LoginButtonLoggedIn}
+          setLogInLockOn={this._LoginButtonLogInLockOn}
+        />
+
         <div className="Sign-out"></div>
       </div>
     );

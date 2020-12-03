@@ -51,24 +51,6 @@ Top bar styling
   color: #608c4c;
   letter-spacing: 1px;
 }
-.Share {
-  grid-area: Share;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Maple {
-  grid-area: Maple;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Log-in {
-  grid-area: Log-in;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .Sign-out {
   grid-area: Sign-out;

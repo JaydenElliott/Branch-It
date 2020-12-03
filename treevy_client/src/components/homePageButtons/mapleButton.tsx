@@ -2,6 +2,8 @@ import React, { ChangeEvent, Component } from "react";
 import EcoIcon from "@material-ui/icons/Eco";
 import Button from "@material-ui/core/Button";
 
+import "./homePageButtonsCSS/mapleButton.css";
+
 export default class MapleButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -10,14 +12,7 @@ export default class MapleButton extends Component<any, any> {
 
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          height: "100%",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
+      <div className="Maple">
         <Button
           startIcon={<EcoIcon />}
           variant="contained"

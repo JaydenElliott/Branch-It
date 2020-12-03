@@ -1,0 +1,6 @@
+.Maple {
+  grid-area: Maple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

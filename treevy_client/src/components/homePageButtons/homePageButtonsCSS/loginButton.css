@@ -1,0 +1,6 @@
+.Log-in {
+  grid-area: Log-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,6 +1,9 @@
 import React, { ChangeEvent, Component } from "react";
 import Button from "@material-ui/core/Button";
 
+// Styling
+
+import "./homePageButtonsCSS/loginButton.css";
 // Modal
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -143,7 +146,7 @@ export default class LoginButton extends Component<any, any> {
 
   renderLogInButton = () => {
     return (
-      <div style={{ height: "80%" }}>
+      <div className="Log-in">
         <Button
           startIcon={<PersonIcon />}
           disabled={this.props.logInLock}
@@ -151,7 +154,7 @@ export default class LoginButton extends Component<any, any> {
           variant="contained"
           style={{
             backgroundColor: this.props.logInLock ? "#C9CAD3" : "#608C4C",
-            height: "100%",
+            height: "80%",
             color: "#ffffff",
           }}
         >

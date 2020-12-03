@@ -1,0 +1,6 @@
+.Share {
+  grid-area: Share;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
