@@ -1,17 +1,3 @@
-.side-search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-area: side-search-bar;
-}
-
-.overall-lists {
-  grid-area: overall-lists;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .search-bar {
   font-family: 'Times New Roman', Times, serif;
   font-size: 25px;
@@ -19,8 +5,17 @@
   width: 221%;
   border: 0;
   border-bottom: 3px solid black;
+  transition: all .15s ease;
 }
 
 .search-bar:focus {
+  background-color: rgba(0,0,0, 0.09);
   border-bottom: 3px solid green;
+  transition: all .15s ease;
+  transform-origin: left;
+}
+
+.search-bar:hover {
+  background-color: rgba(0,0,0, 0.09);
+  transition: all 0.5s ease;
 }
