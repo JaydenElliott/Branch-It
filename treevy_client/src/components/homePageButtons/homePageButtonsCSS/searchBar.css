@@ -1,0 +1,13 @@
+.side-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: side-search-bar;
+}
+
+.overall-lists {
+  grid-area: overall-lists;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

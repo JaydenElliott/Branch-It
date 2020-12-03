@@ -145,33 +145,7 @@ export default class HomePage extends Component<any, HomePageState> {
   renderTopBar = (): JSX.Element => {
     return (
       <div className="topbar-container">
-        {/* Search bar */}
-        <form
-          autoComplete="off"
-          id="input-with-icon-textfield"
-          onSubmit={(e) => e.preventDefault()}
-          style={{ height: "100%" }}
-        >
-          <TextField
-            placeholder="Search"
-            variant="filled"
-            size="small"
-            inputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              style: {
-                fontSize: "large",
-                fontFamily: "handWritten",
-              },
-            }}
-            onChange={this.onSearchChange}
-            style={{ width: "221%", minHeight: "10px" }}
-          ></TextField>
-        </form>
-
+        <input onChange={this.onSearchChange} />
         <div className="top-logo">
           <img src={logo} style={{ fill: "#608c4c" }} />
         </div>
