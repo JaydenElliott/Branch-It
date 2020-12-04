@@ -21,8 +21,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Search Bar
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchBar from "./homePageButtons/searchBar"
 
 // Log-in Dialog (modal)
 import Dialog from "@material-ui/core/Dialog";
@@ -34,9 +33,6 @@ import TreevyList from "./treevyList";
 import { Typography } from "@material-ui/core";
 
 interface HomePageState {
-  // Search-Bar
-  sString: string;
-
   // Log-in
   logInModalOpen: boolean; // log-in button pressed?
   loggedIn: boolean; // is the user logged in
@@ -57,7 +53,6 @@ export default class HomePage extends Component<any, HomePageState> {
     super(props);
 
     this.state = {
-      sString: "",
       displayedToDoLists: this.props.toDoLists,
       logInModalOpen: false,
       loggedIn: false,
@@ -79,10 +74,9 @@ export default class HomePage extends Component<any, HomePageState> {
 
     // Finds all lists containing the searched word
     let newDisplayedList: string[] = [];
-    const currentSearch: string = e.currentTarget.value;
     this.props.toDoLists.forEach((toDo: string) => {
       // To ensure that the search is not case sensitive, both are set to lower case.
-      if (toDo.toLowerCase().includes(currentSearch.toLowerCase())) {
+      if (toDo.toLowerCase().includes(e.currentTarget.value.toLowerCase())) {
         newDisplayedList.push(toDo);
       }
     });
@@ -145,39 +139,13 @@ export default class HomePage extends Component<any, HomePageState> {
   renderTopBar = (): JSX.Element => {
     return (
       <div className="topbar-container">
-        {/* Search bar */}
-        <form
-          autoComplete="off"
-          id="input-with-icon-textfield"
-          onSubmit={(e) => e.preventDefault()}
-          style={{ height: "100%" }}
-        >
-          <TextField
-            placeholder="Search"
-            variant="filled"
-            size="small"
-            inputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-              style: {
-                fontSize: "large",
-                fontFamily: "handWritten",
-              },
-            }}
-            onChange={this.onSearchChange}
-            style={{ width: "221%", minHeight: "10px" }}
-          ></TextField>
-        </form>
-
         <div className="top-logo">
           <img src={logo} style={{ fill: "#608c4c" }} />
         </div>
         <div className="Blank" />
         <div className="Blank" />
         <SaveButton />
+        <SearchBar handleChange={this.onSearchChange} />
         <div className="Title">Treevy</div>
 
         <ShareButton />
