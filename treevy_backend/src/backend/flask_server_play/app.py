@@ -3,8 +3,7 @@ from flask import Flask, app
 from flask_cors import CORS
 from flask import Blueprint, request
 
-from mysql
-
+from backend.mysql.mysql_communicator
 
 app = Flask(__name__)
 api = Blueprint("api",__name__)
