@@ -1,0 +1,7 @@
+.sign-up-facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  grid-area: "sign-up-facebook";
+}

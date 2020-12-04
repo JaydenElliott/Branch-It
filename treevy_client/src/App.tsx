@@ -8,6 +8,7 @@ import SignUpPage from "./components/signupPage";
 import TestingGrounds from "./components/testingGrounds";
 import AccountButton from "./components//homePageButtons/accountButton";
 import LogInButton from "./components/homePageButtons/loginButton";
+
 import axios from "axios";
 
 /**
@@ -46,13 +47,12 @@ class App extends Component<{}, any> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-
-        <HomePage toDoLists={temptodo} />
+        {/* <HomePage toDoLists={temptodo} /> */}
         {/* <ListHandler /> */}
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}
         {/* {this.renderListBoard()} */}
-        {/* <SignUpPage /> */}
+        <SignUpPage />
       </div>
     );
   }

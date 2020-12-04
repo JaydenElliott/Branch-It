@@ -6,6 +6,7 @@ import logo from "../logo/templogo.svg";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Check } from "@material-ui/icons";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FacebookLogin from "./facebookLogin";
 
 export default class SignUpPage extends Component<any, any> {
   render() {
@@ -66,18 +67,9 @@ export default class SignUpPage extends Component<any, any> {
               </div>
               <div className="or-text">----------- or -----------</div>
               <div className="sign-up-facebook-wrapper">
+                <FacebookLogin />
                 <div />
-                <Button
-                  startIcon={<FacebookIcon />}
-                  variant="contained"
-                  style={{
-                    backgroundColor: "#5e77f9",
-                    color: "#ffffff",
-                    fontSize: "15px",
-                  }}
-                >
-                  Sign up with Facebook
-                </Button>
+
                 <div />
               </div>
             </div>
