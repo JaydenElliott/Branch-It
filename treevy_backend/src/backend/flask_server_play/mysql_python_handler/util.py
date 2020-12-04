@@ -117,7 +117,8 @@ update_treevy = 'UPDATE ' + mysql_details["treevys_table"] + '''
 # General commands
 select_database = 'USE {db}'  # Selects a database
 get_user_id = "SELECT user_id FROM " + mysql_details["users_table"] + " WHERE email = '{email}';" # Gets user_id from a email. Note it might have the timeset set to deleted.
-get_user_details = "SELECT * FROM " + mysql_details["users_table"] + " WHERE user_id = '{user_id}'" # Gets the user details of the provided user_id. Note that it might have the timestamp set to deleted.
+get_user_details_from_id = "SELECT * FROM " + mysql_details["users_table"] + " WHERE user_id = '{user_id}'" # Gets the user details of the provided user_id. Note that it might have the timestamp set to deleted.
+get_user_details_from_email = "SELECT * FROM " + mysql_details["users_table"] + " WHERE email = '{email}'" # Gets the user details of the provided email. Note that it might have the timestamp set to deleted.
 get_treevy_ids = "SELECT treevy_id FROM " + mysql_details["treevys_table"] + " WHERE user_id = '{user_id}' AND time_of_deletion IS NULL;"  # Gets treevy_ids from a user_id which are not deleted.
 get_treevy_details = "SELECT * FROM " + mysql_details["treevys_table"] + " WHERE treevy_id = '{treevy_id}'" # Gets the treevy details from a treevy_id. Note that it might have the timestamp set to deleted.
 get_treevy = "SELECT treevy FROM " + mysql_details["treevys_table"] + " WHERE treevy_id = '{treevy_id}'"  # Gets treevy JSON from treevy_id. Note that it might have the timestamp set to deleted.
