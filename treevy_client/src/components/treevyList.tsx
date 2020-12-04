@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
-import "../styles/component-styles/test.css"
+import "../styles/component-styles/test.css";
 
 export interface ListState {
   // Local scope

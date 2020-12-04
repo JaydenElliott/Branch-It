@@ -26,6 +26,7 @@
     "fontsource-roboto": "^3.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-flow-renderer": "^8.1.2",
     "react-modal": "^3.12.1",
     "react-scripts": "3.4.3",
     "react-xarrows": "^1.5.2",

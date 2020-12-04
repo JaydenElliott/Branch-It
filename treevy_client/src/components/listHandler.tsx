@@ -3,13 +3,6 @@ import { Component } from "react";
 import RenderList from "./renderList";
 import TreevyList, { ListState } from "./treevyList";
 
-const temptodo = [
-  "Frontend",
-  "Backend",
-  "My lists button",
-  "Shared lists button",
-  "Fixing the search bar grid...",
-];
 export default class ListHandler extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -159,7 +152,6 @@ export default class ListHandler extends Component<any, any> {
     return (
       <div className="maindiv" style={{ width: "100%", height: "100%" }}>
         <div className="center">
-          <h2>To-Do List</h2>
           <form onSubmit={this.submitItem}>
             <input
               className="new-todo"
