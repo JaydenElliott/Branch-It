@@ -114,9 +114,7 @@ export default class LoginButton extends Component<any, any> {
 
     // Suppose the following is a cache of the emails and passwords
     // Example:
-    let userpass: [string, string][] = [
-      ["jayden.elliott@outlook.com", "password123"],
-    ];
+    let userpass: [string, string][] = [["user", "pass"]];
 
     for (let i = 0; i < userpass.length; i++) {
       if (email == userpass[i][0]) {

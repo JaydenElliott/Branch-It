@@ -3,14 +3,13 @@ from flask import Flask, app
 from flask_cors import CORS
 from flask import Blueprint, request
 
-from backend.mysql.mysql_communicator
 
 app = Flask(__name__)
 api = Blueprint("api",__name__)
-app.register_blueprint(api, url_prefix="/api")
+
 CORS(app)
 
-@api.route("/test_flask", methods=["POST"])
+@api.route("/test_flask", methods=["GET", "POST"])
 def helloWorld():
   return "worked!"
 
@@ -28,6 +27,8 @@ def get_signup():
     content = request.get_json()
     print(content)
     return "Hello"
+
+app.register_blueprint(api, url_prefix="/api")
 
 if __name__ == '__main__':
     # Main entry point when run in stand-alone mode.

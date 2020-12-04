@@ -45,9 +45,9 @@ class App extends Component<{}, any> {
   render() {
     return (
       <div className="maindiv">
-        <TestingGrounds />
+        {/* <TestingGrounds /> */}
 
-        {/* <HomePage toDoLists={temptodo} /> */}
+        <HomePage toDoLists={temptodo} />
         {/* <ListHandler /> */}
         {/* <WelcomePage /> */}
         {/* {this.renderList()} */}

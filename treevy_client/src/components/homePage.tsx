@@ -7,6 +7,7 @@ import LoginButton from "./homePageButtons/loginButton";
 import MapleButton from "./homePageButtons/mapleButton";
 import ShareButton from "./homePageButtons/shareButton";
 import SaveButton from "./homePageButtons/saveButton";
+import AccountButton from "./homePageButtons/accountButton";
 
 // Button
 import Button from "@material-ui/core/Button";
@@ -21,7 +22,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Search Bar
-import SearchBar from "./homePageButtons/searchBar"
+import SearchBar from "./homePageButtons/searchBar";
 
 // Log-in Dialog (modal)
 import Dialog from "@material-ui/core/Dialog";
@@ -133,6 +134,23 @@ export default class HomePage extends Component<any, HomePageState> {
     });
   };
 
+  setLoginAccountButton = () => {
+    if (this.state.loggedIn == false) {
+      return (
+        <LoginButton
+          logInLock={this.state.logInLock}
+          modalClickOpen={this.modalClickOpen}
+          modalClickClose={this.modalClickClose}
+          logInModalOpen={this.state.logInModalOpen}
+          setLoggedIn={this._LoginButtonLoggedIn}
+          setLogInLockOn={this._LoginButtonLogInLockOn}
+        />
+      );
+    } else {
+      return <AccountButton />;
+    }
+  };
+
   /**
    * RENDERING: top bar of home page
    */
@@ -147,18 +165,9 @@ export default class HomePage extends Component<any, HomePageState> {
         <SaveButton />
         <SearchBar handleChange={this.onSearchChange} />
         <div className="Title">Treevy</div>
-
         <ShareButton />
         <MapleButton />
-        <LoginButton
-          logInLock={this.state.logInLock}
-          modalClickOpen={this.modalClickOpen}
-          modalClickClose={this.modalClickClose}
-          logInModalOpen={this.state.logInModalOpen}
-          setLoggedIn={this._LoginButtonLoggedIn}
-          setLogInLockOn={this._LoginButtonLogInLockOn}
-        />
-
+        {this.setLoginAccountButton()}
         <div className="Sign-out"></div>
       </div>
     );
@@ -230,7 +239,7 @@ export default class HomePage extends Component<any, HomePageState> {
    * @param toDo list
    */
   renderList = (toDo: string | null): JSX.Element | null => {
-    // TODO: should render the list, not just a string of the list!
+    // todo should render the list, not just a string of the list!
     // If null, do nothing. Note that void is not assignable to a react node so null must be returned instead.
     if (toDo === null || toDo == "") return null;
 
