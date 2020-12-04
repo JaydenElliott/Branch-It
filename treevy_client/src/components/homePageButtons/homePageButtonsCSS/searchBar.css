@@ -1,21 +1,22 @@
 .search-bar {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: 25px;
   background-color: transparent;
   width: 221%;
   border: 0;
-  border-bottom: 3px solid black;
-  transition: all .15s ease;
+  border-bottom: 2px solid #608c4c;
+  transition: all 0.15s ease;
 }
 
 .search-bar:focus {
-  background-color: rgba(0,0,0, 0.09);
-  border-bottom: 3px solid green;
-  transition: all .15s ease;
+  background-color: rgba(0, 0, 0, 0.09);
+  border-bottom: 2px solid green;
+  transition: all 0.15s ease;
   transform-origin: left;
+  outline: none;
 }
 
 .search-bar:hover {
-  background-color: rgba(0,0,0, 0.09);
+  background-color: rgba(0, 0, 0, 0.09);
   transition: all 0.5s ease;
 }

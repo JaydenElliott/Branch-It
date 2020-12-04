@@ -20,7 +20,7 @@ Top bar styling
   background-color: #dee0e0;
   grid-template-columns: 3% 10% 10% 10% 45% 5% 5% 5% 5%;
   grid-template-rows: 1fr;
-  grid-template-areas: "top-logo placeholder Blank Save Title Share Maple Log-in Sign-out";
+  grid-template-areas: "top-logo Blank Blank Save Title Share Maple Log-in Sign-out";
 }
 
 .top-logo {
@@ -76,7 +76,7 @@ Sidebar styling
   background-color: #f2f2f2;
   display: grid;
   grid-template-rows: 10% 90%;
-  grid-template-areas: "side-search-bar";
+  grid-template-areas: "side-search-bar" ".";
 }
 
 .side-search-bar {

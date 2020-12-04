@@ -163,7 +163,6 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="Blank" />
         <div className="Blank" />
         <SaveButton />
-        <SearchBar handleChange={this.onSearchChange} />
         <div className="Title">Treevy</div>
         <ShareButton />
         <MapleButton />
@@ -234,6 +233,18 @@ export default class HomePage extends Component<any, HomePageState> {
   };
 
   /**
+   * Renders the side bar container
+   */
+  renderSideBar = () => {
+    return (
+      <div className="sidebar-container">
+        <SearchBar handleChange={this.onSearchChange} />
+        {this.displayToDoLists()}
+      </div>
+    );
+  };
+
+  /**
    * RENDERING: provided a treevylist (or null) will render it.
    *
    * @param toDo list
@@ -251,17 +262,15 @@ export default class HomePage extends Component<any, HomePageState> {
       <div className="grid-container">
         {this.renderTopBar()}
         <div className="content-container">
-          <div className="sidebar-container">
-            {this.displayToDoLists()}
-            <div className="side-search-bar">
-              {/* <input type="text" id="keyboardInput" /> */}
-            </div>
+          {this.renderSideBar()}
+          <div className="side-search-bar">
+            {/* <input type="text" id="keyboardInput" /> */}
           </div>
-          <div className="list-container">
-            {this.renderList(this.state.selectedList)}
-          </div>
-          <div className="graph-container"></div>
         </div>
+        <div className="list-container">
+          {this.renderList(this.state.selectedList)}
+        </div>
+        <div className="graph-container"></div>
       </div>
     );
   }
