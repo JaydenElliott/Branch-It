@@ -3,7 +3,7 @@
 ## <u>/api/</u>
 <b>Blueprint for all api calls</b>
 
-### <u>/api/users/get</u>
+### <u>/api/users</u>
 <b>Retrieves user data provided an email</b>
 
 params: 
