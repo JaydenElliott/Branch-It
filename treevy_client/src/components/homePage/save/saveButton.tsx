@@ -1,28 +1,26 @@
 import React, { ChangeEvent, Component } from "react";
-import EcoIcon from "@material-ui/icons/Eco";
 import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
 
-import "./homePageButtonsCSS/mapleButton.css";
-
-export default class MapleButton extends Component<any, any> {
+import "../../../componentStyles/homePage/save/saveButton.css";
+export default class SaveButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {};
   }
-
   render() {
     return (
-      <div className="Maple">
+      <div className="Save">
         <Button
-          startIcon={<EcoIcon />}
+          startIcon={<SaveIcon />}
           variant="contained"
           style={{
-            backgroundColor: "#2196f3",
+            backgroundColor: "#608C4C",
             height: "80%",
             color: "#ffffff",
           }}
         >
-          Maple
+          Save
         </Button>
       </div>
     );

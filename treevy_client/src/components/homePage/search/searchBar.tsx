@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component } from "react";
-import "./homePageButtonsCSS/searchBar.css";
+import "../../../componentStyles/homePage/search/searchBar.css";
 
 /**
  * Displays and handles search bar input changing.

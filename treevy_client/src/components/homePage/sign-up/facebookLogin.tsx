@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component } from "react";
 import FacebookLoginWithButton from "react-facebook-login";
 import Button from "@material-ui/core/Button";
-import "../styles/page-styles/sign-up-facebook.css";
+import "../../../componentStyles/homePage/sign-up/sign-up-facebook.css";
 
 export default class FacebookLogin extends Component<any, any> {
   constructor(props: any) {

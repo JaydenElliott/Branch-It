@@ -1,13 +1,13 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.css";
-import ListBoard from "./components/listBoard";
-import ListHandler from "./components/listHandler";
-import HomePage from "./components/homePage";
-import SignUpPage from "./components/signupPage";
-import TestingGrounds from "./components/testingGrounds";
-import AccountButton from "./components//homePageButtons/accountButton";
-import LogInButton from "./components/homePageButtons/loginButton";
+import ListBoard from "./components/listHandling/listBoard";
+import ListHandler from "./components/listHandling/listHandler";
+import HomePage from "./components/homePage/homePage";
+import SignUpPage from "./components/homePage/sign-up/signupPage";
+import TestingGrounds from "./components/testing/testingGrounds";
+import AccountButton from "./components/homePage/log-in/accountButton";
+import LogInButton from "./components/homePage/log-in/loginButton";
 
 import axios from "axios";
 
@@ -47,12 +47,9 @@ class App extends Component<{}, any> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        {/* <HomePage toDoLists={temptodo} /> */}
+        <HomePage toDoLists={temptodo} />
         {/* <ListHandler /> */}
-        {/* <WelcomePage /> */}
-        {/* {this.renderList()} */}
-        {/* {this.renderListBoard()} */}
-        <SignUpPage />
+        {/* <SignUpPage /> */}
       </div>
     );
   }

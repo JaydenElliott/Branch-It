@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
-import "../styles/component-styles/renderList.css";
+import "../../componentStyles/listHandling/renderList.css";
 import Modal from "react-modal";
-import TreevyList, { ListState } from "../components/treevyList";
+import TreevyList, { ListState } from "./treevyList";
 
 // Temporary - make an actual style later
 const modalStyle = {

@@ -1,37 +1,25 @@
 // Project Imports
 import React, { ChangeEvent, Component } from "react";
-import "../styles/page-styles/homePage.css";
+import "../../componentStyles/homePage/homePage.css";
 
 // Button Components
-import LoginButton from "./homePageButtons/loginButton";
-import MapleButton from "./homePageButtons/mapleButton";
-import ShareButton from "./homePageButtons/shareButton";
-import SaveButton from "./homePageButtons/saveButton";
-import AccountButton from "./homePageButtons/accountButton";
+import LoginButton from "./log-in/loginButton";
+import AccountButton from "./log-in/accountButton";
+import MapleButton from "./maple/mapleButton";
+import ShareButton from "./share/shareButton";
+import SaveButton from "./save/saveButton";
 
 // Button
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton"; // for sign-out
 
 // Icons
-import AddIcon from "@material-ui/icons/Add";
-import PersonIcon from "@material-ui/icons/Person";
-import logo from "../logo/templogo.svg";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp"; // for sign-out
-import SearchIcon from "@material-ui/icons/Search";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import logo from "../../logo/templogo.svg";
 
 // Search Bar
-import SearchBar from "./homePageButtons/searchBar";
+import SearchBar from "./search/searchBar";
 
-// Log-in Dialog (modal)
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import TreevyList from "./treevyList";
-import { Typography } from "@material-ui/core";
+// Lists
+import TreevyList from "../listHandling/treevyList";
 
 interface HomePageState {
   // Log-in
