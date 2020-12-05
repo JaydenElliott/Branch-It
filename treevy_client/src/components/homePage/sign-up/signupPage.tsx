@@ -1,6 +1,5 @@
 import React, { ChangeEvent, Component } from "react";
-import "../styles/page-styles/signupPage.css";
-import FacebookIcon from "@material-ui/icons/Facebook";
+import "../../../componentStyles/homePage/sign-up/sign-up-page.css";
 import Button from "@material-ui/core/Button";
 import logo from "../logo/templogo.svg";
 import Checkbox from "@material-ui/core/Checkbox";

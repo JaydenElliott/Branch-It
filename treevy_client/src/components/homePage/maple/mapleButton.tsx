@@ -1,10 +1,10 @@
 import React, { ChangeEvent, Component } from "react";
+import EcoIcon from "@material-ui/icons/Eco";
 import Button from "@material-ui/core/Button";
-import ShareIcon from "@material-ui/icons/Share";
 
-import "./homePageButtonsCSS/shareButton.css";
+import "../../../componentStyles/homePage/maple/mapleButton.css";
 
-export default class ShareButton extends Component<any, any> {
+export default class MapleButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {};
@@ -12,17 +12,17 @@ export default class ShareButton extends Component<any, any> {
 
   render() {
     return (
-      <div className="Share">
+      <div className="Maple">
         <Button
-          startIcon={<ShareIcon />}
+          startIcon={<EcoIcon />}
           variant="contained"
           style={{
-            backgroundColor: "#608C4C",
+            backgroundColor: "#2196f3",
             height: "80%",
             color: "#ffffff",
           }}
         >
-          Share
+          Maple
         </Button>
       </div>
     );
