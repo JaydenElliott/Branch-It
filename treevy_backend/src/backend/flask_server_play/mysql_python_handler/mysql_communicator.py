@@ -1,16 +1,16 @@
 from typing import Union
-from mysql_handler import MySQLHandler;
-import util
+from .mysql_handler import MySQLHandler;
+from . import util
 
 class MySQLCommunicator:
     """
     Contains methods to communicate/insert/delete items from database.
     """
-    def __init__(self):
+    def __init__(self, db=util.mysql_details["treevy_database"]):
         """
         Sets up MySQL handler.
         """
-        self.sql = MySQLHandler(db=util.mysql_details["treevy_database"])
+        self.sql = MySQLHandler(db)
 
     def get_user_id(self, email: str) -> Union[int, None]:
         """
@@ -28,14 +28,31 @@ class MySQLCommunicator:
             print('Error {}'.format(e))
             return None
     
-    def get_user_details(self, user_id: int) -> Union[list, None]:
+    def get_user_details_from_id(self, user_id: int) -> Union[list, None]:
         """
         Gets the user details of the provided user_id.
         """
         try:
             response = self.sql.fetch(
-                util.get_user_details.format(
+                util.get_user_details_from_id.format(
                     user_id=user_id
+                )
+            )
+
+            # Check that response is not empty
+            return response if len(response) > 0 else None
+        except Exception as e:
+            print('Error {}'.format(e))
+            return None
+
+    def get_user_details_from_email(self, email: str) -> Union[list, None]:
+        """
+        Gets the user details of the provided email.
+        """
+        try:
+            response = self.sql.fetch(
+                util.get_user_details_from_email.format(
+                    email=email
                 )
             )
 
@@ -281,16 +298,16 @@ class MySQLCommunicator:
             return False
 
 # FIX: Delete later. Purpose was for testing
-com = MySQLCommunicator()
-user = {
-        "username":"John",
-        # "email":"John1@gmail.com",
-        # "email":None,
-        "access":"standard",
-        "use_case":"professional",
-        "phone":"0000000000",
-        "password":"password"
-        }
+# com = MySQLCommunicator()
+# user = {
+#         "username":"John",
+#         # "email":"John1@gmail.com",
+#         # "email":None,
+#         "access":"standard",
+#         "use_case":"professional",
+#         "phone":"0000000000",
+#         "password":"password"
+#         }
 
 # treevy = '{"whdddddddat":"wwww"}'
 # print(com.insert_user(user))
