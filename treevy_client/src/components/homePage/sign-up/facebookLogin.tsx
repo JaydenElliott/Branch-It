@@ -4,11 +4,6 @@ import Button from "@material-ui/core/Button";
 import "../../../componentStyles/homePage/sign-up/sign-up-facebook.css";
 
 export default class FacebookLogin extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {};
-  }
-
   responseFacebook = (response: any) => {
     console.log(response);
   };
@@ -20,6 +15,7 @@ export default class FacebookLogin extends Component<any, any> {
     return (
       <div className="sign-up-facebook">
         <FacebookLoginWithButton
+          size="small"
           appId="880192362718006"
           autoLoad
           fields="name,email,picture"

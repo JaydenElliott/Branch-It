@@ -1,6 +1,11 @@
-.create-account {
-  height: 500px;
+.sign-up-container {
   width: 500px;
+  height: 500px;
+}
+
+.create-account {
+  height: 100%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 15% 4% 10% 4% 10% 4% 10% 43%;
