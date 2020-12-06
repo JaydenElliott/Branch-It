@@ -9,17 +9,42 @@ import MapleButton from "./maple/mapleButton";
 import ShareButton from "./share/shareButton";
 import SaveButton from "./save/saveButton";
 
-// Button
-import Button from "@material-ui/core/Button";
-
 // Icons
 import logo from "../../logo/templogo.svg";
 
 // Search Bar
-import SearchBar from "./search/searchBar";
+import SearchBar from "./search-container/searchContainer";
 
 // Lists
 import TreevyList from "../listHandling/treevyList";
+
+/**
+ * NOTE!!!!
+ *
+ * DO NOT NEED LOCATION item number if assume that there can only be one root for tree.
+ *  Tree rendering would be based off one list. Suppose list name was TODO, each "root"
+ *  of that would just be a child node of TODO
+ *
+ * Potential in future for rendering all your trees in one diagram.
+ */
+const temptodo = [
+  "Frontend",
+  "Backend",
+  "My lists button",
+  "Shared lists button",
+  "Fixing the search bar grid...",
+  "Something else 1",
+  "Something else 2",
+  "Something else 3",
+  "Something else 4",
+  "Something else 5",
+  "Something else 6",
+  "Something else 7",
+  "Something else 8",
+  "Something else 9",
+  "Something else 10",
+  "Something else 11",
+];
 
 interface HomePageState {
   // Log-in
@@ -27,9 +52,8 @@ interface HomePageState {
   loggedIn: boolean; // is the user logged in
   logInLock: boolean;
 
-  // Todo-list
-  selectedList: string;
-  displayedToDoLists: string[]; // To-do lists displayed to the user according to the search
+  // Containers
+  searchContainerOn: boolean; // Should the search container be displayed?
 }
 
 export default class HomePage extends Component<any, HomePageState> {
@@ -42,39 +66,12 @@ export default class HomePage extends Component<any, HomePageState> {
     super(props);
 
     this.state = {
-      displayedToDoLists: this.props.toDoLists,
       logInModalOpen: false,
       loggedIn: false,
-      selectedList: "",
       logInLock: false,
+      searchContainerOn: true,
     };
   }
-
-  /**
-   *
-   * FUNCTIONALITY: SEARCH BAR
-   *
-   * Changes the provided search contents to represent the search.
-   * @param e current input
-   */
-  onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    // If the to-do lists prop was not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined) return;
-
-    // Finds all lists containing the searched word
-    let newDisplayedList: string[] = [];
-    this.props.toDoLists.forEach((toDo: string) => {
-      // To ensure that the search is not case sensitive, both are set to lower case.
-      if (toDo.toLowerCase().includes(e.currentTarget.value.toLowerCase())) {
-        newDisplayedList.push(toDo);
-      }
-    });
-
-    // Sets new displayed lists
-    this.setState({
-      displayedToDoLists: newDisplayedList,
-    });
-  };
 
   /**
    *
@@ -161,78 +158,6 @@ export default class HomePage extends Component<any, HomePageState> {
   };
 
   /**
-   *
-   * FUNCTIONALITY: SEARCH BAR
-   *
-   * Displays the user's to-do lists given the current search input.
-   */
-  displayToDoLists = (): JSX.Element | void => {
-    // If the to-do list is not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined) return;
-
-    return (
-      <div style={{ marginLeft: "auto", marginRight: "auto" }}>
-        {this.state.displayedToDoLists.map((list) => (
-          <div>{this.renderListOption(list)}</div>
-        ))}
-      </div>
-    );
-  };
-
-  /**
-   * RENDERING: displays a button (in the side-search-bar) which can be
-   *            pressed to select that particular list to display
-   *            (in the list-container).
-   *
-   * @param listOption a displayed selectable list option
-   */
-  renderListOption = (listOption: string): JSX.Element => {
-    return (
-      <Button
-        disableRipple
-        variant="contained"
-        style={
-          listOption === this.state.selectedList
-            ? {
-                fontSize: "2vh",
-                textTransform: "none",
-                display: "flex",
-                margin: "4%",
-                width: "20vw",
-                boxShadow: "none",
-                backgroundColor: "#608C4C",
-                borderColor: "black",
-                color: "#ffffff",
-              }
-            : {
-                fontSize: "2vh",
-
-                textTransform: "none",
-                display: "flex",
-                margin: "4%",
-                width: "20vw",
-              }
-        }
-        onClick={() => this.setState({ selectedList: listOption })}
-      >
-        {listOption}
-      </Button>
-    );
-  };
-
-  /**
-   * Renders the side bar container
-   */
-  renderSideBar = () => {
-    return (
-      <div className="sidebar-container">
-        <SearchBar handleChange={this.onSearchChange} />
-        {this.displayToDoLists()}
-      </div>
-    );
-  };
-
-  /**
    * RENDERING: provided a treevylist (or null) will render it.
    *
    * @param toDo list
@@ -248,15 +173,13 @@ export default class HomePage extends Component<any, HomePageState> {
   render() {
     return (
       <div className="grid-container">
+        <button onClick={() => this.setState({searchContainerOn: false})}>Turn Off Search Container</button>
         {this.renderTopBar()}
         <div className="content-container">
-          {this.renderSideBar()}
-          <div className="side-search-bar">
-            {/* <input type="text" id="keyboardInput" /> */}
-          </div>
+          {this.state.searchContainerOn ? <SearchBar toDoLists={temptodo} /> : null}
         </div>
         <div className="list-container">
-          {this.renderList(this.state.selectedList)}
+          {this.renderList("")} {/* FIX: render selected to-do */}
         </div>
         <div className="graph-container"></div>
       </div>

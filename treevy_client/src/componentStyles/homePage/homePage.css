@@ -67,25 +67,6 @@ Middle styling
   background-color: #ffffff;
 }
 
-/*
-Sidebar styling
-*/
-
-.sidebar-container {
-  grid-area: sidebar-container;
-  background-color: #f2f2f2;
-  display: grid;
-  grid-template-rows: 10% 90%;
-  grid-template-areas: "side-search-bar" ".";
-}
-
-.side-search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  grid-area: side-search-bar;
-}
-
 .list-container {
   grid-area: list-container;
   background-color: #ffffff;

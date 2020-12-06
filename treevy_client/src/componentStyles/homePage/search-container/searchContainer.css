@@ -1,0 +1,59 @@
+/*
+Sidebar styling
+*/
+
+.sidebar-container {
+  grid-area: sidebar-container;
+  background-color: #f2f2f2;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  grid-template-areas: "side-search-bar" ".";
+}
+
+.side-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-area: side-search-bar;
+}
+
+.search-bar {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 25px;
+  background-color: transparent;
+  height: 40px;
+  width: 300px;
+  font-size: 27px;
+  
+  border: 0;
+  border-bottom: 2px solid #608c4c;
+  transition: all 0.15s ease;
+}
+
+.search-bar:focus {
+  background-color: rgba(0, 0, 0, 0.09);
+  border-bottom: 2px solid green;
+  transition: all 0.15s ease;
+  transform-origin: left;
+  outline: none;
+}
+
+.search-bar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+  transition: all 0.5s ease;
+}
+
+/* list items */
+nav ul {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+}
