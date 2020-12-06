@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.css";
 import HomePage from "./components/homePage/homePage";
+import TestingGrounds from "./components/testing/testingGrounds";
 
 import axios from "axios";
 
@@ -23,8 +24,8 @@ class App extends Component<{}, any> {
   render() {
     return (
       <div className="maindiv">
-        {/* <TestingGrounds /> */}
-        <HomePage />
+        <TestingGrounds />
+        {/* <HomePage /> */}
         {/* <ListHandler /> */}
         {/* <SignUpPage /> */}
       </div>

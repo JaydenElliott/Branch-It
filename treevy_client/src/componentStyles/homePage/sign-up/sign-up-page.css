@@ -1,38 +1,6 @@
-.page-container {
-  /* background-color: grey; */
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  margin-left: 10vw;
-  grid-template-columns: 10% 80% 10%;
-  grid-template-rows: 10% 80% 10%;
-  gap: 0px 0px;
-  grid-template-areas:
-    ". . ."
-    ". grid-container ."
-    ". . .";
-}
-
-.grid-container {
-  background-color: white;
-  display: grid;
-
-  grid-area: grid-container;
-  grid-template-rows: 1fr;
-  grid-template-columns: 48% 50%;
-  column-gap: 2%;
-  grid-template-areas:
-    "sign-up-image"
-    "create-account";
-}
-
-.sign-up-image {
-  grid-area: "sign-up-image";
-  background-color: rgba(12, 181, 55, 0.488);
-}
-
 .create-account {
-  grid-area: "create-account";
+  height: 500px;
+  width: 500px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 15% 4% 10% 4% 10% 4% 10% 43%;

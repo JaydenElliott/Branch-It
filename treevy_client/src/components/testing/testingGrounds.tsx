@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactFlow from "react-flow-renderer";
+import SignUpPage from "../homePage/sign-up/signupPage";
 
 export default class TestingGrounds extends Component<any, any> {
   constructor(props: any) {
@@ -10,12 +11,7 @@ export default class TestingGrounds extends Component<any, any> {
   render() {
     return (
       <div>
-        {/* {elements3.map((value: any, _: any) => {
-          let id = value["id"];
-          let content = value["data"]["label"];
-          let coords = value["position"];
-          return this.testing(id, content, coords);
-        })} */}
+        <SignUpPage />
       </div>
     );
   }
