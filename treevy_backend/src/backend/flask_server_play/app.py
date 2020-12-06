@@ -2,15 +2,12 @@
 from flask import Flask, Blueprint, request, app, jsonify
 from flask_cors import CORS
 
-<<<<<<< HEAD
-=======
 from mysql_python_handler.mysql_communicator import MySQLCommunicator
 
 app = Flask(__name__)
 api = Blueprint("api",__name__)
->>>>>>> origin/34-BUILD-users-api
 CORS(app)
-# CORS(api)
+CORS(api)
 
 # Setting up MySQLCommunicator
 communicator : MySQLCommunicator = MySQLCommunicator()
@@ -55,11 +52,12 @@ def login():
     '''
     data = request.get_json()
 
-<<<<<<< HEAD
-=======
     # Check that the relevant data was provided
     if ('email' in data and 'password' in data):
         res = communicator.get_user_details_from_email(data['email'])
+
+        if (res == None):
+            return "Error: email does not exist", 404
 
         # Check if passwords match
         if (res[0][6] == data['password']):
@@ -82,7 +80,6 @@ def login():
         # Either email or password were not provided, status code: bad request (400)
         return "Error: email and password must be provided", 400
 
->>>>>>> origin/34-BUILD-users-api
 @api.route("/test_flask", methods=["GET", "POST"])
 def helloWorld():
   return "worked!"
@@ -101,10 +98,6 @@ def get_signup():
     return "Hello"
 
 app.register_blueprint(api, url_prefix="/api")
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/34-BUILD-users-api
 if __name__ == '__main__':
     # Main entry point when run in stand-alone mode.
     # app = get_flask_app()

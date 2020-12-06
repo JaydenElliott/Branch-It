@@ -1,8 +1,11 @@
 import React, { ChangeEvent, Component } from "react";
-import Button from "@material-ui/core/Button";
+
+// Backend calls
+import { loginRequest, LoginDetails } from "../../../logic/user";
 
 // Styling
 import "../../../componentStyles/homePage/log-in/loginButton.css";
+import Button from "@material-ui/core/Button";
 
 // Modal
 import Dialog from "@material-ui/core/Dialog";
@@ -55,11 +58,15 @@ export default class LoginButton extends Component<any, any> {
   handleLogInClick = async () => {
     // Set state to logging in.
     this.setState({ loggingIn: true });
+    const details : LoginDetails = {
+      email: this.state.emailString,
+      password: this.state.passwordString
+    }
 
     // Awaits a return from the login async method before taking action.
-    await this.logInCheck(this.state.emailString, this.state.passwordString)
+    await loginRequest(details)
       .then((checkStatus: any) => {
-        if (checkStatus == true) {
+        if (checkStatus === true) {
           this.props.setLoggedIn();
           this.props.modalClickClose();
         } else {
@@ -73,10 +80,8 @@ export default class LoginButton extends Component<any, any> {
       })
       .catch((err) => {
         // Some error occurs. Perhaps a connection failure.
-        console.log("Error when trying to login: " + err);
         this.setState({
-          passwordErrorMessage:
-            "Failed to connect, please check your connection and try again",
+          passwordErrorMessage: err.message
         });
       })
       .finally(() => {
