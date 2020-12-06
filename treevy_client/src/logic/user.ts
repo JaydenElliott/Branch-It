@@ -21,7 +21,12 @@ export const loginRequest = async (details: LoginDetails): Promise<boolean | nul
       }
     })
     .catch((err: any) => {
-      // Failure to connect or other error
+      // Failed to connect to the backend
+      if (!err.response) {
+        throw new Error("Failed to connect, please check your connection and try again")
+      }
+
+      // Other error
       console.log(err.response)
       switch (err.response.status) {
         case 401: throw new Error("The password provided is incorrect");                              // Incorrect password
