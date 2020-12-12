@@ -18,37 +18,11 @@ Sidebar styling
   text-align: center;
 }
 
-#toast {
-  visibility: hidden; /* Hidden by default. Visible on click */
-  min-width: 250px; /* Set a default minimum width */
-  background-color: #333; /* Black background color */
-  color: #fff; /* White text color */
-  text-align: center; /* Centered text */
-  border-radius: 2px; /* Rounded borders */
-  padding: 16px; /* Padding */
-  position: fixed; /* Sit on top of the screen */
-  z-index: 1; /* Add a z-index if needed */
-  left: 50%; /* Center the snackbar */
-  /* bottom: 30px; 30px from the bottom */
-}
-
-#toast.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
 .side-search-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: side-search-bar;
-}
-
-.add-button {
-  height: 40px;
-  width: 60px;
-  font-weight: bold;
 }
 
 .search-bar {
@@ -75,6 +49,19 @@ Sidebar styling
 .search-bar:hover {
   background-color: rgba(0, 0, 0, 0.09);
   transition: all 0.5s ease;
+}
+
+.add-button {
+  margin-left: 10px;
+  height: 40px;
+  width: 60px;
+  font-weight: bold;
+}
+
+.feedback {
+  text-align: center;
+  font-weight: bold;
+  color: red;
 }
 
 /* list items */

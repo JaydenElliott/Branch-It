@@ -17,6 +17,9 @@ interface SearchBarState {
   selectedList: ListHandler;
   toDoLists: ListHandler[];
   displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search
+  
+  // User feedback
+  feedback: string;
 }
 export default class SearchBar extends Component<any, SearchBarState> {
   constructor(props: any) {
@@ -28,6 +31,8 @@ export default class SearchBar extends Component<any, SearchBarState> {
       toDoLists: this.props.toDoLists || [],
       selectedList: props.selectedList,
       displayedToDoLists: this.props.toDoLists || [],
+      
+      feedback: ""
     };
   }
 
@@ -133,20 +138,17 @@ export default class SearchBar extends Component<any, SearchBarState> {
   };
 
   /**
-   * FUNCTIONALITY: displays a toast to the user
+   * FUNCTIONALITY: displays a feedback to the user
    * @param message string to be displayed to the user
    */
-  toast = (message: string) : void => {
-    // Attempt to obtain the toast element. If you are unable to, return.
-    const to : any | null = document.getElementById("toast");
-    if (to === null) return;
+  feedback = (message: string) : void => {
+    // Feedback message set
+    this.setState({
+      feedback: message
+    })
 
-    // Set the toast value and display it
-    to.innerHTML  = message;
-    to.className = "show";
-
-    // Displaying only for 3 seconds
-    setTimeout(function(){ to.className = to.className.replace("show", ""); }, 3000);
+    // Display the feedback for only 20 seconds
+    setTimeout(() => this.setState({feedback: ""}), 10000);
   }
 
   /**
@@ -157,12 +159,14 @@ export default class SearchBar extends Component<any, SearchBarState> {
   addList = (listName : string) : boolean => {
     // Ensure that the input string is not empty and that it is not contained already
     if (listName === "") {
-      this.toast("You must provide a to-do list name")
+      this.feedback("You must provide a to-do list name")
       return false;
     }
     for (let list of this.state.toDoLists) {
-      this.toast("That to-do list name already exists. You cannot have duplicate to-do list names")
-      if (list.state.listName === listName) return false;
+      if (list.state.listName === listName) {
+        this.feedback("That to-do list name already exists. You cannot have duplicate to-do list names")
+        return false; 
+      }
     }
 
     // Add list
@@ -174,7 +178,8 @@ export default class SearchBar extends Component<any, SearchBarState> {
     const newList = new ListHandler(state);
     this.setState({
       displayedToDoLists: [...this.state.displayedToDoLists, newList],
-      toDoLists: [...this.state.toDoLists, newList]
+      toDoLists: [...this.state.toDoLists, newList],
+      feedback: ""  // Set feedback to nothing
     })
 
     return true;
@@ -195,7 +200,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
   }
 
   /**
-   * RENDERING: renders search bar
+   * RENDERING: renders search bar, add button and feedback to the user
    */
   renderSearch = () : JSX.Element => {
     return (
@@ -217,6 +222,9 @@ export default class SearchBar extends Component<any, SearchBarState> {
           />
           {this.renderAddButton()}
         </form>
+        <div className="feedback">
+          {this.state.feedback}
+        </div>
       </div>
     );
   }
@@ -226,7 +234,6 @@ export default class SearchBar extends Component<any, SearchBarState> {
       <div className="sidebar-container">
         {this.renderSearch()}
         {this.displayToDoLists()}
-        <div id="toast">Error</div>
       </div>
     );
   }
