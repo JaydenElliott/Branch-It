@@ -1,5 +1,8 @@
 import React, { ChangeEvent, Component } from "react";
 import "../../../componentStyles/homePage/search-container/searchContainer.css";
+import ListHandler, { ListHandlerState } from "../../listHandling/listHandler";
+
+// Button
 import Button from "@material-ui/core/Button";
 
 /**
@@ -11,17 +14,20 @@ interface SearchBarState {
   iString: string; // The input String
 
   // To-do lists
-  selectedList: string;
-  displayedToDoLists: string[]; // To-do lists displayed to the user according to the search
+  selectedList: ListHandler;
+  toDoLists: ListHandler[];
+  displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search
 }
 export default class SearchBar extends Component<any, SearchBarState> {
   constructor(props: any) {
     super(props);
+
     this.state = {
       iString: props.iString || "",
 
-      selectedList: props.selectedList || "",
-      displayedToDoLists: this.props.toDoLists
+      toDoLists: this.props.toDoLists || [],
+      selectedList: props.selectedList,
+      displayedToDoLists: this.props.toDoLists || [],
     };
   }
 
@@ -34,13 +40,13 @@ export default class SearchBar extends Component<any, SearchBarState> {
    */
   onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     // If the to-do lists prop was not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined) return;
+    if (this.state.displayedToDoLists === undefined || this.state.toDoLists === undefined) return;
 
     // Finds all lists containing the searched word
-    let newDisplayedList: string[] = [];
-    this.props.toDoLists.forEach((toDo: string) => {
+    let newDisplayedList: ListHandler[] = [];
+    this.state.toDoLists.forEach((toDo: ListHandler) => {
       // To ensure that the search is not case sensitive, both are set to lower case.
-      if (toDo.toLowerCase().includes(e.currentTarget.value.toLowerCase())) {
+      if (toDo.state.listName.toLowerCase().includes(e.currentTarget.value.toLowerCase())) {
         newDisplayedList.push(toDo);
       }
     });
@@ -48,6 +54,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
     // Sets new displayed lists
     this.setState({
       displayedToDoLists: newDisplayedList,
+      iString: e.currentTarget.value
     });
   };
 
@@ -59,7 +66,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
    */
   displayToDoLists = (): JSX.Element | void => {
     // If the to-do list is not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined) return;
+    if (this.state.displayedToDoLists === undefined || this.state.toDoLists === undefined) return;
 
     return (
       <nav>
@@ -91,13 +98,13 @@ export default class SearchBar extends Component<any, SearchBarState> {
    *
    * @param listOption a displayed selectable list option
    */
-  renderListOption = (listOption: string): JSX.Element => {
+  renderListOption = (listOption: ListHandler): JSX.Element => {
     return (
       <Button
         disableRipple
         variant="contained"
         style={
-          listOption === this.state.selectedList
+          listOption === (this.state.selectedList ? this.state.selectedList : null)
             ? {
                 fontSize: "2vh",
                 textTransform: "none",
@@ -120,24 +127,96 @@ export default class SearchBar extends Component<any, SearchBarState> {
         }
         onClick={() => this.setState({ selectedList: listOption })}
       >
-        {listOption}
+        {listOption.state.listName}
       </Button>
     );
   };
+
+  /**
+   * FUNCTIONALITY: displays a toast to the user
+   * @param message string to be displayed to the user
+   */
+  toast = (message: string) : void => {
+    // Attempt to obtain the toast element. If you are unable to, return.
+    const to : any | null = document.getElementById("toast");
+    if (to === null) return;
+
+    // Set the toast value and display it
+    to.innerHTML  = message;
+    to.className = "show";
+
+    // Displaying only for 3 seconds
+    setTimeout(function(){ to.className = to.className.replace("show", ""); }, 3000);
+  }
+
+  /**
+   * FUNCTIONALITY: adds a list to the state if it does not already exist
+   * @param listName name of list
+   * @returns boolean true if successful, false otherwise
+   */
+  addList = (listName : string) : boolean => {
+    // Ensure that the input string is not empty and that it is not contained already
+    if (listName === "") {
+      this.toast("You must provide a to-do list name")
+      return false;
+    }
+    for (let list of this.state.toDoLists) {
+      this.toast("That to-do list name already exists. You cannot have duplicate to-do list names")
+      if (list.state.listName === listName) return false;
+    }
+
+    // Add list
+    const state : ListHandlerState = {
+      listName: listName,
+      items: []
+    }
+
+    const newList = new ListHandler(state);
+    this.setState({
+      displayedToDoLists: [...this.state.displayedToDoLists, newList],
+      toDoLists: [...this.state.toDoLists, newList]
+    })
+
+    return true;
+  }
+
+  /**
+   * RENDERING: renders the add button
+   */
+  renderAddButton = () : JSX.Element => {
+    return (
+      <button
+        className="add-button"
+        onClick={() => this.addList(this.state.iString)}
+      >
+        Add
+      </button>
+    );
+  }
 
   /**
    * RENDERING: renders search bar
    */
   renderSearch = () : JSX.Element => {
     return (
-      <div className="side-search-bar">
-        <input
-          id="search-bar"
-          type="input"
-          className="search-bar"
-          placeholder="Search"
-          onChange={this.onSearchChange}
-        />
+      <div 
+        className="sidebar-top-div"
+      >
+        <form
+          className="side-search-bar"
+          onSubmit={(e: any) => {
+            e.preventDefault();
+          }}
+        >
+          <input
+            id="search-bar"
+            type="input"
+            className="search-bar"
+            placeholder="Search or Add"
+            onChange={this.onSearchChange}
+          />
+          {this.renderAddButton()}
+        </form>
       </div>
     );
   }
@@ -147,6 +226,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
       <div className="sidebar-container">
         {this.renderSearch()}
         {this.displayToDoLists()}
+        <div id="toast">Error</div>
       </div>
     );
   }
