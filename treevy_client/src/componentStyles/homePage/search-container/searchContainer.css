@@ -11,6 +11,13 @@ Sidebar styling
   grid-template-areas: "side-search-bar" ".";
 }
 
+.sidebar-top-div {
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .side-search-bar {
   display: flex;
   align-items: center;
@@ -42,6 +49,19 @@ Sidebar styling
 .search-bar:hover {
   background-color: rgba(0, 0, 0, 0.09);
   transition: all 0.5s ease;
+}
+
+.add-button {
+  margin-left: 10px;
+  height: 40px;
+  width: 60px;
+  font-weight: bold;
+}
+
+.feedback {
+  text-align: center;
+  font-weight: bold;
+  color: red;
 }
 
 /* list items */

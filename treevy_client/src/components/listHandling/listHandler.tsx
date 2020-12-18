@@ -3,13 +3,18 @@ import { Component } from "react";
 import RenderList from "./renderList";
 import TreevyList, { ListState } from "./treevyList";
 
-export default class ListHandler extends Component<any, any> {
+export interface ListHandlerState {
+  listName: string,
+  items: TreevyList[]
+}
+
+export default class ListHandler extends Component<any, ListHandlerState> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      listName: "",
-      items: [],
+      listName: props.listName || "",
+      items: props.items || [],
     };
   }
 
