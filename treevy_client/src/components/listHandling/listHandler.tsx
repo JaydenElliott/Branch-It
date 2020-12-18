@@ -4,8 +4,8 @@ import RenderList from "./renderList";
 import TreevyList, { ListState } from "./treevyList";
 
 export interface ListHandlerState {
-  listName: string,
-  items: TreevyList[]
+  listName: string;
+  items: TreevyList[];
 }
 
 export default class ListHandler extends Component<any, ListHandlerState> {
@@ -36,7 +36,7 @@ export default class ListHandler extends Component<any, ListHandlerState> {
       done: false,
       content: this.state.listName,
       location: [layer, this.state.items.length + 1],
-      tempString: "",
+      coordinates: [0, 0],
     };
     let newList = new TreevyList(list);
     const updatedItems = [...this.state.items, newList];
@@ -53,9 +53,9 @@ export default class ListHandler extends Component<any, ListHandlerState> {
    */
   deleteList = (index: number) => {
     // Delete all child items and their childern recusively
-    const thisLocation = this.state.items[index].state.location; // Current list location
+    const thisLocation = this.state.items[index].location; // Current list location
     for (let i = 0; i < this.state.items.length; i++) {
-      if (this.state.items[i].state.parent?.state.location === thisLocation) {
+      if (this.state.items[i].parent?.location === thisLocation) {
         this.deleteList(i);
         i = 0; // Resets search to account for change in list
       }
@@ -65,28 +65,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     const updatedItems = this.state.items;
     updatedItems.splice(index, 1);
     this.setState({ items: updatedItems });
-  };
-
-  /**
-   * Iterates through app list and deletes all elements
-   * to the right of @param list until it reaches an
-   * element with the same layer as 'list'
-   */
-  deleteAll = (list: TreevyList) => {
-    let listLayer = list.state.location[0];
-  };
-
-  /**
-   * Gets number of layers
-   */
-  maxLayers = () => {
-    let max = 0;
-    for (let i = 0; i < this.state.items.length; i++) {
-      if (this.state.items[i].state.location[0] > max) {
-        max = this.state.items[i].state.location[0];
-      }
-    }
-    return max;
   };
 
   /**
@@ -103,7 +81,7 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     let parentIdx = null;
     let insertIdx = null;
     for (let i = 0; i < this.state.items.length; i++) {
-      if (this.state.items[i].state.location == parentLocation) {
+      if (this.state.items[i].location == parentLocation) {
         parentIdx = i;
       }
     }
@@ -113,8 +91,8 @@ export default class ListHandler extends Component<any, ListHandlerState> {
       let i = parentIdx + 1;
       while (
         i < this.state.items.length &&
-        this.state.items[i].state.location[0] ===
-          this.state.items[parentIdx].state.location[0] + 1
+        this.state.items[i].location[0] ===
+          this.state.items[parentIdx].location[0] + 1
       ) {
         i += 1;
       }
@@ -125,32 +103,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
         items: updatedItems,
       });
     }
-  };
-
-  renderList = () => {
-    return (
-      <div className="center">
-        <h2>To-Do List</h2>
-        <form onSubmit={this.submitItem}>
-          <input
-            className="new-todo"
-            type="text"
-            onChange={this.onInputChange}
-            value={this.state.listName}
-          />
-          <button id="submitBtn" type="submit" />
-        </form>
-        <div>
-          {this.state.items.map((list: any, index: number) => (
-            <RenderList
-              onClickDel={() => this.deleteList(index)}
-              parent={list}
-              submitChildList={this.submitChildList}
-            />
-          ))}
-        </div>
-      </div>
-    );
   };
 
   render() {

@@ -1,4 +1,4 @@
-const Node = require("./NodeTest");
+const Node = require("./coordGen");
 
 coord_adapter = (root_coordinate, coordinate, xscale, yscale) => {
   return [

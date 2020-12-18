@@ -15,9 +15,7 @@ const modalStyle = {
     transform: "translate(-50%, -50%)",
   },
 };
-/**
- * Class to create beatifully rendered lists
- */
+
 export default class RenderList extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -54,7 +52,7 @@ export default class RenderList extends Component<any, any> {
   };
 
   /**
-   * Generates and submits a child list to it's parent
+   * Generates and submits a child list to it's parent children list
    *
    * @param _e: used to prevent page refresh
    * @param layer: layer of the new list being inserted
@@ -72,17 +70,17 @@ export default class RenderList extends Component<any, any> {
       done: false,
       content: this.state.tempString,
       location: [
-        this.props.parent.state.location[0] + 1,
-        this.props.parent.state.lists.length + 1,
+        this.props.parent.location[0] + 1,
+        this.props.parent.lists.length + 1,
       ],
-      tempString: "",
+      coordinates: [0, 0],
       parent: this.props.parent,
     };
     let newChildList = new TreevyList(list);
     this.setState({
       tempString: "",
     });
-    this.props.submitChildList(newChildList, this.props.parent.state.location);
+    this.props.submitChildList(newChildList, this.props.parent.location);
     this.setState({
       modalShow: false,
     });
@@ -93,12 +91,11 @@ export default class RenderList extends Component<any, any> {
       <div className="listChild" id={"arranged"}>
         <div
           style={{
-            marginLeft:
-              (this.props.parent.state.location[0] * 20).toString() + "px",
+            marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
           }}
         >
           <span>&#8226;</span>
-          {this.props.parent.state.content}
+          {this.props.parent.content}
         </div>
         <div className="modal-open-close" id={"goToLeft"}>
           <button type="button" className="close" onClick={this.setModalOn}>
