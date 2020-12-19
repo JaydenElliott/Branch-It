@@ -14,13 +14,13 @@ Sidebar styling
 }
 
 .resize-panel {
-  grid-area: resize-panel;
   background-color: green;
   width: 10px;
   height: 100%;
+  z-index: 1; /* puts item in foreground */
 
   cursor: e-resize;
-  right: 0px;
+  grid-area: resize-panel;
 }
 
 .resize-panel:active {
@@ -43,12 +43,17 @@ Sidebar styling
 }
 
 .search-bar {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 25px;
   background-color: transparent;
   height: 40px;
   width: 80%;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: 25px;
   font-size: 27px;
+  
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   
   border: 0;
   border-bottom: 2px solid #608c4c;
@@ -72,7 +77,11 @@ Sidebar styling
   display: inline-block;
   margin-left: 10px;
   height: 40px;
-  width: fit-content;
+  width: 60px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-weight: bold;
   text-align: center;
 }

@@ -194,14 +194,18 @@ export default class SearchBar extends Component<any, SearchBarState> {
   /**
    * RENDERING: renders the add button
    */
-  renderAddButton = () : JSX.Element => {
+  renderAddButton = () : JSX.Element | null => {
     return (
-      <button
-        className="add-button"
-        onClick={() => this.addList(this.state.iString)}
-      >
-        Add
-      </button>
+      // Only render the button if the width is big enough to fit it.
+      this.state.width === -1 || this.state.width > 10 ?
+        <button
+          className="add-button"
+          onClick={() => this.addList(this.state.iString)}
+        >
+          Add
+        </button>
+      :
+        null
     );
   }
 
@@ -245,6 +249,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
           <Draggable
             axis='x'
             onDrag={(data: any) => (this.setState({width: data.clientX}))}
+            scale={0}
           >
             <div className="resize-panel" />
           </Draggable>
@@ -258,6 +263,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
           <Draggable
             axis='x'
             onDrag={(data: any) => (this.setState({width: data.clientX}))}
+            scale={0}
           >
             <div className="resize-panel" />
           </Draggable>
