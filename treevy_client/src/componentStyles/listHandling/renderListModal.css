@@ -1,0 +1,7 @@
+.modalStyle {
+  margin-top: 50%;
+  margin-left: 50%;
+  margin-right: -50%;
+  margin-bottom: auto;
+  transform: translate(-50%, -50%);
+}

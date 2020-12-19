@@ -1,10 +1,9 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "../../componentStyles/listHandling/renderList.css";
+import "../../componentStyles/listHandling/renderListModal.css";
 import Modal from "react-modal";
 import TreevyList, { ListState } from "./treevyList";
-
-// Temporary - make an actual style later
 const modalStyle = {
   content: {
     top: "50%",
@@ -15,7 +14,6 @@ const modalStyle = {
     transform: "translate(-50%, -50%)",
   },
 };
-
 export default class RenderList extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -51,36 +49,20 @@ export default class RenderList extends Component<any, any> {
     });
   };
 
-  /**
-   * Generates and submits a child list to it's parent children list
-   *
-   * @param _e: used to prevent page refresh
-   * @param layer: layer of the new list being inserted
-   *
-   * @returns: void => sends new list to submitChildList() method
-   * to be rendered
-   */
-  genChildList = (_e: any, layer = 1): void => {
+  newChildList = (_e: any) => {
     _e.preventDefault();
-    if (this.state.tempString == "") {
-      return;
-    }
-    const list: ListState = {
+    const childListSpecs: ListState = {
       lists: [],
       done: false,
       content: this.state.tempString,
-      location: [
-        this.props.parent.location[0] + 1,
-        this.props.parent.lists.length + 1,
-      ],
-      coordinates: [0, 0],
-      parent: this.props.parent,
+      layer: this.props.list.layer + 1,
+      ID: this.props.idCounter + 1,
+      width: this.props.width,
+      parent: this.props.list,
     };
-    let newChildList = new TreevyList(list);
-    this.setState({
-      tempString: "",
-    });
-    this.props.submitChildList(newChildList, this.props.parent.location);
+    let newChildList = new TreevyList(childListSpecs);
+    this.props.incrementCounter();
+    this.props.list.appendChildList(newChildList);
     this.setState({
       modalShow: false,
     });
@@ -88,44 +70,65 @@ export default class RenderList extends Component<any, any> {
 
   render() {
     return (
-      <div className="listChild" id={"arranged"}>
+      <div className="ListContainer">
         <div
+          className="content"
           style={{
-            marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
+            marginLeft: (this.props.list.layer * 20).toString() + "px",
           }}
         >
           <span>&#8226;</span>
-          {this.props.parent.content}
+          {this.props.list.content}
         </div>
-        <div className="modal-open-close" id={"goToLeft"}>
-          <button type="button" className="close" onClick={this.setModalOn}>
-            +
-          </button>
-          <div className="modal">
-            <Modal isOpen={this.state.modalShow} style={modalStyle}>
-              Add nested item
-              <form onSubmit={this.genChildList}>
-                <input
-                  className="new-todo"
-                  type="text"
-                  onChange={this.onInputChange}
-                  value={this.state.tempString}
-                />
-                <button id="submitBtn" type="submit"></button>
-              </form>
-              <button onClick={this.setModalOff}>Cancel</button>
-            </Modal>
-          </div>
+        <div className="gap" />
+        <button className="add" type="button" onClick={this.setModalOn}>
+          +
+        </button>
+
+        <div className="modal">
+          <Modal isOpen={this.state.modalShow} style={modalStyle}>
+            Add nested item
+            <form onSubmit={this.newChildList}>
+              <input
+                className="new-todo"
+                type="text"
+                onChange={this.onInputChange}
+                value={this.state.tempString}
+              />
+              <button id="submitBtn" type="submit"></button>
+            </form>
+            <button onClick={this.setModalOff}>Cancel</button>
+          </Modal>
         </div>
-        <div className="RemoveButton" id={"goToLeft"}>
-          <button
-            type="button"
-            className="close"
-            onClick={this.props.onClickDel}
-          >
-            -
-          </button>
-        </div>
+
+        <button
+          type="button"
+          className="remove"
+          // onClick={this.props.onClickDel}
+        >
+          -
+        </button>
+
+        {this.props.list.lists.map((childList: any) => {
+          return (
+            <RenderList
+              list={childList}
+              idCounter={this.state.idCounter}
+              incrementCounter={this.props.incrementCounter}
+              width={this.props.width}
+            />
+          );
+        })}
+        {/* <div className="Childlists">
+          {this.props.parentList.lists.map((list: any, index: number) => (
+            <RenderList
+              onClickDel={() => this.props.parentList.deleteList(index)}
+              parentList={list}
+              idCounter={this.state.idCounter}
+              width={this.props.width}
+            />
+          ))}
+        </div> */}
       </div>
     );
   }
