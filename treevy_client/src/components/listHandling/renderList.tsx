@@ -51,6 +51,9 @@ export default class RenderList extends Component<any, any> {
 
   newChildList = (_e: any) => {
     _e.preventDefault();
+    if (this.state.tempString == "") {
+      return;
+    }
     const childListSpecs: ListState = {
       lists: [],
       done: false,
@@ -86,7 +89,7 @@ export default class RenderList extends Component<any, any> {
         </button>
 
         <div className="modal">
-          <Modal isOpen={this.state.modalShow} style={modalStyle}>
+          <Modal isOpen={this.state.modalShow} className="modalStyle">
             Add nested item
             <form onSubmit={this.newChildList}>
               <input
@@ -95,7 +98,11 @@ export default class RenderList extends Component<any, any> {
                 onChange={this.onInputChange}
                 value={this.state.tempString}
               />
-              <button id="submitBtn" type="submit"></button>
+              <button
+                style={{ display: "none" }}
+                id="submitBtn"
+                type="submit"
+              ></button>
             </form>
             <button onClick={this.setModalOff}>Cancel</button>
           </Modal>
@@ -104,6 +111,7 @@ export default class RenderList extends Component<any, any> {
         <button
           type="button"
           className="remove"
+
           // onClick={this.props.onClickDel}
         >
           -
@@ -119,16 +127,6 @@ export default class RenderList extends Component<any, any> {
             />
           );
         })}
-        {/* <div className="Childlists">
-          {this.props.parentList.lists.map((list: any, index: number) => (
-            <RenderList
-              onClickDel={() => this.props.parentList.deleteList(index)}
-              parentList={list}
-              idCounter={this.state.idCounter}
-              width={this.props.width}
-            />
-          ))}
-        </div> */}
       </div>
     );
   }

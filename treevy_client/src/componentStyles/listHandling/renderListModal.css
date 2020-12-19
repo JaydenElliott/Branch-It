@@ -1,7 +1,8 @@
 .modalStyle {
-  margin-top: 50%;
-  margin-left: 50%;
-  margin-right: -50%;
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 800px;
   margin-bottom: auto;
-  transform: translate(-50%, -50%);
+  outline: none;
+  border: black solid 1px;
 }
