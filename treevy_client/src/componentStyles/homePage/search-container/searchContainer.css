@@ -5,10 +5,18 @@ Sidebar styling
 .sidebar-container {
   grid-area: sidebar-container;
   background-color: #f2f2f2;
-  height: 100vh;
+  height: auto;
   display: grid;
   grid-template-rows: 10% 90%;
   grid-template-areas: "side-search-bar" ".";
+}
+
+.resize-pannel {
+  background-color: black;
+  width: 10px;
+  height: 100vh;
+
+  cursor: e-resize;
 }
 
 .sidebar-top-div {
@@ -30,7 +38,7 @@ Sidebar styling
   font-size: 25px;
   background-color: transparent;
   height: 40px;
-  width: 300px;
+  width: 80%;
   font-size: 27px;
   
   border: 0;
@@ -52,10 +60,12 @@ Sidebar styling
 }
 
 .add-button {
+  display: inline-block;
   margin-left: 10px;
   height: 40px;
-  width: 60px;
+  width: fit-content;
   font-weight: bold;
+  text-align: center;
 }
 
 .feedback {
