@@ -5,12 +5,14 @@ Sidebar styling
 .sidebar-container {
   grid-area: sidebar-container;
   background-color: #f2f2f2;
-  height: auto;
+  height: 100vh;
   display: grid;
   grid-template-columns: 100% 0%;
   grid-template-rows: 10% 90%;
   grid-template-areas: "side-search-bar resize-panel"
                        ". resize-panel";
+  
+  row-gap: 0;
 }
 
 .resize-panel {
