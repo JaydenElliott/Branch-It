@@ -1,0 +1,11 @@
+.ListContainer {
+  display: flex;
+  /* background: #ede7f6; */
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  width: 1500px;
+  height: 500px;
+  padding-top: 10px;
+  /* border-bottom: 1px solid black; */
+}
