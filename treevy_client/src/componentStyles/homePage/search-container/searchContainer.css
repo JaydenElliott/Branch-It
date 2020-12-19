@@ -7,16 +7,25 @@ Sidebar styling
   background-color: #f2f2f2;
   height: auto;
   display: grid;
+  grid-template-columns: 100% 0%;
   grid-template-rows: 10% 90%;
-  grid-template-areas: "side-search-bar" ".";
+  grid-template-areas: "side-search-bar resize-panel"
+                       ". resize-panel";
 }
 
-.resize-pannel {
-  background-color: black;
+.resize-panel {
+  grid-area: resize-panel;
+  background-color: green;
   width: 10px;
-  height: 100vh;
+  height: 100%;
 
   cursor: e-resize;
+  right: 0px;
+}
+
+.resize-panel:active {
+  background-color: darkgreen;
+  box-shadow: 0px 0px 21px 4px rgba(207, 207, 207, 1);
 }
 
 .sidebar-top-div {

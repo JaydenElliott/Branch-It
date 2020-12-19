@@ -246,7 +246,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
             axis='x'
             onDrag={(data: any) => (this.setState({width: data.clientX}))}
           >
-            <div className="resize-pannel" />
+            <div className="resize-panel" />
           </Draggable>
         </div>
       );
@@ -259,7 +259,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
             axis='x'
             onDrag={(data: any) => (this.setState({width: data.clientX}))}
           >
-            <div className="resize-pannel" />
+            <div className="resize-panel" />
           </Draggable>
         </div>
       );
