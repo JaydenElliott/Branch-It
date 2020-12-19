@@ -1,6 +1,7 @@
 // Project Imports
 import React, { ChangeEvent, Component } from "react";
 import "../../componentStyles/homePage/homePage.css";
+import Listhandler from "../listHandling/listHandler";
 
 // Button Components
 import LoginButton from "./log-in/loginButton";
@@ -17,34 +18,6 @@ import SearchBar from "./search-container/searchContainer";
 
 // Lists
 import TreevyList from "../listHandling/treevyList";
-
-/**
- * NOTE!!!!
- *
- * DO NOT NEED LOCATION item number if assume that there can only be one root for tree.
- *  Tree rendering would be based off one list. Suppose list name was TODO, each "root"
- *  of that would just be a child node of TODO
- *
- * Potential in future for rendering all your trees in one diagram.
- */
-const temptodo = [
-  "Frontend",
-  "Backend",
-  "My lists button",
-  "Shared lists button",
-  "Fixing the search bar grid...",
-  "Something else 1",
-  "Something else 2",
-  "Something else 3",
-  "Something else 4",
-  "Something else 5",
-  "Something else 6",
-  "Something else 7",
-  "Something else 8",
-  "Something else 9",
-  "Something else 10",
-  "Something else 11",
-];
 
 interface HomePageState {
   // Log-in
@@ -176,7 +149,7 @@ export default class HomePage extends Component<any, HomePageState> {
         <button onClick={() => this.setState({searchContainerOn: false})}>Turn Off Search Container</button>
         {this.renderTopBar()}
         <div className="content-container">
-          {this.state.searchContainerOn ? <SearchBar toDoLists={temptodo} /> : null}
+          {this.state.searchContainerOn ? <SearchBar /> : null}
         </div>
         <div className="list-container">
           {this.renderList("")} {/* FIX: render selected to-do */}
