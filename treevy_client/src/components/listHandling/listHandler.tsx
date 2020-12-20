@@ -74,8 +74,8 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     let updatedItems = [...this.state.items, newList];
 
     await this._setItemStateAsync(updatedItems);
-
     this.calculateCoordinates();
+    await this._setItemStateAsync(updatedItems);
   };
 
   /**
@@ -146,6 +146,7 @@ export default class ListHandler extends Component<any, ListHandlerState> {
       updatedItems.splice(insertIdx, 0, childList);
       await this._setItemStateAsync(updatedItems);
       this.calculateCoordinates();
+      await this._setItemStateAsync(updatedItems);
     }
   };
 
@@ -203,7 +204,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
               onChange={this.onInputChange}
               value={this.state.listName}
             />
-            <button id="submitBtn" type="submit" />
           </form>
           <div>
             {this.state.items.map((list: any, index: number) => (
