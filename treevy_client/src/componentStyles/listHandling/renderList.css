@@ -1,26 +1,32 @@
-#arranged {
+.lists-container {
   display: grid;
-  grid-template-columns: 20% 1% 78%;
-  grid-template-rows: 100%;
-  gap: 0px 0px 0px;
-  grid-template-areas: . . .;
+  grid-template-columns: 100px 100px 50px 50px;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "content-container gap add-container delete-container";
 }
 
-#goToLeft {
+.content-container {
+  grid-area: content-container;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
+.gap {
+  grid-area: gap;
+}
 
+.add-container {
+  grid-area: add-container;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
-/* .modalStyle {
-  content: {
-    top: 50%,
-    left: 50%,
-    right: auto,
-    bottom: auto,
-    marginRight: -50%,
-    transform: translate(-50%, -50%),
-  },
-}; */
+.delete-container {
+  grid-area: delete-container;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}

@@ -95,37 +95,38 @@ export default class RenderList extends Component<any, any> {
   renderLists = () => {
     if (this.props.parent.content != "") {
       return (
-        <div>
-          <div
-            style={{
-              marginLeft:
-                (this.props.parent.location[0] * 20).toString() + "px",
-            }}
-          >
+        <div
+          className="lists-container"
+          style={{
+            marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
+          }}
+        >
+          <div className="content-container">
             <span>&#8226;</span>
             {this.props.parent.content}
           </div>
-          <div className="modal-open-close" id={"goToLeft"}>
+          <div className="gap" />
+          <div className="add-container">
             <button type="button" className="close" onClick={this.setModalOn}>
               +
             </button>
-            <div className="modal">
-              <Modal isOpen={this.state.modalShow} style={modalStyle}>
-                Add nested item
-                <form onSubmit={this.genChildList}>
-                  <input
-                    className="new-todo"
-                    type="text"
-                    onChange={this.onInputChange}
-                    value={this.state.tempString}
-                  />
-                  <button id="submitBtn" type="submit"></button>
-                </form>
-                <button onClick={this.setModalOff}>Cancel</button>
-              </Modal>
-            </div>
           </div>
-          <div className="RemoveButton" id={"goToLeft"}>
+          <div className="modal">
+            <Modal isOpen={this.state.modalShow} style={modalStyle}>
+              Add nested item
+              <form onSubmit={this.genChildList}>
+                <input
+                  className="new-todo"
+                  type="text"
+                  onChange={this.onInputChange}
+                  value={this.state.tempString}
+                />
+                <button id="submitBtn" type="submit"></button>
+              </form>
+              <button onClick={this.setModalOff}>Cancel</button>
+            </Modal>
+          </div>
+          <div className="delete-container" id={"goToLeft"}>
             <button
               type="button"
               className="close"

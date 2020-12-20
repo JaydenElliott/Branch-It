@@ -12,7 +12,7 @@ import "../../componentStyles/listHandling/listHandler.css";
 var WIDTH = 2;
 var root_coordinate = [400, 50];
 var xscale = 40;
-var yscale = 100;
+var yscale = 60;
 
 /**
  * An invisible node is required for the graph generation
@@ -177,19 +177,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
   };
 
   getFlowJson = () => {
-    // let rootNode = this.state.items[0];
-    // let rootElemDetails = {
-    //   id: rootNode.location.toString(),
-    //   data: { label: rootNode.content },
-    //   position: { x: rootNode.coordinates[0], y: rootNode.coordinates[1] },
-    //   style: {
-    //     backgroundColor: "white",
-    //     // border: "0px",
-    //     cursor: "unset",
-    //     hover: "white",
-    //   },
-    // };
-    // let newGraphElements: any = [rootElemDetails];
     let newGraphElements: any = [];
     if (this.state.items.length > 0) {
       for (let i = 1; i < this.state.items.length; i++) {

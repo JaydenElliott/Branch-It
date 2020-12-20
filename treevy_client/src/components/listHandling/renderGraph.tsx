@@ -17,8 +17,20 @@ export default class RenderGraph extends Component<any, any> {
     super(props);
   }
 
-  testing = () => {
-    return console.log(this.props.graphElem);
+  getFlowJson = () => {
+    let newGraphElements: any = [];
+    if (this.props.items.length > 0) {
+      for (let i = 1; i < this.props.items.length; i++) {
+        let item = this.props.items[i];
+        let newElement = {
+          id: item.location.toString(),
+          data: { label: item.content },
+          position: { x: item.coordinates[0], y: item.coordinates[1] },
+        };
+        newGraphElements.push(newElement);
+      }
+    }
+    return newGraphElements;
   };
 
   render() {
