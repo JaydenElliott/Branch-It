@@ -25,7 +25,7 @@ export default class ListHandler extends Component<any, any> {
     super(props);
 
     this.state = {
-      listName: "",
+      listName: this.props.listName || "",
       idCounter: 0,
       rootNode: rootList,
     };

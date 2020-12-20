@@ -27,8 +27,8 @@ class App extends Component<{}, any> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        {/* <HomePage /> */}
-        <ListHandler />
+        <HomePage />
+        {/* <ListHandler /> */}
       </div>
     );
   }

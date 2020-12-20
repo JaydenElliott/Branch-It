@@ -16,6 +16,7 @@ interface SearchBarState {
 
   // To-do lists
   selectedList: ListHandler;
+  selectedListHandler: (list: ListHandler) => void; // Details
   toDoLists: ListHandler[];
   displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search
 
@@ -34,6 +35,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
 
       toDoLists: this.props.toDoLists || [],
       selectedList: props.selectedList,
+      selectedListHandler: props.selectedListHandler,
       displayedToDoLists: this.props.toDoLists || [],
 
       
@@ -260,7 +262,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
     // Render at the resized width or the given
     if (this.state.width === -1) {
       return (
-        <div className="sidebar-container">
+        <div id="sidebar-container" className="sidebar-container">
           {this.renderSearch()}
           {this.displayToDoLists()}
           <Draggable
@@ -274,7 +276,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
       );
     } else {
       return (
-        <div className="sidebar-container" style={{width: this.state.width}}>
+        <div id="sidebar-container" className="sidebar-container" style={{width: this.state.width}}>
           {this.renderSearch()}
           {this.displayToDoLists()}
           <Draggable

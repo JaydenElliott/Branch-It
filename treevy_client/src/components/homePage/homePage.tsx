@@ -16,6 +16,9 @@ import logo from "../../logo/templogo.svg";
 // Search Bar
 import SearchBar from "./search-container/searchContainer";
 
+// List container
+import ListContainer from "./list-container/listContainer";
+
 // Lists
 import TreevyList from "../listHandling/treevyList";
 
@@ -149,10 +152,8 @@ export default class HomePage extends Component<any, HomePageState> {
         <button onClick={() => this.setState({searchContainerOn: false})}>Turn Off Search Container</button>
         {this.renderTopBar()}
         <div className="content-container">
-          {this.state.searchContainerOn ? <SearchBar /> : null}
-        </div>
-        <div className="list-container">
-          {this.renderList("")} {/* FIX: render selected to-do */}
+          {this.state.searchContainerOn ? <SearchBar selectedListHandler={undefined}/> : null}
+          <ListContainer />
         </div>
         <div className="graph-container" onClick={() => alert('hello')}></div>
       </div>

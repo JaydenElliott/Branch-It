@@ -67,12 +67,6 @@ Middle styling
   background-color: #ffffff;
 }
 
-.list-container {
-  grid-area: list-container;
-  background-color: #ffffff;
-  border-left: #ededed solid 1px;
-}
-
 .graph-container {
   grid-area: graph-container;
   background-color: #ffffff;
