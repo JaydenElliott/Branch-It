@@ -2,8 +2,13 @@ import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import RenderList from "./renderList";
 import TreevyList, { ListState } from "./treevyList";
+import "../../componentStyles/listHandling/listHandler.css";
+import SelectInput from "@material-ui/core/Select/SelectInput";
 
 var WIDTH = 2;
+var root_coordinate = [1000, 100];
+var xscale = 20;
+var yscale = 50;
 
 /**
  * An invisible node is required for the graph generation
@@ -15,8 +20,9 @@ const invisibleRootNodeAttributes: ListState = {
   done: false,
   content: "",
   location: [0, 0],
-  coordinates: [0, 0],
+  coordinates: root_coordinate,
   width: WIDTH,
+  parent: undefined,
 };
 
 var rootNode = new TreevyList(invisibleRootNodeAttributes);
@@ -44,25 +50,40 @@ export default class ListHandler extends Component<any, ListHandlerState> {
   };
 
   // Keyboard Input Utility for submitting "root" lists
-  submitItem = (_e: any, layer = 0): void => {
+  submitItem = async (_e: any, layer = 0) => {
     _e.preventDefault();
     if (this.state.listName == "") {
       return;
     }
+
     const list: ListState = {
       lists: [],
       done: false,
       content: this.state.listName,
       location: [layer, this.state.items.length + 1],
-      coordinates: [0, 0],
+      coordinates: [-1, -1],
       width: WIDTH,
       parent: this.state.items[0],
     };
     let newList = new TreevyList(list);
-    const updatedItems = [...this.state.items, newList];
-    this.setState({
-      items: updatedItems,
-      listName: "",
+    newList.parent.lists.push(newList);
+    let updatedItems = [...this.state.items, newList];
+
+    await this._setItemStateAsync(updatedItems);
+
+    this.calculateCoordinates();
+  };
+
+  /**
+   * To prevent asynchronous setState
+   */
+  _setItemStateAsync = (updatedItems: any) => {
+    return new Promise((resolve) => {
+      this.setState({
+        items: updatedItems,
+        listName: "",
+      });
+      this.setState(resolve);
     });
   };
 
@@ -94,10 +115,10 @@ export default class ListHandler extends Component<any, ListHandlerState> {
    * @param childList
    * @param parentLocation
    */
-  submitChildList = (
+  submitChildList = async (
     childList: TreevyList,
     parentLocation: Array<number>
-  ): void => {
+  ) => {
     let parentIdx = null;
     let insertIdx = null;
     for (let i = 0; i < this.state.items.length; i++) {
@@ -119,15 +140,41 @@ export default class ListHandler extends Component<any, ListHandlerState> {
       insertIdx = i;
       let updatedItems = this.state.items.slice();
       updatedItems.splice(insertIdx, 0, childList);
-      this.setState({
-        items: updatedItems,
-      });
+      await this._setItemStateAsync(updatedItems);
+      this.calculateCoordinates();
     }
+  };
+
+  calculateCoordinates = () => {
+    for (let i = 0; i < this.state.items.length; i++) {
+      if (i == 0) {
+        continue;
+      }
+      let newCoords = this.coord_adapter(
+        root_coordinate,
+        this.state.items[i].compute_coordinate(),
+        xscale,
+        yscale
+      );
+      this.state.items[i].coordinates = newCoords;
+    }
+  };
+
+  coord_adapter = (
+    root_coordinate: any,
+    coordinate: any,
+    xscale: number,
+    yscale: number
+  ) => {
+    return [
+      root_coordinate[0] + coordinate[0] * xscale,
+      root_coordinate[1] + coordinate[1] * yscale,
+    ];
   };
 
   render() {
     return (
-      <div className="maindiv" style={{ width: "100%", height: "100%" }}>
+      <div className="testingDiv">
         <div className="center">
           <form onSubmit={this.submitItem}>
             <input

@@ -11,7 +11,7 @@ export interface ListState {
   done: boolean;
   content: string;
   location: [number, number]; // [layer, item # in layer]
-  coordinates: [number, number];
+  coordinates: any;
   parent?: TreevyList;
   width: number;
 }

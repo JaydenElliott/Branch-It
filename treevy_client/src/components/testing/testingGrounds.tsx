@@ -38,10 +38,11 @@ let arblist2 = [
   [4, 2, 1, "child3"],
   [5, 2, 1, "child4"],
 ];
+
 export default class TestingGrounds extends Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = { count: 0 };
   }
 
   elementGen = () => {
@@ -107,23 +108,34 @@ export default class TestingGrounds extends Component<any, any> {
     );
   };
 
+  setCount = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+    console.log(this.state.count);
+  };
+
   render() {
     let elements3 = this.elementGen();
     return (
-      <div style={{ width: "100vw", height: "100vh" }}>
-        {/* {elements3.map((value: any, _: any) => {
-          let id = value["id"];
-          let content = value["data"]["label"];
-          let coords = value["position"];
-          return this.testing(id, content, coords);
-        })} */}
+      // <div style={{ width: "100vw", height: "100vh" }}>
+      //   {/* {elements3.map((value: any, _: any) => {
+      //     let id = value["id"];
+      //     let content = value["data"]["label"];
+      //     let coords = value["position"];
+      //     return this.testing(id, content, coords);
+      //   })} */}
 
-        <ReactFlow
-          elements={elements2}
-          style={graphStyles}
-          nodesDraggable={true}
-          nodesConnectable={false}
-        />
+      //   <ReactFlow
+      //     elements={elements2}
+      //     style={graphStyles}
+      //     nodesDraggable={true}
+      //     nodesConnectable={false}
+      //   />
+      // </div>
+
+      <div>
+        <button onClick={this.setCount}>test</button>
       </div>
     );
   }

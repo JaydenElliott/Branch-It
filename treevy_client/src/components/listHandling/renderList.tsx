@@ -78,6 +78,7 @@ export default class RenderList extends Component<any, any> {
       width: this.props.width,
     };
     let newChildList = new TreevyList(list);
+    this.props.parent.lists.push(newChildList);
     this.setState({
       tempString: "",
     });
