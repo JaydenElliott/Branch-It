@@ -27,6 +27,7 @@
     "fontsource-roboto": "^3.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-draggable": "^4.4.3",
     "react-facebook-login": "^4.1.1",
     "react-flow-renderer": "^8.1.2",
     "react-google-login": "^5.1.25",

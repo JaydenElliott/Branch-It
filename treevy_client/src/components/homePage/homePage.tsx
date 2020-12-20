@@ -154,7 +154,7 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="list-container">
           {this.renderList("")} {/* FIX: render selected to-do */}
         </div>
-        <div className="graph-container"></div>
+        <div className="graph-container" onClick={() => alert('hello')}></div>
       </div>
     );
   }
