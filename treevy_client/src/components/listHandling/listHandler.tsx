@@ -3,6 +3,24 @@ import { Component } from "react";
 import RenderList from "./renderList";
 import TreevyList, { ListState } from "./treevyList";
 
+var WIDTH = 2;
+
+/**
+ * An invisible node is required for the graph generation
+ * All the actual "root" lists need a parent to align themselves with
+ *
+ */
+const invisibleRootNodeAttributes: ListState = {
+  lists: [],
+  done: false,
+  content: "",
+  location: [0, 0],
+  coordinates: [0, 0],
+  width: WIDTH,
+};
+
+var rootNode = new TreevyList(invisibleRootNodeAttributes);
+
 export interface ListHandlerState {
   listName: string;
   items: TreevyList[];
@@ -14,7 +32,7 @@ export default class ListHandler extends Component<any, ListHandlerState> {
 
     this.state = {
       listName: props.listName || "",
-      items: props.items || [],
+      items: [rootNode],
     };
   }
 
@@ -25,7 +43,7 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     });
   };
 
-  // Keyboard Input Utility
+  // Keyboard Input Utility for submitting "root" lists
   submitItem = (_e: any, layer = 0): void => {
     _e.preventDefault();
     if (this.state.listName == "") {
@@ -37,6 +55,8 @@ export default class ListHandler extends Component<any, ListHandlerState> {
       content: this.state.listName,
       location: [layer, this.state.items.length + 1],
       coordinates: [0, 0],
+      width: WIDTH,
+      parent: this.state.items[0],
     };
     let newList = new TreevyList(list);
     const updatedItems = [...this.state.items, newList];
@@ -124,6 +144,7 @@ export default class ListHandler extends Component<any, ListHandlerState> {
                 onClickDel={() => this.deleteList(index)}
                 parent={list}
                 submitChildList={this.submitChildList}
+                width={WIDTH}
               />
             ))}
           </div>

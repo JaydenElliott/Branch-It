@@ -75,6 +75,7 @@ export default class RenderList extends Component<any, any> {
       ],
       coordinates: [0, 0],
       parent: this.props.parent,
+      width: this.props.width,
     };
     let newChildList = new TreevyList(list);
     this.setState({
@@ -86,47 +87,58 @@ export default class RenderList extends Component<any, any> {
     });
   };
 
-  render() {
-    return (
-      <div className="listChild" id={"arranged"}>
-        <div
-          style={{
-            marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
-          }}
-        >
-          <span>&#8226;</span>
-          {this.props.parent.content}
-        </div>
-        <div className="modal-open-close" id={"goToLeft"}>
-          <button type="button" className="close" onClick={this.setModalOn}>
-            +
-          </button>
-          <div className="modal">
-            <Modal isOpen={this.state.modalShow} style={modalStyle}>
-              Add nested item
-              <form onSubmit={this.genChildList}>
-                <input
-                  className="new-todo"
-                  type="text"
-                  onChange={this.onInputChange}
-                  value={this.state.tempString}
-                />
-                <button id="submitBtn" type="submit"></button>
-              </form>
-              <button onClick={this.setModalOff}>Cancel</button>
-            </Modal>
+  /**
+   * Requires an external function as a conditional is required
+   * to avoid rendering the "invisible root node"
+   */
+  renderLists = () => {
+    if (this.props.parent.content != "") {
+      return (
+        <div className="listChild" id={"arranged"}>
+          <div
+            style={{
+              marginLeft:
+                (this.props.parent.location[0] * 20).toString() + "px",
+            }}
+          >
+            <span>&#8226;</span>
+            {this.props.parent.content}
+          </div>
+          <div className="modal-open-close" id={"goToLeft"}>
+            <button type="button" className="close" onClick={this.setModalOn}>
+              +
+            </button>
+            <div className="modal">
+              <Modal isOpen={this.state.modalShow} style={modalStyle}>
+                Add nested item
+                <form onSubmit={this.genChildList}>
+                  <input
+                    className="new-todo"
+                    type="text"
+                    onChange={this.onInputChange}
+                    value={this.state.tempString}
+                  />
+                  <button id="submitBtn" type="submit"></button>
+                </form>
+                <button onClick={this.setModalOff}>Cancel</button>
+              </Modal>
+            </div>
+          </div>
+          <div className="RemoveButton" id={"goToLeft"}>
+            <button
+              type="button"
+              className="close"
+              onClick={this.props.onClickDel}
+            >
+              -
+            </button>
           </div>
         </div>
-        <div className="RemoveButton" id={"goToLeft"}>
-          <button
-            type="button"
-            className="close"
-            onClick={this.props.onClickDel}
-          >
-            -
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
+  };
+
+  render() {
+    return <div>{this.renderLists()}</div>;
   }
 }

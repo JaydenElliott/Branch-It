@@ -12,8 +12,8 @@ export interface ListState {
   content: string;
   location: [number, number]; // [layer, item # in layer]
   coordinates: [number, number];
-  parent?: any;
-  width: any;
+  parent?: TreevyList;
+  width: number;
 }
 class TreevyList {
   constructor(listDetails: ListState) {
@@ -31,7 +31,7 @@ class TreevyList {
   content: string;
   location: any;
   coordinates: any;
-  parent: TreevyList;
+  parent: any;
   tempString: string;
   width: number;
 
@@ -45,7 +45,7 @@ class TreevyList {
     }
     this.lists.splice(index, 0, new_node);
     new_node.parent = this;
-    new_node.level = this.location[0] + 1;
+    new_node.location[0] = this.location[0] + 1;
   }
 
   is_leaf() {
@@ -76,7 +76,7 @@ class TreevyList {
     let x_axis;
 
     for (let i = 0; i < this.parent.lists.length; i++) {
-      if (this.parent.lists[i].ID == this.ID) {
+      if (this.parent.lists[i].location == this.location) {
         located_at = i;
         break;
       }
