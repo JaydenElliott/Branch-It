@@ -1,0 +1,8 @@
+.modalStyle {
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 800px;
+  margin-bottom: auto;
+  outline: none;
+  border: black solid 1px;
+}

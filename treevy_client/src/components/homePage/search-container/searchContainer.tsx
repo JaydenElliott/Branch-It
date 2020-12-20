@@ -18,7 +18,7 @@ interface SearchBarState {
   selectedList: ListHandler;
   toDoLists: ListHandler[];
   displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search
-  
+
   // User feedback
   feedback: string;
 
@@ -35,10 +35,12 @@ export default class SearchBar extends Component<any, SearchBarState> {
       toDoLists: this.props.toDoLists || [],
       selectedList: props.selectedList,
       displayedToDoLists: this.props.toDoLists || [],
+
       
       feedback: "",
 
       width: -1
+
     };
   }
 
@@ -51,13 +53,21 @@ export default class SearchBar extends Component<any, SearchBarState> {
    */
   onSearchChange = (e: ChangeEvent<HTMLInputElement>): void => {
     // If the to-do lists prop was not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined || this.state.toDoLists === undefined) return;
+    if (
+      this.state.displayedToDoLists === undefined ||
+      this.state.toDoLists === undefined
+    )
+      return;
 
     // Finds all lists containing the searched word
     let newDisplayedList: ListHandler[] = [];
     this.state.toDoLists.forEach((toDo: ListHandler) => {
       // To ensure that the search is not case sensitive, both are set to lower case.
-      if (toDo.state.listName.toLowerCase().includes(e.currentTarget.value.toLowerCase())) {
+      if (
+        toDo.state.listName
+          .toLowerCase()
+          .includes(e.currentTarget.value.toLowerCase())
+      ) {
         newDisplayedList.push(toDo);
       }
     });
@@ -65,7 +75,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
     // Sets new displayed lists
     this.setState({
       displayedToDoLists: newDisplayedList,
-      iString: e.currentTarget.value
+      iString: e.currentTarget.value,
     });
   };
 
@@ -77,7 +87,11 @@ export default class SearchBar extends Component<any, SearchBarState> {
    */
   displayToDoLists = (): JSX.Element | void => {
     // If the to-do list is not provided, do nothing.
-    if (this.state.displayedToDoLists === undefined || this.state.toDoLists === undefined) return;
+    if (
+      this.state.displayedToDoLists === undefined ||
+      this.state.toDoLists === undefined
+    )
+      return;
 
     return (
       <nav>
@@ -115,7 +129,8 @@ export default class SearchBar extends Component<any, SearchBarState> {
         disableRipple
         variant="contained"
         style={
-          listOption === (this.state.selectedList ? this.state.selectedList : null)
+          listOption ===
+          (this.state.selectedList ? this.state.selectedList : null)
             ? {
                 fontSize: "2vh",
                 textTransform: "none",
@@ -147,54 +162,60 @@ export default class SearchBar extends Component<any, SearchBarState> {
    * FUNCTIONALITY: displays a feedback to the user
    * @param message string to be displayed to the user
    */
-  feedback = (message: string) : void => {
+  feedback = (message: string): void => {
     // Feedback message set
     this.setState({
-      feedback: message
-    })
+      feedback: message,
+    });
 
     // Display the feedback for only 20 seconds
-    setTimeout(() => this.setState({feedback: ""}), 10000);
-  }
+    setTimeout(() => this.setState({ feedback: "" }), 10000);
+  };
 
   /**
    * FUNCTIONALITY: adds a list to the state if it does not already exist
    * @param listName name of list
    * @returns boolean true if successful, false otherwise
    */
-  addList = (listName : string) : boolean => {
+  addList = (listName: string): boolean => {
     // Ensure that the input string is not empty and that it is not contained already
     if (listName === "") {
-      this.feedback("You must provide a to-do list name")
+      this.feedback("You must provide a to-do list name");
       return false;
     }
     for (let list of this.state.toDoLists) {
       if (list.state.listName === listName) {
-        this.feedback("That to-do list name already exists. You cannot have duplicate to-do list names")
-        return false; 
+        this.feedback(
+          "That to-do list name already exists. You cannot have duplicate to-do list names"
+        );
+        return false;
       }
     }
 
     // Add list
-    const state : ListHandlerState = {
+    const state: ListHandlerState = {
       listName: listName,
-      items: []
-    }
+      items: [],
+    };
 
     const newList = new ListHandler(state);
     this.setState({
       displayedToDoLists: [...this.state.displayedToDoLists, newList],
       toDoLists: [...this.state.toDoLists, newList],
-      feedback: ""  // Set feedback to nothing
-    })
+      feedback: "", // Set feedback to nothing
+    });
 
     return true;
-  }
+  };
 
   /**
    * RENDERING: renders the add button
    */
+
   renderAddButton = () : JSX.Element | null => {
+
+
+
     return (
       // Only render the button if the width is big enough to fit it.
       this.state.width === -1 || this.state.width > 10 ?
@@ -207,16 +228,14 @@ export default class SearchBar extends Component<any, SearchBarState> {
       :
         null
     );
-  }
+  };
 
   /**
    * RENDERING: renders search bar, add button and feedback to the user
    */
-  renderSearch = () : JSX.Element => {
+  renderSearch = (): JSX.Element => {
     return (
-      <div 
-        className="sidebar-top-div"
-      >
+      <div className="sidebar-top-div">
         <form
           className="side-search-bar"
           onSubmit={(e: any) => {
@@ -232,12 +251,10 @@ export default class SearchBar extends Component<any, SearchBarState> {
           />
           {this.renderAddButton()}
         </form>
-        <div className="feedback">
-          {this.state.feedback}
-        </div>
+        <div className="feedback">{this.state.feedback}</div>
       </div>
     );
-  }
+  };
 
   render() {
     // Render at the resized width or the given
