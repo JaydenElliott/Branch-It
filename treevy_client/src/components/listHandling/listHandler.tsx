@@ -28,7 +28,6 @@ const invisibleRootNodeAttributes: ListState = {
   width: WIDTH,
   parent: undefined,
 };
-
 var rootNode = new TreevyList(invisibleRootNodeAttributes);
 
 export interface ListHandlerState {
