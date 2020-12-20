@@ -146,7 +146,6 @@ export default class HomePage extends Component<any, HomePageState> {
   render() {
     return (
       <div className="grid-container">
-        <button onClick={() => this.setState({searchContainerOn: false})}>Turn Off Search Container</button>
         {this.renderTopBar()}
         <div className="content-container">
           {this.state.searchContainerOn ? <SearchBar /> : null}
@@ -154,7 +153,7 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="list-container">
           {this.renderList("")} {/* FIX: render selected to-do */}
         </div>
-        <div className="graph-container" onClick={() => alert('hello')}></div>
+        <div className="graph-container" onClick={() => alert("hello")}></div>
       </div>
     );
   }

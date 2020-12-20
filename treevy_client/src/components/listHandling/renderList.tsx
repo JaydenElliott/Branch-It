@@ -7,8 +7,8 @@ import TreevyList, { ListState } from "./treevyList";
 // Temporary - make an actual style later
 const modalStyle = {
   content: {
-    top: "50%",
-    left: "50%",
+    top: "80%",
+    left: "10%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
@@ -95,7 +95,7 @@ export default class RenderList extends Component<any, any> {
   renderLists = () => {
     if (this.props.parent.content != "") {
       return (
-        <div className="listChild" id={"arranged"}>
+        <div>
           <div
             style={{
               marginLeft:

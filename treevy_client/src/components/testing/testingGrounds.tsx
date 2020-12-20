@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import ReactFlow from "react-flow-renderer";
 
 const elements2 = [
-  { id: "1", data: { label: "t1" }, position: { x: 1000, y: 100 } }, // node 1`
-  { id: "2", data: { label: "t2" }, position: { x: 580, y: 200 } }, // node 2
-  { id: "3", data: { label: "t3" }, position: { x: 1420, y: 200 } }, // node 2
-  { id: "4", data: { label: "t4" }, position: { x: 1320, y: 300 } }, // node 2
-  { id: "5", data: { label: "t5" }, position: { x: 1520, y: 300 } }, // node 2
-  { id: "6", data: { label: "t6" }, position: { x: 320, y: 300 } }, // node 2
-  { id: "7", data: { label: "t7" }, position: { x: 500, y: 300 } }, // node 2
-  { id: "8", data: { label: "t8" }, position: { x: 660, y: 300 } }, // node 2
-  { id: "9", data: { label: "t9" }, position: { x: 840, y: 300 } }, // node 2
+  { id: "0,0", data: { label: "hi" }, position: { x: 1000, y: 100 } }, // node 1`
+  // { id: "2", data: { label: "t2" }, position: { x: 580, y: 200 } }, // node 2
+  // { id: "3", data: { label: "t3" }, position: { x: 1420, y: 200 } }, // node 2
+  // { id: "4", data: { label: "t4" }, position: { x: 1320, y: 300 } }, // node 2
+  // { id: "5", data: { label: "t5" }, position: { x: 1520, y: 300 } }, // node 2
+  // { id: "6", data: { label: "t6" }, position: { x: 320, y: 300 } }, // node 2
+  // { id: "7", data: { label: "t7" }, position: { x: 500, y: 300 } }, // node 2
+  // { id: "8", data: { label: "t8" }, position: { x: 660, y: 300 } }, // node 2
+  // { id: "9", data: { label: "t9" }, position: { x: 840, y: 300 } }, // node 2
 
-  { id: "e1-2", source: "1", target: "2", animated: false }, // edge
-  { id: "e1-3", source: "1", target: "3", animated: false }, // edge
+  // { id: "e1-2", source: "1", target: "2", animated: false }, // edge
+  // { id: "e1-3", source: "1", target: "3", animated: false }, // edge
 ];
 
 const graphStyles = { width: "100%", height: "500px" };
@@ -116,7 +116,7 @@ export default class TestingGrounds extends Component<any, any> {
   };
 
   render() {
-    let elements3 = this.elementGen();
+    console.log(elements2);
     return (
       // <div style={{ width: "100vw", height: "100vh" }}>
       //   {/* {elements3.map((value: any, _: any) => {
@@ -126,17 +126,12 @@ export default class TestingGrounds extends Component<any, any> {
       //     return this.testing(id, content, coords);
       //   })} */}
 
-      //   <ReactFlow
-      //     elements={elements2}
-      //     style={graphStyles}
-      //     nodesDraggable={true}
-      //     nodesConnectable={false}
-      //   />
-      // </div>
-
-      <div>
-        <button onClick={this.setCount}>test</button>
-      </div>
+      <ReactFlow
+        elements={elements2}
+        style={graphStyles}
+        nodesDraggable={true}
+        nodesConnectable={false}
+      />
     );
   }
 }

@@ -1,14 +1,18 @@
 import React, { ChangeEvent } from "react";
 import { Component } from "react";
+
+// Dependent files
 import RenderList from "./renderList";
 import TreevyList, { ListState } from "./treevyList";
+import RenderGraph from "./renderGraph";
+
+// Styling
 import "../../componentStyles/listHandling/listHandler.css";
-import SelectInput from "@material-ui/core/Select/SelectInput";
 
 var WIDTH = 2;
-var root_coordinate = [1000, 100];
-var xscale = 20;
-var yscale = 50;
+var root_coordinate = [400, 50];
+var xscale = 40;
+var yscale = 100;
 
 /**
  * An invisible node is required for the graph generation
@@ -172,10 +176,39 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     ];
   };
 
+  getFlowJson = () => {
+    // let rootNode = this.state.items[0];
+    // let rootElemDetails = {
+    //   id: rootNode.location.toString(),
+    //   data: { label: rootNode.content },
+    //   position: { x: rootNode.coordinates[0], y: rootNode.coordinates[1] },
+    //   style: {
+    //     backgroundColor: "white",
+    //     // border: "0px",
+    //     cursor: "unset",
+    //     hover: "white",
+    //   },
+    // };
+    // let newGraphElements: any = [rootElemDetails];
+    let newGraphElements: any = [];
+    if (this.state.items.length > 0) {
+      for (let i = 1; i < this.state.items.length; i++) {
+        let item = this.state.items[i];
+        let newElement = {
+          id: item.location.toString(),
+          data: { label: item.content },
+          position: { x: item.coordinates[0], y: item.coordinates[1] },
+        };
+        newGraphElements.push(newElement);
+      }
+    }
+    return newGraphElements;
+  };
+
   render() {
     return (
-      <div className="testingDiv">
-        <div className="center">
+      <div className="listHandler-container">
+        <div className="list-container">
           <form onSubmit={this.submitItem}>
             <input
               className="new-todo"
@@ -195,6 +228,9 @@ export default class ListHandler extends Component<any, ListHandlerState> {
               />
             ))}
           </div>
+        </div>
+        <div className="graph-container">
+          <RenderGraph graphElem={this.getFlowJson()} />
         </div>
       </div>
     );
