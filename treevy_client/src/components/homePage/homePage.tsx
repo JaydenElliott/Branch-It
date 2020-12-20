@@ -121,7 +121,9 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="Blank" />
         <div className="Blank" />
         <SaveButton />
+        <div className="Blank" />
         <div className="Title">Treevy</div>
+        <div className="Blank" />
         <ShareButton />
         <MapleButton />
         {this.setLoginAccountButton()}
