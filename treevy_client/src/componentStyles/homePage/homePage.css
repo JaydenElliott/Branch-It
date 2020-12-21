@@ -39,7 +39,7 @@
 .top-bar-column-2 {
   grid-area: top-bar-column-2;
   display: grid;
-  grid-template-columns: 500x;
+  grid-template-columns: 300px;
   grid-template-areas: "top-bar-column-2-title";
 }
 
@@ -58,10 +58,10 @@
 .top-bar-column-3 {
   grid-area: top-bar-column-3;
   display: grid;
-  grid-template-columns: 100px 100px 100px;
+  grid-template-columns: 100px 100px 100px 100px;
   grid-template-rows: 1fr;
-  grid-template-areas: "top-bar-column-3-share top-bar-column-3-maple top-bar-column-3-log-in";
-  justify-content: center;
+  grid-template-areas: "top-bar-column-3-compact top-bar-column-3-share top-bar-column-3-maple top-bar-column-3-log-in ";
+  justify-content: left;
 }
 
 /*

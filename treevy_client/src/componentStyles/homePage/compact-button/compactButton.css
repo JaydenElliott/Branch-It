@@ -1,0 +1,13 @@
+.top-bar-column-3-compact {
+  grid-area: top-bar-column-3-compact;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+@media (min-width: 1200px) {
+  .top-bar-column-3-compact {
+    display: none;
+    width: 0px;
+  }
+}

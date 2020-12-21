@@ -9,6 +9,7 @@ import AccountButton from "./log-in/accountButton";
 import MapleButton from "./maple/mapleButton";
 import ShareButton from "./share/shareButton";
 import SaveButton from "./save/saveButton";
+import CompactButton from "./compactButton/compactButton";
 
 // Icons
 import logo from "../../logo/templogo.svg";
@@ -129,6 +130,7 @@ export default class HomePage extends Component<any, HomePageState> {
         <div className="top-bar-column-3">
           <ShareButton />
           <MapleButton />
+          <CompactButton />
           {this.setLoginAccountButton()}
         </div>
       </div>
