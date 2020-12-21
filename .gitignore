@@ -14,3 +14,6 @@ treevy_client/node_modules
 *.pyc
 *.egg-info/
 *node_modules
+*package-lock.json
+*react-app-env.d.ts
+
