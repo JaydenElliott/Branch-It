@@ -16,9 +16,9 @@ interface SearchBarState {
 
   // To-do lists
   selectedList: ListHandler;
-  selectedListHandler: (list: ListHandler) => void; // Details
+  selectedListHandler: (list: ListHandler) => void; // list-container method which deals with rendering the selected to-do list.
   toDoLists: ListHandler[];
-  displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search
+  displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search.
 
   // User feedback
   feedback: string;
@@ -27,15 +27,19 @@ interface SearchBarState {
   width: number;
 }
 export default class SearchBar extends Component<any, SearchBarState> {
+  // Reference to self
+  private myRef: React.RefObject<HTMLInputElement>;
+  
   constructor(props: any) {
     super(props);
+    this.myRef = React.createRef();
 
     this.state = {
       iString: props.iString || "",
 
       toDoLists: this.props.toDoLists || [],
       selectedList: props.selectedList,
-      selectedListHandler: props.selectedListHandler,
+      selectedListHandler: props.selectedListHandler || ((list: ListHandler) => {alert('Please provide list selectedListHanlder to searchContainer')}),
       displayedToDoLists: this.props.toDoLists || [],
 
       
@@ -215,9 +219,6 @@ export default class SearchBar extends Component<any, SearchBarState> {
    */
 
   renderAddButton = () : JSX.Element | null => {
-
-
-
     return (
       // Only render the button if the width is big enough to fit it.
       this.state.width === -1 || this.state.width > 10 ?
@@ -258,34 +259,43 @@ export default class SearchBar extends Component<any, SearchBarState> {
     );
   };
 
+  /**
+   * RENDERING: renders a draggable pannel which changes the width of the sidebar
+   */
+  renderDraggablePanel = () : JSX.Element => {
+    const myNode: any = this.myRef.current;
+    return (
+      <Draggable
+        axis='x'
+        onDrag={(data: any) => {
+          this.setState({width: data.clientX})
+          // Informs other elements that this element has been resized.
+          if (myNode !== null)
+            myNode.dispatchEvent(new Event('resize'))
+        }}
+        scale={0}
+      >
+        <div className="resize-panel" />
+      </Draggable>
+    );
+  }
+
   render() {
     // Render at the resized width or the given
     if (this.state.width === -1) {
       return (
-        <div id="sidebar-container" className="sidebar-container">
+        <div id="sidebar-container" className="sidebar-container" ref={this.myRef}>
           {this.renderSearch()}
           {this.displayToDoLists()}
-          <Draggable
-            axis='x'
-            onDrag={(data: any) => (this.setState({width: data.clientX}))}
-            scale={0}
-          >
-            <div className="resize-panel" />
-          </Draggable>
+          {this.renderDraggablePanel()}
         </div>
       );
     } else {
       return (
-        <div id="sidebar-container" className="sidebar-container" style={{width: this.state.width}}>
+        <div id="sidebar-container" className="sidebar-container" style={{width: this.state.width}} ref={this.myRef}>
           {this.renderSearch()}
           {this.displayToDoLists()}
-          <Draggable
-            axis='x'
-            onDrag={(data: any) => (this.setState({width: data.clientX}))}
-            scale={0}
-          >
-            <div className="resize-panel" />
-          </Draggable>
+          {this.renderDraggablePanel()}
         </div>
       );
     }

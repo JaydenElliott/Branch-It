@@ -9,14 +9,33 @@ import Draggable from "react-draggable";
 interface ListContainerState {
     // Information about the selected list
     selectedList: ListHandler;
+
+    // Left and right coordinates in pixels
+    leftX: number;
+    rightX: number;
 }
 export default class ListContainer extends Component<any, ListContainerState> {
   constructor(props: any) {
     super(props);
 
+    let initialX : number | undefined = document.getElementById('sidebar-container')?.clientWidth;
+
     this.state = {
-        selectedList: this.props.selectedList || undefined
+        selectedList: this.props.selectedList || undefined,
+        leftX: initialX || -1,            // -1 being undefined
+        rightX: this.props.rightX || -1,  // -1 being undefined
     };
+  }
+
+  componentDidMount() {
+    let sidebar = document.getElementById('sidebar-container');
+    sidebar?.addEventListener('resize', () => {
+      // alert('what')
+      let leftX = sidebar?.clientWidth;
+      this.setState({
+        leftX: leftX || -1
+      })
+    })
   }
 
   /**
@@ -31,10 +50,10 @@ export default class ListContainer extends Component<any, ListContainerState> {
   }
 
   render() {
-      // FIX: get the list container to adjust in size depending on the length of the sidebar.
-      const sidebarLength = document.getElementById('sidebar-container')?.clientWidth;
+      // // FIX: get the list container to adjust in size depending on the length of the sidebar.
+      // const sidebarLength = document.getElementById('sidebar-container')?.clientWidth;
       return (
-        <div className="list-container" style={{width:(sidebarLength + "")}} />
+        <div className="list-container" style={{left: this.state.leftX, right: 200}} />
       );
   }
 
