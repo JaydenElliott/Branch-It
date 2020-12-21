@@ -16,7 +16,8 @@ export default class SaveButton extends Component<any, any> {
           variant="contained"
           style={{
             backgroundColor: "#608C4C",
-            height: "80%",
+            height: "33px",
+            width: "95px",
             color: "#ffffff",
           }}
         >

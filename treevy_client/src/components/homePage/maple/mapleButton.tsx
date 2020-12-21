@@ -18,7 +18,8 @@ export default class MapleButton extends Component<any, any> {
           variant="contained"
           style={{
             backgroundColor: "#2196f3",
-            height: "80%",
+            height: "33px",
+            width: "95px",
             color: "#ffffff",
           }}
         >

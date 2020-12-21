@@ -58,10 +58,10 @@ export default class LoginButton extends Component<any, any> {
   handleLogInClick = async () => {
     // Set state to logging in.
     this.setState({ loggingIn: true });
-    const details : LoginDetails = {
+    const details: LoginDetails = {
       email: this.state.emailString,
-      password: this.state.passwordString
-    }
+      password: this.state.passwordString,
+    };
 
     // Awaits a return from the login async method before taking action.
     await loginRequest(details)
@@ -81,7 +81,7 @@ export default class LoginButton extends Component<any, any> {
       .catch((err) => {
         // Some error occurs. Perhaps a connection failure.
         this.setState({
-          passwordErrorMessage: err.message
+          passwordErrorMessage: err.message,
         });
       })
       .finally(() => {
@@ -155,7 +155,8 @@ export default class LoginButton extends Component<any, any> {
           variant="contained"
           style={{
             backgroundColor: this.props.logInLock ? "#C9CAD3" : "#608C4C",
-            height: "80%",
+            height: "33px",
+            width: "95px",
             color: "#ffffff",
           }}
         >

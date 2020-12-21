@@ -18,8 +18,9 @@ export default class ShareButton extends Component<any, any> {
           variant="contained"
           style={{
             backgroundColor: "#608C4C",
-            height: "80%",
             color: "#ffffff",
+            height: "33px",
+            width: "95px",
           }}
         >
           Share

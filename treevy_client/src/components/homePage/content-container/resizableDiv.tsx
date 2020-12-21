@@ -1,23 +1,27 @@
 import React, { Component } from "react";
-import "../../componentStyles/testing/testingGrounds.css";
+import "../../../componentStyles/testing/testingGrounds.css";
 
-export default class TestingGrounds extends Component<any, any> {
+export default class ResizableDiv extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = { grid1Width: 50, grid2Width: 50 };
   }
 
   increaseGrid1 = () => {
-    this.setState({
-      grid1Width: this.state.grid1Width + 10,
-      grid2Width: this.state.grid2Width - 10,
-    });
+    if (this.state.grid2Width > 0) {
+      this.setState({
+        grid1Width: this.state.grid1Width + 10,
+        grid2Width: this.state.grid2Width - 10,
+      });
+    }
   };
   decreaseGrid1 = () => {
-    this.setState({
-      grid1Width: this.state.grid1Width - 10,
-      grid2Width: this.state.grid2Width + 10,
-    });
+    if (this.state.grid1Width > 0) {
+      this.setState({
+        grid1Width: this.state.grid1Width - 10,
+        grid2Width: this.state.grid2Width + 10,
+      });
+    }
   };
 
   stateToString = () => {

@@ -4,7 +4,7 @@ import "./App.css";
 import HomePage from "./components/homePage/homePage";
 import TestingGrounds from "./components/testing/testingGrounds";
 import ListHandler from "./components/listHandling/listHandler";
-
+import ResizableDiv from "./components/homePage/content-container/resizableDiv";
 import axios from "axios";
 
 class App extends Component<{}, any> {
@@ -26,8 +26,9 @@ class App extends Component<{}, any> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        <HomePage />
-        {/* <ListHandler /> */}
+        {/* <ResizableDiv /> */}
+        {/* <HomePage /> */}
+        <ListHandler />
       </div>
     );
   }

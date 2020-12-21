@@ -217,6 +217,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
         <button
           className="add-button"
           onClick={() => this.addList(this.state.iString)}
+          style={{ height: "30px", width: "80px" }}
         >
           Add
         </button>

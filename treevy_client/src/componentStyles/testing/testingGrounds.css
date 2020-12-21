@@ -1,1 +1,31 @@
-import "~react-vis/dist/style";
+.grid-container1 {
+  display: grid;
+  grid-template-columns: 10% 90%;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "button grid-container2";
+  height: 100vh;
+  width: 100vw;
+}
+.button {
+  grid-area: button;
+}
+
+.grid-container2 {
+  grid-area: grid-container2;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "grid1 grid2";
+}
+
+.grid1 {
+  grid-area: grid1;
+  border: 4px black solid;
+}
+
+.grid2 {
+  grid-area: grid2;
+  background-color: cornflowerblue;
+}
