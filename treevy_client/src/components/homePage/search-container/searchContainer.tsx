@@ -45,7 +45,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
       
       feedback: "",
 
-      width: -1
+      width: 432.5
 
     };
   }

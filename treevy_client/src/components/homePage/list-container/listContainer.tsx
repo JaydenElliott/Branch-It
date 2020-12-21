@@ -15,9 +15,12 @@ interface ListContainerState {
     rightX: number;
 }
 export default class ListContainer extends Component<any, ListContainerState> {
+  // Reference to self
+  private myRef: React.RefObject<HTMLInputElement>;
+  
   constructor(props: any) {
     super(props);
-
+    this.myRef = React.createRef();
     let initialX : number | undefined = document.getElementById('sidebar-container')?.clientWidth;
 
     this.state = {
@@ -28,7 +31,10 @@ export default class ListContainer extends Component<any, ListContainerState> {
   }
 
   componentDidMount() {
+    // Sets an event listener to resize upon the sidebar container resizing.
     let sidebar = document.getElementById('sidebar-container');
+    if (sidebar)
+      this.setState({leftX: sidebar.clientWidth});
     sidebar?.addEventListener('resize', () => {
       // alert('what')
       let leftX = sidebar?.clientWidth;
@@ -36,6 +42,11 @@ export default class ListContainer extends Component<any, ListContainerState> {
         leftX: leftX || -1
       })
     })
+
+    // Set rightX
+    const myNode: any = this.myRef.current;
+    if (myNode !== null)
+      this.setState({rightX: myNode.clientWidth});
   }
 
   /**
@@ -53,7 +64,7 @@ export default class ListContainer extends Component<any, ListContainerState> {
       // // FIX: get the list container to adjust in size depending on the length of the sidebar.
       // const sidebarLength = document.getElementById('sidebar-container')?.clientWidth;
       return (
-        <div className="list-container" style={{left: this.state.leftX, right: 200}} />
+        <div className="list-container" ref={this.myRef} style={{left: this.state.leftX}} />
       );
   }
 
