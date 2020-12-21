@@ -27,8 +27,8 @@ class App extends Component<{}, any> {
       <div className="maindiv">
         {/* <TestingGrounds /> */}
         {/* <ResizableDiv /> */}
-        {/* <HomePage /> */}
-        <ListHandler />
+        <HomePage />
+        {/* <ListHandler /> */}
       </div>
     );
   }

@@ -243,6 +243,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
             className="search-bar"
             placeholder="Search or Add"
             onChange={this.onSearchChange}
+            style={{ fontSize: "12px" }}
           />
           {this.renderAddButton()}
         </form>

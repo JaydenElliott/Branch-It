@@ -1,7 +1,7 @@
 .grid-container {
   display: grid;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #ffffff;
   grid-template-columns: 1fr;
   grid-template-rows: 0.1fr 1.9fr;
@@ -17,10 +17,21 @@ Top bar styling
 .topbar-container {
   grid-area: topbar-container;
   display: grid;
+  width: 100%;
   background-color: #dee0e0;
-  grid-template-columns: 60px 200px 200px 200px 800px 100px 100px 100px 100px;
+  grid-template-columns: 60px 100px 100px 200px 320px;
   grid-template-rows: 1fr;
-  grid-template-areas: "top-logo Blank Blank Save Title Share Maple Log-in Sign-out";
+  grid-template-areas: "top-logo Blank Save Title SML-Buttons";
+}
+
+.SML-Buttons {
+  grid-area: SML-Buttons;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 1fr;
+  grid-template-areas: "Share Maple Log-in";
+  justify-content: center;
 }
 
 .top-logo {
@@ -31,7 +42,7 @@ Top bar styling
 }
 
 .Blank {
-  grid-area: Blank;
+  grid-area: Blank2;
 }
 
 .Title {

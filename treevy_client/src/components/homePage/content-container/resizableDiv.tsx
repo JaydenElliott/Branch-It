@@ -1,50 +1,45 @@
 import React, { Component } from "react";
-import "../../../componentStyles/testing/testingGrounds.css";
+// import "../../../componentStyles/testing/testingGrounds.css";
+import "../../../componentStyles/homePage/content-container/resizableDiv.css";
 
 export default class ResizableDiv extends Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = { grid1Width: 50, grid2Width: 50 };
+    this.state = {
+      isResize: false,
+      prevX: 0,
+      newWidth: {},
+    };
   }
 
-  increaseGrid1 = () => {
-    if (this.state.grid2Width > 0) {
-      this.setState({
-        grid1Width: this.state.grid1Width + 10,
-        grid2Width: this.state.grid2Width - 10,
-      });
-    }
+  handleMouseDown = (_e: any) => {
+    this.setState({ isResizing: true, lastDownX: _e.clientX });
   };
-  decreaseGrid1 = () => {
-    if (this.state.grid1Width > 0) {
-      this.setState({
-        grid1Width: this.state.grid1Width - 10,
-        grid2Width: this.state.grid2Width + 10,
-      });
+
+  handleMouseMove = (_e: any) => {
+    if (this.state.isResize == false) {
+      return;
+    }
+
+    let offsetRight =
+      document.body.offsetWidth - (_e.clientX - document.body.offsetLeft);
+    let minWidth = 50;
+    let maxWidth = 600;
+    if (offsetRight > minWidth && offsetRight < maxWidth) {
+      this.setState({ newWidth: { width: offsetRight } });
     }
   };
 
-  stateToString = () => {
-    let newString = "";
-    newString += this.state.grid1Width + "% " + this.state.grid2Width + "%";
-    return newString;
+  handleMouseUp = (_e: any) => {
+    this.setState({ isResizing: false });
   };
+
+  componentDidMount() {
+    document.addEventListener("mousemove", (e) => this.handleMouseMove(e));
+    document.addEventListener("mouseup", (e) => this.handleMouseUp(e));
+  }
 
   render() {
-    return (
-      <div className="grid-container1">
-        <div className="button">
-          <button onClick={this.increaseGrid1}>Increase Grid 1</button>
-          <button onClick={this.decreaseGrid1}>Decrease Grid 1</button>
-        </div>
-        <div
-          className="grid-container2"
-          style={{ gridTemplateColumns: this.stateToString() }}
-        >
-          <div className="grid1">content1</div>
-          <div className="grid2">content2</div>
-        </div>
-      </div>
-    );
+    return <div></div>;
   }
 }

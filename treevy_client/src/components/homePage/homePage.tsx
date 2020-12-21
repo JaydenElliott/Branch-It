@@ -119,15 +119,13 @@ export default class HomePage extends Component<any, HomePageState> {
           <img src={logo} style={{ fill: "#608c4c" }} />
         </div>
         <div className="Blank" />
-        <div className="Blank" />
         <SaveButton />
-        <div className="Blank" />
         <div className="Title">Treevy</div>
-        <div className="Blank" />
-        <ShareButton />
-        <MapleButton />
-        {this.setLoginAccountButton()}
-        <div className="Sign-out"></div>
+        <div className="SML-Buttons">
+          <ShareButton />
+          <MapleButton />
+          {this.setLoginAccountButton()}
+        </div>
       </div>
     );
   };

@@ -1,0 +1,10 @@
+.resize {
+  border: 1px solid black;
+  overflow: auto;
+}
+.resize.horizontal {
+  resize: horizontal;
+  background-color: cornflowerblue;
+  height: 100px;
+  width: 200px;
+}
