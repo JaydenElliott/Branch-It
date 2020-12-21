@@ -7,12 +7,11 @@ import "../../../componentStyles/homePage/share/shareButton.css";
 export default class ShareButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.state = {};
   }
 
   render() {
     return (
-      <div className="Share">
+      <div className="top-bar-column-3-share">
         <Button
           startIcon={<ShareIcon />}
           variant="contained"

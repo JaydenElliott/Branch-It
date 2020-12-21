@@ -115,13 +115,18 @@ export default class HomePage extends Component<any, HomePageState> {
   renderTopBar = (): JSX.Element => {
     return (
       <div className="topbar-container">
-        <div className="top-logo">
-          <img src={logo} style={{ fill: "#608c4c" }} />
+        <div className="top-bar-column-1">
+          <div className="top-bar-column-1-logo">
+            <img src={logo} style={{ fill: "#608c4c" }} />
+          </div>
+          <div className="top-bar-column-1-save">
+            <SaveButton />
+          </div>
         </div>
-        <div className="Blank" />
-        <SaveButton />
-        <div className="Title">Treevy</div>
-        <div className="SML-Buttons">
+        <div className="top-bar-column-2">
+          <div className="top-bar-column-2-title">Treevy</div>
+        </div>
+        <div className="top-bar-column-3">
           <ShareButton />
           <MapleButton />
           {this.setLoginAccountButton()}

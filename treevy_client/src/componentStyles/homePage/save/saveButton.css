@@ -1,6 +1,5 @@
-.Save {
-  grid-area: Save;
+.top-bar-column-1-save {
+  grid-area: top-bar-column-1-save;
   display: flex;
   align-items: center;
-  /* padding-left: -10px; */
 }

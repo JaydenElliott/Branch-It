@@ -12,7 +12,7 @@ export default class MapleButton extends Component<any, any> {
 
   render() {
     return (
-      <div className="Maple">
+      <div className="top-bar-column-3-maple">
         <Button
           startIcon={<EcoIcon />}
           variant="contained"
