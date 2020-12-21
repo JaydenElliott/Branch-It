@@ -10,7 +10,7 @@ export default class SaveButton extends Component<any, any> {
   }
   render() {
     return (
-      <div className="Save">
+      <div className="top-bar-column-1-save">
         <Button
           startIcon={<SaveIcon />}
           variant="contained"

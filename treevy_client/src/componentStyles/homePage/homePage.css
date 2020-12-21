@@ -1,7 +1,7 @@
 .grid-container {
   display: grid;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: #ffffff;
   grid-template-columns: 1fr;
   grid-template-rows: 0.1fr 1.9fr;
@@ -11,31 +11,40 @@
     "content-container";
 }
 
-/*
-Top bar styling
-*/
 .topbar-container {
   grid-area: topbar-container;
   display: grid;
+  width: 100%;
+  height: 47px;
   background-color: #dee0e0;
-  grid-template-columns: 60px 200px 200px 200px 800px 100px 100px 100px 100px;
+  grid-template-columns: 33% 34% 33%;
   grid-template-rows: 1fr;
-  grid-template-areas: "top-logo Blank Blank Save Title Share Maple Log-in Sign-out";
+  grid-template-areas: "top-bar-column-1 top-bar-column-2 top-bar-column-3";
 }
 
-.top-logo {
-  grid-area: top-logo;
+.top-bar-column-1 {
+  grid-area: top-bar-column-1;
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-template-areas: "top-bar-column-1-logo top-bar-column-1-save";
+}
+
+.top-bar-column-1-logo {
+  grid-area: top-bar-column-1-logo;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.Blank {
-  grid-area: Blank;
+.top-bar-column-2 {
+  grid-area: top-bar-column-2;
+  display: grid;
+  grid-template-columns: 300px;
+  grid-template-areas: "top-bar-column-2-title";
 }
 
-.Title {
-  grid-area: Title;
+.top-bar-column-2-title {
+  grid-area: top-bar-column-2-title;
   display: flex;
   text-align: center;
   align-items: center;
@@ -46,11 +55,13 @@ Top bar styling
   letter-spacing: 1px;
 }
 
-.Sign-out {
-  grid-area: Sign-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.top-bar-column-3 {
+  grid-area: top-bar-column-3;
+  display: grid;
+  grid-template-columns: 100px 100px 100px 100px;
+  grid-template-rows: 1fr;
+  grid-template-areas: "top-bar-column-3-compact top-bar-column-3-share top-bar-column-3-maple top-bar-column-3-log-in ";
+  justify-content: left;
 }
 
 /*

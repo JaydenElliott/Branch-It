@@ -147,7 +147,7 @@ export default class LoginButton extends Component<any, any> {
 
   renderLogInButton = () => {
     return (
-      <div className="Log-in">
+      <div className="top-bar-column-3-log-in">
         <Button
           startIcon={<PersonIcon />}
           disabled={this.props.logInLock}

@@ -9,6 +9,7 @@ import AccountButton from "./log-in/accountButton";
 import MapleButton from "./maple/mapleButton";
 import ShareButton from "./share/shareButton";
 import SaveButton from "./save/saveButton";
+import CompactButton from "./compactButton/compactButton";
 
 // Icons
 import logo from "../../logo/templogo.svg";
@@ -115,19 +116,23 @@ export default class HomePage extends Component<any, HomePageState> {
   renderTopBar = (): JSX.Element => {
     return (
       <div className="topbar-container">
-        <div className="top-logo">
-          <img src={logo} style={{ fill: "#608c4c" }} />
+        <div className="top-bar-column-1">
+          <div className="top-bar-column-1-logo">
+            <img src={logo} style={{ fill: "#608c4c" }} />
+          </div>
+          <div className="top-bar-column-1-save">
+            <SaveButton />
+          </div>
         </div>
-        <div className="Blank" />
-        <div className="Blank" />
-        <SaveButton />
-        <div className="Blank" />
-        <div className="Title">Treevy</div>
-        <div className="Blank" />
-        <ShareButton />
-        <MapleButton />
-        {this.setLoginAccountButton()}
-        <div className="Sign-out"></div>
+        <div className="top-bar-column-2">
+          <div className="top-bar-column-2-title">Treevy</div>
+        </div>
+        <div className="top-bar-column-3">
+          <ShareButton />
+          <MapleButton />
+          <CompactButton />
+          {this.setLoginAccountButton()}
+        </div>
       </div>
     );
   };

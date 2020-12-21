@@ -1,6 +1,12 @@
-.Share {
-  grid-area: Share;
+.top-bar-column-3-share {
+  grid-area: top-bar-column-3-share;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .top-bar-column-3-share {
+    display: none;
+  }
 }

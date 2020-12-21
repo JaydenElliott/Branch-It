@@ -1,6 +1,12 @@
-.Log-in {
-  grid-area: Log-in;
+.top-bar-column-3-log-in {
+  grid-area: top-bar-column-3-log-in;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .top-bar-column-3-log-in {
+    display: none;
+  }
 }

@@ -235,6 +235,7 @@ export default class SearchBar extends Component<any, SearchBarState> {
           className="side-search-bar"
           onSubmit={(e: any) => {
             e.preventDefault();
+            this.addList(this.state.iString);
           }}
         >
           <input
@@ -243,8 +244,9 @@ export default class SearchBar extends Component<any, SearchBarState> {
             className="search-bar"
             placeholder="Search or Add"
             onChange={this.onSearchChange}
+            style={{ fontSize: "15px" }}
           />
-          {this.renderAddButton()}
+          {/* {this.renderAddButton()} */}
         </form>
         <div className="feedback">{this.state.feedback}</div>
       </div>
