@@ -75,19 +75,16 @@ Middle styling
 */
 
 .content-container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 25% 35% 40%;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-template-areas: "sidebar-container list-container graph-container";
   grid-area: content-container;
-  background-color: #ffffff;
-}
-
-.list-container {
-  grid-area: list-container;
-  background-color: #ffffff;
-  border-left: #ededed solid 1px;
+  background-color: #ffffff; */
+  grid-area: content-container;
+  display: flex;
+  padding: 0;
 }
 
 .graph-container {
