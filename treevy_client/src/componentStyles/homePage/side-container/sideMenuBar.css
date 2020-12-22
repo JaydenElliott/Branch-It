@@ -1,0 +1,56 @@
+.side-menu-bar-container {
+  margin-left: 500px;
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 60px 100px;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "nav-menu nav-menu-results";
+  width: 1000px;
+  height: 400px;
+  border: black solid 1px;
+}
+
+.nav-menu {
+  grid-area: nav-menu;
+  background-color: gray;
+  width: 60px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "nav-menu-item-1"
+    "nav-menu-item-2"
+    "nav-menu-item-3"
+    "nav-menu-item-4"
+    "nav-menu-item-5";
+}
+
+.nav-menu-item-1 {
+  background-color: lightcoral;
+}
+
+.nav-menu-item-2 {
+  background-color: lightskyblue;
+}
+
+.nav-menu-item-3 {
+  background-color: lightcoral;
+}
+
+.nav-menu-item-4 {
+  background-color: lightskyblue;
+}
+
+.nav-menu-item-5 {
+  background-color: lightcoral;
+}
+
+.nav-menu-results {
+  grid-area: nav-menu-results;
+  background-color: cornflowerblue;
+  width: 60px;
+  height: 100%;
+}

@@ -6,6 +6,7 @@ import TestingGrounds from "./components/testing/testingGrounds";
 import ListHandler from "./components/listHandling/listHandler";
 import ResizableDiv from "./components/homePage/content-container/resizableDiv";
 import axios from "axios";
+import SideMenuBar from "./components/homePage/side-container/sideMenuBar";
 
 class App extends Component<{}, any> {
   constructor(props: any) {
@@ -27,8 +28,9 @@ class App extends Component<{}, any> {
       <div className="maindiv">
         {/* <TestingGrounds /> */}
         {/* <ResizableDiv /> */}
-        <HomePage />
+        {/* <HomePage /> */}
         {/* <ListHandler /> */}
+        <SideMenuBar />
       </div>
     );
   }
