@@ -26,7 +26,6 @@ class App extends Component<{}, any> {
     return (
       <div className="maindiv">
         {/* <TestingGrounds /> */}
-        {/* <ResizableDiv /> */}
         <HomePage />
         {/* <ListHandler /> */}
       </div>
