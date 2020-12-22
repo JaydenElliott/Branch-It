@@ -1,8 +1,0 @@
-.list-container {
-    grid-area: list-container;
-    display: inline-block;
-    position: relative;
-    background-color: #ff0808;
-    border-left: #ededed solid 1px;
-    width: auto;
-}

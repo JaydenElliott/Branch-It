@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component } from "react";
-import "../../../componentStyles/homePage/search-container/searchContainer.css";
+import "../../../componentStyles/homePage/containers/searchContainer.css";
 import ListHandler, { ListHandlerState } from "../../listHandling/listHandler";
 import Draggable from "react-draggable";
 
@@ -25,6 +25,7 @@ interface SearchBarState {
 
   // Size
   width: number;
+  updateState: ((state: any) => void),
 }
 export default class SearchBar extends Component<any, SearchBarState> {
   // Reference to self
@@ -45,8 +46,8 @@ export default class SearchBar extends Component<any, SearchBarState> {
       
       feedback: "",
 
-      width: 432.5
-
+      width: this.props.width || -1,
+      updateState: this.props.updateState,
     };
   }
 

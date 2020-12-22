@@ -1,0 +1,32 @@
+.list-container {
+    grid-area: list-container;
+    display: grid;
+    height: 100vh;
+    background-color: rgba(136, 176, 75);
+    grid-template-columns: 100% 0%;
+    grid-template-areas: ". resize-panel2";
+    row-gap: 0;
+    column-gap: 0;
+    width: 33%;
+
+    /* To account for the left resize panel, all contents must have a 10px padding (size of panel) from the left */
+    padding: 0 0 0 10px !important;
+}
+
+.list-container * {
+    /* For text as the container is resized */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.resize-panel2 {
+    background-color: brown;
+    width: 10px;
+    height: 100%;
+    z-index: 1; /* puts item in foreground */
+  
+    cursor: e-resize;
+    grid-area: resize-panel2;
+}

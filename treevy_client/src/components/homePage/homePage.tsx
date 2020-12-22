@@ -2,6 +2,7 @@
 import React, { ChangeEvent, Component } from "react";
 import "../../componentStyles/homePage/homePage.css";
 import Listhandler from "../listHandling/listHandler";
+import ContentContainer from "./containers/contentContainer";
 
 // Button Components
 import LoginButton from "./log-in/loginButton";
@@ -13,12 +14,6 @@ import SaveButton from "./save/saveButton";
 // Icons
 import logo from "../../logo/templogo.svg";
 
-// Search Bar
-import SearchBar from "./search-container/searchContainer";
-
-// List container
-import ListContainer from "./list-container/listContainer";
-
 // Lists
 import TreevyList from "../listHandling/treevyList";
 
@@ -27,9 +22,6 @@ interface HomePageState {
   logInModalOpen: boolean; // log-in button pressed?
   loggedIn: boolean; // is the user logged in
   logInLock: boolean;
-
-  // Containers
-  searchContainerOn: boolean; // Should the search container be displayed?
 }
 
 export default class HomePage extends Component<any, HomePageState> {
@@ -45,7 +37,6 @@ export default class HomePage extends Component<any, HomePageState> {
       logInModalOpen: false,
       loggedIn: false,
       logInLock: false,
-      searchContainerOn: true,
     };
   }
 
@@ -149,12 +140,8 @@ export default class HomePage extends Component<any, HomePageState> {
   render() {
     return (
       <div className="grid-container">
-        <button onClick={() => this.setState({searchContainerOn: false})}>Turn Off Search Container</button>
         {this.renderTopBar()}
-        <div className="content-container">
-          {this.state.searchContainerOn ? <SearchBar selectedListHandler={undefined}/> : null}
-          <ListContainer />
-        </div>
+        <ContentContainer />
         <div className="graph-container" onClick={() => alert('hello')}></div>
       </div>
     );

@@ -1,5 +1,5 @@
-import React, { ChangeEvent, Component } from "react";
-import "../../../componentStyles/homePage/list-container/listContainer.css";
+import React, { Component } from "react";
+import "../../../componentStyles/homePage/containers/listContainer.css";
 import ListHandler, { ListHandlerState } from "../../listHandling/listHandler";
 import Draggable from "react-draggable";
 
@@ -60,11 +60,35 @@ export default class ListContainer extends Component<any, ListContainerState> {
       });
   }
 
+  /**
+   * RENDERING: renders a draggable pannel which changes the width of the sidebar
+   */
+  renderDraggablePanel = () : JSX.Element => {
+    const myNode: any = this.myRef.current;
+    return (
+      <Draggable
+        axis='x'
+        onDrag={(data: any) => {
+          this.setState({rightX: data.clientX})
+          // Informs other elements that this element has been resized.
+          if (myNode !== null)
+            myNode.dispatchEvent(new Event('resize'))
+        }}
+        scale={0}
+      >
+        <div className="resize-panel2" />
+      </Draggable>
+    );
+  }
+
   render() {
       // // FIX: get the list container to adjust in size depending on the length of the sidebar.
       // const sidebarLength = document.getElementById('sidebar-container')?.clientWidth;
       return (
-        <div className="list-container" ref={this.myRef} style={{left: this.state.leftX}} />
+        <div id="list-container" className="list-container" ref={this.myRef} style={{width: Math.max(this.state.rightX - this.state.leftX, 10)}}>
+          <p>list-container</p>
+          {this.renderDraggablePanel()}
+        </div>
       );
   }
 
