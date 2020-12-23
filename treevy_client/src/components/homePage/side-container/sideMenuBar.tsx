@@ -3,11 +3,13 @@ import Button from "@material-ui/core/Button";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import "../../../componentStyles/homePage/side-container/sideMenuBar.css";
 import "./nav-menu-items/navItemLists";
-import NavItemLists from "./nav-menu-items/navItemLists";
 import Draggable from "react-draggable";
 
-import TempListsMenu from "./nav-pages/listsMenu";
-import TempSharedMenu from "./nav-pages/sharedMenu";
+import NavItemLists from "./nav-menu-items/navItemLists";
+import NavItemShare from "./nav-menu-items/navItemShare";
+import ListsMenu from "./nav-pages/listsMenu";
+import SharedMenu from "./nav-pages/shareMenu";
+
 export default class SideMenuBar extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -21,7 +23,6 @@ export default class SideMenuBar extends Component<any, any> {
   toggleMenuLists = async () => {
     await this._setMenuStateAsync_lists();
   };
-
   /**
    *
    * To prevent asyncronous issues with set state
@@ -32,6 +33,30 @@ export default class SideMenuBar extends Component<any, any> {
         this.setState({
           menuLists_Open: true,
           menuShared_Open: false, // safety
+        });
+      } else {
+        this.setState({
+          menuLists_Open: false,
+          menuShared_Open: false, // safety
+        });
+      }
+      this.setState(resolve);
+    });
+  };
+
+  toggleMenuShare = async () => {
+    await this._setMenuStateAsync_share();
+  };
+  /**
+   *
+   * To prevent asyncronous issues with set state
+   */
+  _setMenuStateAsync_share = () => {
+    return new Promise((resolve) => {
+      if (this.state.menuShared_Open == false) {
+        this.setState({
+          menuLists_Open: false,
+          menuShared_Open: true, // safety
         });
       } else {
         this.setState({
@@ -58,8 +83,8 @@ export default class SideMenuBar extends Component<any, any> {
           id="nav-pages"
           style={{ width: this.state.menuWidth + "px" }}
         >
-          {this.state.menuLists_Open ? <TempListsMenu /> : null}
-          {this.state.menuShared_Open ? <TempSharedMenu /> : null}
+          {this.state.menuLists_Open ? <ListsMenu /> : null}
+          {this.state.menuShared_Open ? <SharedMenu /> : null}
 
           <Draggable
             axis="x"
@@ -84,7 +109,9 @@ export default class SideMenuBar extends Component<any, any> {
           <div className="nav-menu-item-1">
             <NavItemLists toggleMenuLists={this.toggleMenuLists} />
           </div>
-          <div className="nav-menu-item-2"></div>
+          <div className="nav-menu-item-2">
+            <NavItemShare toggleMenuShare={this.toggleMenuShare} />
+          </div>
           <div className="nav-menu-item-3"></div>
           <div className="nav-menu-item-4"></div>
           <div className="nav-menu-item-5"></div>
