@@ -81,7 +81,9 @@ export default class SideMenuBar extends Component<any, any> {
         <div
           className="nav-pages"
           id="nav-pages"
-          style={{ width: this.state.menuWidth + "px" }}
+          style={{
+            width: this.state.menuWidth > 70 ? this.state.menuWidth : 0,
+          }}
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}
           {this.state.menuShared_Open ? <SharedMenu /> : null}
