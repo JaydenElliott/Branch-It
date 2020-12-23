@@ -1,7 +1,8 @@
 import React, { ChangeEvent, Component } from "react";
 import Button from "@material-ui/core/Button";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-// import "../../../../componentStyles/homePage/side-container/nav-menu-items/navitem";
+import ListImage from "../../../../componentStyles/homePage/side-container/nav-menu-items/ItemList.svg";
+import "../../../../componentStyles/homePage/side-container/nav-menu-items/navItemLists.css";
 
 export default class NavItemLists extends Component<any, any> {
   constructor(props: any) {
@@ -11,18 +12,9 @@ export default class NavItemLists extends Component<any, any> {
 
   render() {
     return (
-      <Button
-        startIcon={<FormatListBulletedIcon style={{ fontSize: "30px" }} />}
-        variant="contained"
-        style={{
-          backgroundColor: "rgba(0,0,0,0)",
-          color: "black",
-          boxShadow: "None",
-          height: "100%",
-          width: "100%",
-          display: "flex",
-        }}
-      />
+      <button className="nav-menu-lists" onClick={this.props.toggleMenuLists}>
+        <img src={ListImage} className="nav-menu-lists-icon" />
+      </button>
     );
   }
 }

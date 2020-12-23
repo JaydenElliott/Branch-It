@@ -1,8 +1,16 @@
-.ListsButton {
+.nav-menu-lists {
   background-color: rgba(0, 0, 0, 0);
   color: black;
   box-shadow: none;
   height: 100%;
   width: 100%;
-  display: flex;
+  border: none;
+  outline: none;
+}
+
+.nav-menu-lists-icon {
+  /* color: rgb(77, 110, 102); */
+  fill: white;
+  height: 40px;
+  width: 50px;
 }
