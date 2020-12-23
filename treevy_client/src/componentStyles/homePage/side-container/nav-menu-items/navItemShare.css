@@ -1,6 +1,6 @@
 .nav-menu-share {
   background-color: rgba(0, 0, 0, 0);
-  color: black;
+  color: white;
   box-shadow: none;
   height: 100%;
   width: 100%;
@@ -10,7 +10,7 @@
 
 .nav-menu-share-icon {
   /* color: rgb(77, 110, 102); */
-  fill: white;
+  color: white;
   height: 35px;
   width: 50px;
 }

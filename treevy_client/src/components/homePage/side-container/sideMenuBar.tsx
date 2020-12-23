@@ -82,7 +82,7 @@ export default class SideMenuBar extends Component<any, any> {
           className="nav-pages"
           id="nav-pages"
           style={{
-            width: this.checkSnap(),
+            width: this.checkSnap(70, 500),
           }}
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}
@@ -105,18 +105,24 @@ export default class SideMenuBar extends Component<any, any> {
   };
 
   /**
-   * Checks whether the width of the resizable div is below a threshold
-   * If so, remove div, and reset menuWidth
+   * Checks whether the width of the resizable div is within the min/max threshold
+   * If too small: remove div (snap grid)
+   * If too big: render div with width maxthresh
    */
-  checkSnap = () => {
-    if (this.state.menuWidth > 70) {
+  checkSnap = (minThreshold: number, maxThreshold: number) => {
+    if (
+      this.state.menuWidth > minThreshold &&
+      this.state.menuWidth < maxThreshold
+    ) {
       return this.state.menuWidth;
-    } else {
+    } else if (this.state.menuWidth <= minThreshold) {
       this.setState({
         menuLists_Open: false,
         menuShared_Open: false,
         menuWidth: 300,
       });
+    } else if (this.state.menuWidth > maxThreshold) {
+      return maxThreshold;
     }
   };
 
