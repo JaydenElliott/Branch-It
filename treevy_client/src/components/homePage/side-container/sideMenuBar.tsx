@@ -82,7 +82,7 @@ export default class SideMenuBar extends Component<any, any> {
           className="nav-pages"
           id="nav-pages"
           style={{
-            width: this.state.menuWidth > 70 ? this.state.menuWidth : 0,
+            width: this.checkSnap(),
           }}
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}
@@ -101,6 +101,22 @@ export default class SideMenuBar extends Component<any, any> {
           </Draggable>
         </div>
       );
+    }
+  };
+
+  /**
+   * Checks whether the width of the resizable div is below a threshold
+   * If so, remove div, and reset menuWidth
+   */
+  checkSnap = () => {
+    if (this.state.menuWidth > 70) {
+      return this.state.menuWidth;
+    } else {
+      this.setState({
+        menuLists_Open: false,
+        menuShared_Open: false,
+        menuWidth: 300,
+      });
     }
   };
 

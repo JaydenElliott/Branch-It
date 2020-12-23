@@ -67,8 +67,8 @@
 
 .resize-panel {
   grid-area: resize-panel;
-  background-color: black;
-  width: 2px;
+  background-color: rgba(0, 0, 0, 0);
+  width: 5px;
   height: 100%;
   z-index: 1; /* puts item in foreground */
 
