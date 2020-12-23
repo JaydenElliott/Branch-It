@@ -6,6 +6,10 @@ import Draggable from "react-draggable";
 // Button
 import Button from "@material-ui/core/Button";
 
+// Redux
+import { setSize } from "../../../redux/actions/sideBarActions";
+import { connect } from "react-redux";
+
 /**
  * Displays and handles search bar input changing as well as displaying the to-do lists.
  * Requires to-do lists to be provided as a prop.
@@ -16,7 +20,6 @@ interface SearchBarState {
 
   // To-do lists
   selectedList: ListHandler;
-  selectedListHandler: (list: ListHandler) => void; // list-container method which deals with rendering the selected to-do list.
   toDoLists: ListHandler[];
   displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search.
 
@@ -26,8 +29,12 @@ interface SearchBarState {
   // Size
   width: number;
   updateState: ((state: any) => void),
+
+  // Redux
+  sideBarReducer: any,
+  setSize: any,
 }
-export default class SearchBar extends Component<any, SearchBarState> {
+class SearchBar extends Component<any, SearchBarState> {
   // Reference to self
   private myRef: React.RefObject<HTMLInputElement>;
   
@@ -38,17 +45,22 @@ export default class SearchBar extends Component<any, SearchBarState> {
     this.state = {
       iString: props.iString || "",
 
-      toDoLists: this.props.toDoLists || [],
+      toDoLists: props.toDoLists || [],
       selectedList: props.selectedList,
-      selectedListHandler: props.selectedListHandler || ((list: ListHandler) => {alert('Please provide list selectedListHanlder to searchContainer')}),
-      displayedToDoLists: this.props.toDoLists || [],
+      displayedToDoLists: props.toDoLists || [],
 
       
       feedback: "",
 
-      width: this.props.width || -1,
-      updateState: this.props.updateState,
+      width: props.width || -1,
+      updateState: props.updateState,
+
+      sideBarReducer: props.sideBarReducer,
+      setSize: props.setSize,
     };
+
+    
+    this.state.setSize(100);
   }
 
   /**
@@ -282,10 +294,12 @@ export default class SearchBar extends Component<any, SearchBarState> {
   }
 
   render() {
+    console.log(this.state.sideBarReducer.width)
     // Render at the resized width or the given
     if (this.state.width === -1) {
       return (
         <div id="sidebar-container" className="sidebar-container" ref={this.myRef}>
+          {this.state.sideBarReducer.width}
           {this.renderSearch()}
           {this.displayToDoLists()}
           {this.renderDraggablePanel()}
@@ -302,3 +316,19 @@ export default class SearchBar extends Component<any, SearchBarState> {
     }
   }
 }
+
+const mapStatesToProps = (state: any) => {
+  return {
+    sideBarReducer: state.sideBarReducer,
+  };
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSize: (size: number) => {
+      dispatch(setSize(size));
+    },
+  };
+}
+
+export default connect(mapStatesToProps, mapDispatchToProps)(SearchBar);

@@ -8,9 +8,13 @@ import ListHandler from "./components/listHandling/listHandler";
 
 import axios from "axios";
 
-class App extends Component<{}, any> {
+export default class App extends Component<{}, {sideBarReducer: any}> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      sideBarReducer: props.sideBarReducer,
+    };
   }
 
   testFlask = () => {
@@ -33,5 +37,3 @@ class App extends Component<{}, any> {
     );
   }
 }
-
-export default App;
