@@ -3,7 +3,7 @@ import FacebookLoginWithButton from "react-facebook-login";
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
 
-import "../../../componentStyles/homePage/sign-up/sign-up-google.css";
+import "../../../../componentStyles/homePage/sign-up/sign-up-google.css";
 
 export default class GoogleSignup extends Component<any, any> {
   constructor(props: any) {

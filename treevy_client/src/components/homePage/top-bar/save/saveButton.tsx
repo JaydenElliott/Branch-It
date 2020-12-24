@@ -1,28 +1,27 @@
 import React, { ChangeEvent, Component } from "react";
 import Button from "@material-ui/core/Button";
-import ShareIcon from "@material-ui/icons/Share";
+import SaveIcon from "@material-ui/icons/Save";
 
-import "../../../componentStyles/homePage/share/shareButton.css";
-
-export default class ShareButton extends Component<any, any> {
+import "../../../../componentStyles/homePage/save/saveButton.css";
+export default class SaveButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
+    this.state = {};
   }
-
   render() {
     return (
-      <div className="top-bar-column-3-share">
+      <div className="top-bar-column-1-save">
         <Button
-          startIcon={<ShareIcon />}
+          startIcon={<SaveIcon />}
           variant="contained"
           style={{
             backgroundColor: "#608C4C",
-            color: "#ffffff",
             height: "33px",
             width: "95px",
+            color: "#ffffff",
           }}
         >
-          Share
+          Save
         </Button>
       </div>
     );

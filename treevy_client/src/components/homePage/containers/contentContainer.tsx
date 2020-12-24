@@ -5,28 +5,27 @@ import SearchBar from "./searchContainer";
 /**
  * Defines the state for the Containers component
  */
-interface ContainersState {
-
-}
+interface ContainersState {}
 export default class ContentContainer extends Component<any, ContainersState> {
-    constructor(props: any) {
-        super(props);
+  constructor(props: any) {
+    super(props);
 
-        this.state = {
+    this.state = {};
+  }
 
-        };
-    }
+  updateStates = (newState: any) => {
+    Object.assign(this.state, newState);
+  };
 
-    updateStates = (newState: any) => {
-        Object.assign(this.state, newState);
-    }
-
-    render() {
-        return (
-            <div className="content-container" onClick={() => this.updateStates({width:100})}>
-                <SearchBar />
-                <ListContainer />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div
+        className="content-container"
+        onClick={() => this.updateStates({ width: 100 })}
+      >
+        <SearchBar />
+        <ListContainer />
+      </div>
+    );
+  }
 }

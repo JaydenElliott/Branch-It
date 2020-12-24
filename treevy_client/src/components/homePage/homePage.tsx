@@ -3,14 +3,15 @@ import React, { ChangeEvent, Component } from "react";
 import "../../componentStyles/homePage/homePage.css";
 import Listhandler from "../listHandling/listHandler";
 import ContentContainer from "./containers/contentContainer";
+import TopBar from "./top-bar/topBar";
 
 // Button Components
-import LoginButton from "./log-in/loginButton";
-import AccountButton from "./log-in/accountButton";
-import MapleButton from "./maple/mapleButton";
-import ShareButton from "./share/shareButton";
-import SaveButton from "./save/saveButton";
-import CompactButton from "./compactButton/compactButton";
+import LoginButton from "./top-bar/log-in/loginButton";
+import AccountButton from "./top-bar/log-in/accountButton";
+import MapleButton from "./top-bar/maple/mapleButton";
+import ShareButton from "./top-bar/share/shareButton";
+import SaveButton from "./top-bar/save/saveButton";
+import CompactButton from "./top-bar/compactButton/compactButton";
 
 // Icons
 import logo from "../../logo/templogo.svg";
@@ -18,14 +19,7 @@ import logo from "../../logo/templogo.svg";
 // Lists
 import TreevyList from "../listHandling/treevyList";
 
-interface HomePageState {
-  // Log-in
-  logInModalOpen: boolean; // log-in button pressed?
-  loggedIn: boolean; // is the user logged in
-  logInLock: boolean;
-}
-
-export default class HomePage extends Component<any, HomePageState> {
+export default class HomePage extends Component<any, any> {
   /**
    *
    * @param props:
@@ -33,103 +27,8 @@ export default class HomePage extends Component<any, HomePageState> {
    */
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      logInModalOpen: false,
-      loggedIn: false,
-      logInLock: false,
-    };
+    this.state = {};
   }
-
-  /**
-   *
-   * FUNCTIONALITY: LOG-IN BUTTON - Modal
-   *
-   * Modal open and close state manipulation
-   */
-  modalClickOpen = () => {
-    this.setState({
-      logInModalOpen: true,
-    });
-  };
-  modalClickClose = () => {
-    this.setState({
-      logInModalOpen: false,
-    });
-  };
-
-  /**
-   * FUNCTIONALITY: LOG-OUT
-   *
-   * Logs user out and changes button state from "Account" -> "Log-in"
-   */
-  logout = () => {
-    this.setState({
-      loggedIn: false,
-    });
-  };
-
-  /**
-   * FUNCTIONALITY: INTERACTION <LoginButton/> <HomePage/>
-   *
-   * 1. Set logged-in
-   * 2. Set log-in lock
-   */
-  _LoginButtonLoggedIn = () => {
-    this.setState({
-      loggedIn: true,
-    });
-  };
-
-  _LoginButtonLogInLockOn = () => {
-    this.setState({
-      logInLock: true,
-    });
-  };
-
-  setLoginAccountButton = () => {
-    if (this.state.loggedIn == false) {
-      return (
-        <LoginButton
-          logInLock={this.state.logInLock}
-          modalClickOpen={this.modalClickOpen}
-          modalClickClose={this.modalClickClose}
-          logInModalOpen={this.state.logInModalOpen}
-          setLoggedIn={this._LoginButtonLoggedIn}
-          setLogInLockOn={this._LoginButtonLogInLockOn}
-        />
-      );
-    } else {
-      return <AccountButton />;
-    }
-  };
-
-  /**
-   * RENDERING: top bar of home page
-   */
-  renderTopBar = (): JSX.Element => {
-    return (
-      <div className="topbar-container">
-        <div className="top-bar-column-1">
-          <div className="top-bar-column-1-logo">
-            <img src={logo} style={{ fill: "#608c4c" }} />
-          </div>
-          <div className="top-bar-column-1-save">
-            <SaveButton />
-          </div>
-        </div>
-        <div className="top-bar-column-2">
-          <div className="top-bar-column-2-title">Treevy</div>
-        </div>
-        <div className="top-bar-column-3">
-          <ShareButton />
-          <MapleButton />
-          <CompactButton />
-          {this.setLoginAccountButton()}
-        </div>
-      </div>
-    );
-  };
 
   /**
    * RENDERING: provided a treevylist (or null) will render it.
@@ -147,9 +46,9 @@ export default class HomePage extends Component<any, HomePageState> {
   render() {
     return (
       <div className="grid-container">
-        {this.renderTopBar()}
+        <TopBar />
         <ContentContainer />
-        <div className="graph-container" onClick={() => alert('hello')}></div>
+        <div className="graph-container"></div>
       </div>
     );
   }

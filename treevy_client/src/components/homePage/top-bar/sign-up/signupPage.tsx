@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component } from "react";
-import "../../../componentStyles/homePage/sign-up/sign-up-page.css";
+import "../../../../componentStyles/homePage/sign-up/sign-up-page.css";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
