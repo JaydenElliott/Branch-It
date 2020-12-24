@@ -27,9 +27,9 @@ export default class ContentContainer extends Component<any, ContainersState> {
         className="content-container"
         onClick={() => this.updateStates({ width: 100 })}
       >
-        <SearchBar />
-        <ListContainer />
-        {/* <SideMenuBar /> */}
+        {/* <SearchBar /> */}
+        {/* <ListContainer /> */}
+        <SideMenuBar />
       </div>
     );
   }
