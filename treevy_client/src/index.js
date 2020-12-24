@@ -14,32 +14,3 @@ ReactDom.render(
         <App />
     </Provider>,
     document.getElementById("root"));
-
-
-// Tried to use reduxjs/toolkit but I do not fully understand how to use it (and could not check whether it was actually working as intended).
-// import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-// const sideBarSlice = createSlice({
-//     name: 'sideBar',
-//     initialState: {
-//         width: -1,
-//     },
-//     reducers: {
-//         updateWidth: (state, action) => {
-//             state.width = action.payload;
-//         }
-//     }
-// });
-
-// const { updateWidth } = sideBarSlice.actions;
-
-// const store = configureStore({
-//     reducer: {
-//         sideBar: sideBarSlice.reducers,
-//     },
-// });
-
-// store.subscribe(() => {
-//     console.log("store updated", store.getState());
-// });
-// store.dispatch(updateWidth(100));

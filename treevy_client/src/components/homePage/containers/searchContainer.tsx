@@ -7,7 +7,7 @@ import Draggable from "react-draggable";
 import Button from "@material-ui/core/Button";
 
 // Redux
-import { setSize } from "../../../redux/actions/sideBarActions";
+import { setSize } from "../../../redux/actions/sidebarActions";
 import { connect } from "react-redux";
 
 /**
@@ -29,19 +29,10 @@ interface SearchBarState {
   // Size
   width: number;
   updateState: ((state: any) => void),
-
-  // Redux
-  sideBarReducer: any,
-  setSize: any,
 }
 class SearchBar extends Component<any, SearchBarState> {
-  // Reference to self
-  private myRef: React.RefObject<HTMLInputElement>;
-  
   constructor(props: any) {
     super(props);
-    this.myRef = React.createRef();
-
     this.state = {
       iString: props.iString || "",
 
@@ -54,13 +45,7 @@ class SearchBar extends Component<any, SearchBarState> {
 
       width: props.width || -1,
       updateState: props.updateState,
-
-      sideBarReducer: props.sideBarReducer,
-      setSize: props.setSize,
     };
-
-    
-    this.state.setSize(100);
   }
 
   /**
@@ -276,30 +261,32 @@ class SearchBar extends Component<any, SearchBarState> {
    * RENDERING: renders a draggable pannel which changes the width of the sidebar
    */
   renderDraggablePanel = () : JSX.Element => {
-    const myNode: any = this.myRef.current;
     return (
       <Draggable
         axis='x'
         onDrag={(data: any) => {
-          this.setState({width: data.clientX})
-          // Informs other elements that this element has been resized.
-          if (myNode !== null)
-            myNode.dispatchEvent(new Event('resize'))
+          this.props.setSize(data.clientX);
+          this.setState({width: data.clientX});
         }}
         scale={0}
       >
-        <div className="resize-panel" />
+        <div id="sidebar-resize-panel" className="resize-panel" />
       </Draggable>
     );
   }
 
+  componentDidMount() {
+    const draggablePanel = document.querySelector('#sidebar-resize-panel')?.getBoundingClientRect();
+    if (draggablePanel)
+      this.props.setSize(draggablePanel?.x ? draggablePanel?.x : 0);
+  }
+
   render() {
-    console.log(this.state.sideBarReducer.width)
     // Render at the resized width or the given
     if (this.state.width === -1) {
       return (
-        <div id="sidebar-container" className="sidebar-container" ref={this.myRef}>
-          {this.state.sideBarReducer.width}
+        <div id="sidebar-container" className="sidebar-container">
+          {this.props.sidebarReducer.width} {/*FIX: simply here for testing*/}
           {this.renderSearch()}
           {this.displayToDoLists()}
           {this.renderDraggablePanel()}
@@ -307,7 +294,8 @@ class SearchBar extends Component<any, SearchBarState> {
       );
     } else {
       return (
-        <div id="sidebar-container" className="sidebar-container" style={{width: this.state.width}} ref={this.myRef}>
+        <div id="sidebar-container" className="sidebar-container" style={{width: this.state.width}}>
+          {this.props.sidebarReducer.width} {/*FIX: simply here for testing*/}
           {this.renderSearch()}
           {this.displayToDoLists()}
           {this.renderDraggablePanel()}
@@ -317,9 +305,11 @@ class SearchBar extends Component<any, SearchBarState> {
   }
 }
 
+// Redux mapping to props
 const mapStatesToProps = (state: any) => {
+  const { sidebarReducer } = state;
   return {
-    sideBarReducer: state.sideBarReducer,
+    sidebarReducer
   };
 }
 

@@ -2,13 +2,13 @@
 const initialState = {
     width: 0,
 }
-const sideBarReducer = (state = initialState, action: any) => {
+const sidebarReducer = (state = initialState, action: any) => {
     // Reducer actions
     switch(action.type) {
-        case 'sideBar/resize':
+        case 'sidebar/resize':
             state = {
                 ...state,
-                width: state.width + action.payload,
+                width: action.payload,
             }
             break;
         default:
@@ -17,4 +17,4 @@ const sideBarReducer = (state = initialState, action: any) => {
     return state;
 };
 
-export default sideBarReducer;
+export default sidebarReducer;
