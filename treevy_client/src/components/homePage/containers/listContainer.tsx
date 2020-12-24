@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "../../../componentStyles/homePage/containers/listContainer.css";
-import ListHandler, { ListHandlerState } from "../../listHandling/listHandler";
+import ListHandler from "../../listHandling/listHandler";
 import Draggable from "react-draggable";
+
+// Redux
+import { connect } from "react-redux";
 
 /**
  * Defines the state for the ListContainer component
@@ -14,39 +17,14 @@ interface ListContainerState {
     leftX: number;
     rightX: number;
 }
-export default class ListContainer extends Component<any, ListContainerState> {
-  // Reference to self
-  private myRef: React.RefObject<HTMLInputElement>;
-  
+class ListContainer extends Component<any, ListContainerState> {
   constructor(props: any) {
     super(props);
-    this.myRef = React.createRef();
-    let initialX : number | undefined = document.getElementById('sidebar-container')?.clientWidth;
-
     this.state = {
         selectedList: this.props.selectedList || undefined,
-        leftX: initialX || -1,            // -1 being undefined
+        leftX: this.props.leftX || -1,    // -1 being undefined
         rightX: this.props.rightX || -1,  // -1 being undefined
     };
-  }
-
-  componentDidMount() {
-    // Sets an event listener to resize upon the sidebar container resizing.
-    let sidebar = document.getElementById('sidebar-container');
-    if (sidebar)
-      this.setState({leftX: sidebar.clientWidth});
-    sidebar?.addEventListener('resize', () => {
-      // alert('what')
-      let leftX = sidebar?.clientWidth;
-      this.setState({
-        leftX: leftX || -1
-      })
-    })
-
-    // Set rightX
-    const myNode: any = this.myRef.current;
-    if (myNode !== null)
-      this.setState({rightX: myNode.clientWidth});
   }
 
   /**
@@ -64,15 +42,11 @@ export default class ListContainer extends Component<any, ListContainerState> {
    * RENDERING: renders a draggable pannel which changes the width of the sidebar
    */
   renderDraggablePanel = () : JSX.Element => {
-    const myNode: any = this.myRef.current;
     return (
       <Draggable
         axis='x'
         onDrag={(data: any) => {
-          this.setState({rightX: data.clientX})
-          // Informs other elements that this element has been resized.
-          if (myNode !== null)
-            myNode.dispatchEvent(new Event('resize'))
+          this.setState({rightX: data.clientX});
         }}
         scale={0}
       >
@@ -85,11 +59,20 @@ export default class ListContainer extends Component<any, ListContainerState> {
       // // FIX: get the list container to adjust in size depending on the length of the sidebar.
       // const sidebarLength = document.getElementById('sidebar-container')?.clientWidth;
       return (
-        <div id="list-container" className="list-container" ref={this.myRef} style={{width: Math.max(this.state.rightX - this.state.leftX, 10)}}>
+        <div id="list-container" className="list-container" style={{width: Math.max(this.state.rightX - this.props.sidebarReducer.width, 10)}}>
           <p>list-container</p>
           {this.renderDraggablePanel()}
         </div>
       );
   }
-
 }
+
+// Redux mapping to props
+const mapStatesToProps = (state: any) => {
+  const { sidebarReducer } = state;
+  return {
+    sidebarReducer
+  };
+}
+
+export default connect(mapStatesToProps, null)(ListContainer);

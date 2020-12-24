@@ -8,9 +8,13 @@ import ListHandler from "./components/listHandling/listHandler";
 import axios from "axios";
 import SideMenuBar from "./components/homePage/side-container/sideMenuBar";
 
-class App extends Component<{}, any> {
+export default class App extends Component<{}, {sideBarReducer: any}> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      sideBarReducer: props.sideBarReducer,
+    };
   }
 
   render() {
@@ -24,5 +28,3 @@ class App extends Component<{}, any> {
     );
   }
 }
-
-export default App;

@@ -6,6 +6,10 @@ import Draggable from "react-draggable";
 // Button
 import Button from "@material-ui/core/Button";
 
+// Redux
+import { setSize } from "../../../redux/actions/sidebarActions";
+import { connect } from "react-redux";
+
 /**
  * Displays and handles search bar input changing as well as displaying the to-do lists.
  * Requires to-do lists to be provided as a prop.
@@ -16,7 +20,6 @@ interface SearchBarState {
 
   // To-do lists
   selectedList: ListHandler;
-  selectedListHandler: (list: ListHandler) => void; // list-container method which deals with rendering the selected to-do list.
   toDoLists: ListHandler[];
   displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search.
 
@@ -27,30 +30,20 @@ interface SearchBarState {
   width: number;
   updateState: (state: any) => void;
 }
-export default class SearchBar extends Component<any, SearchBarState> {
-  // Reference to self
-  private myRef: React.RefObject<HTMLInputElement>;
-
+class SearchBar extends Component<any, SearchBarState> {
   constructor(props: any) {
     super(props);
-    this.myRef = React.createRef();
-
     this.state = {
       iString: props.iString || "",
 
-      toDoLists: this.props.toDoLists || [],
+      toDoLists: props.toDoLists || [],
       selectedList: props.selectedList,
-      selectedListHandler:
-        props.selectedListHandler ||
-        ((list: ListHandler) => {
-          alert("Please provide list selectedListHanlder to searchContainer");
-        }),
-      displayedToDoLists: this.props.toDoLists || [],
+      displayedToDoLists: props.toDoLists || [],
 
       feedback: "",
 
-      width: this.props.width || -1,
-      updateState: this.props.updateState,
+      width: props.width || -1,
+      updateState: props.updateState,
     };
   }
 
@@ -269,31 +262,34 @@ export default class SearchBar extends Component<any, SearchBarState> {
    * RENDERING: renders a draggable pannel which changes the width of the sidebar
    */
   renderDraggablePanel = (): JSX.Element => {
-    const myNode: any = this.myRef.current;
     return (
       <Draggable
         axis="x"
         onDrag={(data: any) => {
+          this.props.setSize(data.clientX);
           this.setState({ width: data.clientX });
-          // Informs other elements that this element has been resized.
-          if (myNode !== null) myNode.dispatchEvent(new Event("resize"));
         }}
         scale={0}
       >
-        <div className="resize-panel" />
+        <div id="sidebar-resize-panel" className="resize-panel" />
       </Draggable>
     );
   };
+
+  componentDidMount() {
+    const draggablePanel = document
+      .querySelector("#sidebar-resize-panel")
+      ?.getBoundingClientRect();
+    if (draggablePanel)
+      this.props.setSize(draggablePanel?.x ? draggablePanel?.x : 0);
+  }
 
   render() {
     // Render at the resized width or the given
     if (this.state.width === -1) {
       return (
-        <div
-          id="sidebar-container"
-          className="sidebar-container"
-          ref={this.myRef}
-        >
+        <div id="sidebar-container" className="sidebar-container">
+          {this.props.sidebarReducer.width} {/*FIX: simply here for testing*/}
           {this.renderSearch()}
           {this.displayToDoLists()}
           {this.renderDraggablePanel()}
@@ -305,8 +301,8 @@ export default class SearchBar extends Component<any, SearchBarState> {
           id="sidebar-container"
           className="sidebar-container"
           style={{ width: this.state.width }}
-          ref={this.myRef}
         >
+          {this.props.sidebarReducer.width} {/*FIX: simply here for testing*/}
           {this.renderSearch()}
           {this.displayToDoLists()}
           {this.renderDraggablePanel()}
@@ -315,3 +311,21 @@ export default class SearchBar extends Component<any, SearchBarState> {
     }
   }
 }
+
+// Redux mapping to props
+const mapStatesToProps = (state: any) => {
+  const { sidebarReducer } = state;
+  return {
+    sidebarReducer,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setSize: (size: number) => {
+      dispatch(setSize(size));
+    },
+  };
+};
+
+export default connect(mapStatesToProps, mapDispatchToProps)(SearchBar);
