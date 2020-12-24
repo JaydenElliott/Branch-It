@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component } from "react";
 import EcoIcon from "@material-ui/icons/Eco";
 import Button from "@material-ui/core/Button";
 
-import "../../../../componentStyles/homePage/maple/mapleButton.css";
+import "../../../../componentStyles/homePage/top-bar/maple/mapleButton.css";
 
 export default class MapleButton extends Component<any, any> {
   constructor(props: any) {

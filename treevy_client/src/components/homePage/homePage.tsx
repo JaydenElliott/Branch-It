@@ -1,23 +1,11 @@
 // Project Imports
-import React, { ChangeEvent, Component } from "react";
+import React, { Component } from "react";
+
 import "../../componentStyles/homePage/homePage.css";
-import Listhandler from "../listHandling/listHandler";
+
+// Page components
 import ContentContainer from "./containers/contentContainer";
 import TopBar from "./top-bar/topBar";
-
-// Button Components
-import LoginButton from "./top-bar/log-in/loginButton";
-import AccountButton from "./top-bar/log-in/accountButton";
-import MapleButton from "./top-bar/maple/mapleButton";
-import ShareButton from "./top-bar/share/shareButton";
-import SaveButton from "./top-bar/save/saveButton";
-import CompactButton from "./top-bar/compactButton/compactButton";
-
-// Icons
-import logo from "../../logo/templogo.svg";
-
-// Lists
-import TreevyList from "../listHandling/treevyList";
 
 export default class HomePage extends Component<any, any> {
   /**
@@ -48,7 +36,6 @@ export default class HomePage extends Component<any, any> {
       <div className="grid-container">
         <TopBar />
         <ContentContainer />
-        <div className="graph-container"></div>
       </div>
     );
   }

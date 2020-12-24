@@ -2,7 +2,7 @@ import React, { ChangeEvent, Component } from "react";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 
-import "../../../../componentStyles/homePage/save/saveButton.css";
+import "../../../../componentStyles/homePage/top-bar/save/saveButton.css";
 export default class SaveButton extends Component<any, any> {
   constructor(props: any) {
     super(props);

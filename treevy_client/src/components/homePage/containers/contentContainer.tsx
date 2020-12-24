@@ -1,6 +1,10 @@
 import React, { ChangeEvent, Component } from "react";
 import ListContainer from "./listContainer";
 import SearchBar from "./searchContainer";
+import SideMenuBar from "../side-container/sideMenuBar";
+
+// Styling
+import "../../../componentStyles/homePage/containers/content-container.css";
 
 /**
  * Defines the state for the Containers component
@@ -25,6 +29,7 @@ export default class ContentContainer extends Component<any, ContainersState> {
       >
         <SearchBar />
         <ListContainer />
+        {/* <SideMenuBar /> */}
       </div>
     );
   }

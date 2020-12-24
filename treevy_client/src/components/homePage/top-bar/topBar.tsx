@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import "../../../componentStyles/homePage/top-bar/topBar.css";
+
+// Buttons
 import AccountButton from "./log-in/accountButton";
 import MapleButton from "./maple/mapleButton";
 import ShareButton from "./share/shareButton";

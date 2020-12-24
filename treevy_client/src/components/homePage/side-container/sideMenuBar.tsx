@@ -1,6 +1,4 @@
 import React, { ChangeEvent, Component } from "react";
-import Button from "@material-ui/core/Button";
-import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import "../../../componentStyles/homePage/side-container/sideMenuBar.css";
 import "./nav-menu-items/navItemLists";
 import Draggable from "react-draggable";
@@ -82,7 +80,7 @@ export default class SideMenuBar extends Component<any, any> {
           className="nav-pages"
           id="nav-pages"
           style={{
-            width: this.checkSnap(70, 500),
+            width: this.checkSnap(70, 1000),
           }}
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}

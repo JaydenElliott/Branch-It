@@ -4,7 +4,7 @@ import React, { ChangeEvent, Component } from "react";
 import { loginRequest, LoginDetails } from "../../../../logic/user";
 
 // Styling
-import "../../../../componentStyles/homePage/log-in/loginButton.css";
+import "../../../../componentStyles/homePage/top-bar/log-in/loginButton.css";
 import Button from "@material-ui/core/Button";
 
 // Modal
