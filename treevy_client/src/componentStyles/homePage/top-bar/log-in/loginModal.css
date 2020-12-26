@@ -12,7 +12,7 @@
 .modal-window {
   position: relative;
   background-color: rgba(255, 255, 255, 0.1);
-  height: 500px;
+  height: 450px;
   width: 375px;
   /* padding: 4em 2em; */
   display: flex;
@@ -21,6 +21,14 @@
   align-items: center;
   border-radius: 10px;
   box-shadow: 0 5px 35px rgba(0, 0, 0, 0.2);
+}
+
+.modal-window h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 40px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
 .modal-window h2 {
@@ -52,6 +60,26 @@
 
 .remember-box {
   position: relative;
-  justify-content: left;
-  align-items: flex-start;
+  display: flex;
+  right: 92px;
+  margin-bottom: 20px;
+}
+
+.remember-box-checkbox {
+  margin-right: 6px;
+}
+
+.remember-box-text {
+  color: white;
+}
+
+.log-in-button button {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  outline: none;
+  height: 50px;
+  width: 100px;
+  font-weight: 500px;
+  font-size: 15px;
 }
