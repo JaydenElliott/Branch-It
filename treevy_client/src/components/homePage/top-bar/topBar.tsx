@@ -8,6 +8,7 @@ import MapleButton from "./maple/mapleButton";
 import ShareButton from "./share/shareButton";
 import SaveButton from "./save/saveButton";
 import LoginButton from "./log-in/loginButton";
+import LoginModal from "./log-in/loginModal";
 import CompactButton from "./compactButton/compactButton";
 
 import logo from "../../../logo/templogo.svg";

@@ -122,8 +122,8 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     childList: TreevyList,
     parentLocation: Array<number>
   ) => {
-    let parentIdx = null;
-    let insertIdx = null;
+    let parentIdx: any = null;
+    let insertIdx: any = null;
     for (let i = 0; i < this.state.items.length; i++) {
       if (this.state.items[i].location == parentLocation) {
         parentIdx = i;
