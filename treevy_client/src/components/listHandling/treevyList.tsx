@@ -10,7 +10,7 @@ export interface ListState {
   lists: TreevyList[];
   done: boolean;
   content: string;
-  location: [number, number]; // [layer, item # in layer]
+  location: [number, number]; // [layer, item # total]
   coordinates: any; // x,y
   parent?: TreevyList;
   width: number;

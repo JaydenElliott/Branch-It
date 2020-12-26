@@ -89,12 +89,21 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     });
   };
 
-  /**
-   * Recursively deletes all child items of the provided index as well as the index item itself.
-   *
-   * @param index of item to be deleted
-   */
+  // /**
+  //  * Recursively deletes all child items of the provided index as well as the index item itself.
+  //  *
+  //  * @param index of item to be deleted
+  //  */
   deleteList = (index: number) => {
+    // Delete from parent list
+    let listToDelete = this.state.items[index];
+    for (let i = 0; i < listToDelete.parent.lists.length; i++) {
+      let childList = listToDelete.parent.lists[i];
+      if (childList.location == listToDelete.location) {
+        listToDelete.parent.lists.splice(i, 1);
+        break;
+      }
+    }
     // Delete all child items and their childern recusively
     const thisLocation = this.state.items[index].location; // Current list location
     for (let i = 0; i < this.state.items.length; i++) {
@@ -216,7 +225,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
           </div>
         </div>
         <div className="graph-container">
-          {console.log(this.getFlowJson())}
           <RenderGraph
             graphElem={this.getFlowJson()}
             renderPosition={[root_coordinate[0] - 150, root_coordinate[1] - 50]}

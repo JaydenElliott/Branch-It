@@ -7,7 +7,6 @@ export default class RenderGraph extends Component<any, any> {
   }
 
   render() {
-    console.log(this.props.graphElem);
     return (
       <ReactFlow
         elements={this.props.graphElem}
