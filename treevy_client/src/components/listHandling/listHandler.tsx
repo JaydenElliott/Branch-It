@@ -100,7 +100,14 @@ export default class ListHandler extends Component<any, ListHandlerState> {
 
     // Delete all child items iteratively
     const thisLocation = this.state.items[index].location;
-    updatedItems.splice(index, 1);  // Delete this item
+
+    // Delete from parent list
+    updatedItems[index].parent.lists = updatedItems[index].parent.lists.filter((list : TreevyList) => list.location !== thisLocation);
+
+    // Delete this item
+    updatedItems.splice(index, 1);
+
+    // Delete children of this item.
     while (index < updatedItems.length && updatedItems[index].location[0] > thisLocation[0]) {
       updatedItems.splice(index, 1);
     }
