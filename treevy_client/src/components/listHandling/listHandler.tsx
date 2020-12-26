@@ -71,7 +71,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     let newList = new TreevyList(list);
     newList.parent.lists.push(newList);
     let updatedItems = [...this.state.items, newList];
-
     await this._setItemStateAsync(updatedItems);
     this.calculateCoordinates();
     await this._setItemStateAsync(updatedItems);
@@ -211,12 +210,17 @@ export default class ListHandler extends Component<any, ListHandlerState> {
                 parent={list}
                 submitChildList={this.submitChildList}
                 width={WIDTH}
+                itemCount={this.state.items.length}
               />
             ))}
           </div>
         </div>
         <div className="graph-container">
-          <RenderGraph graphElem={this.getFlowJson()} />
+          {console.log(this.getFlowJson())}
+          <RenderGraph
+            graphElem={this.getFlowJson()}
+            renderPosition={[root_coordinate[0] - 150, root_coordinate[1] - 50]}
+          />
         </div>
       </div>
     );

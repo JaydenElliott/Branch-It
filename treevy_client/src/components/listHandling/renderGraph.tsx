@@ -14,6 +14,7 @@ export default class RenderGraph extends Component<any, any> {
         style={{ width: "100%", height: "100%" }}
         nodesDraggable={false}
         nodesConnectable={false}
+        defaultPosition={this.props.renderPosition}
       />
     );
   }

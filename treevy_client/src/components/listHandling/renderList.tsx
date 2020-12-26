@@ -69,10 +69,7 @@ export default class RenderList extends Component<any, any> {
       lists: [],
       done: false,
       content: this.state.tempString,
-      location: [
-        this.props.parent.location[0] + 1,
-        this.props.parent.lists.length + 1,
-      ],
+      location: [this.props.parent.location[0] + 1, this.props.itemCount + 1],
       coordinates: [0, 0],
       parent: this.props.parent,
       width: this.props.width,
