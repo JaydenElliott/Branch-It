@@ -1,5 +1,6 @@
 import React, { ChangeEvent, Component } from "react";
 import ListHandler from "../../../listHandling/listHandler";
+import "../../../../componentStyles/homePage/side-container/nav-pages/listOption.css";
 
 // Redux
 import { connect } from "react-redux";
@@ -17,20 +18,57 @@ class ListOption extends Component<any, ListOptionState> {
     }
   }
 
+  /**
+   * RENDERING: displays a button (in the side-search-bar) which can be
+   *            pressed to select that particular list to display.
+   */
+  renderButton = () => {
+    return (
+        <button
+            style={
+            this.state.list === (this.props.selected ? this.props.selected : null)
+                ? {
+                    height: "35px",
+                    fontSize: "20px",
+                    textTransform: "none",
+                    display: "flex",
+                    margin: "4%",
+                    width: "90%",
+                    boxShadow: "none",
+                    backgroundColor: "#608C4C",
+                    borderColor: "black",
+                    color: "#ffffff",
+                }
+                : {
+                    height: "35px",
+                    fontSize: "20px",
+                    textTransform: "none",
+                    display: "flex",
+                    margin: "4%",
+                    width: "90%",
+                }
+            }
+            // Sets redux state
+            onClick={() => this.props.setSelected(this.state.list)}
+            // Displays a title (hover to see) only if the character length would result in an overflow
+            title={this.state.list.state.listName.length > 16 ? this.state.list.state.listName : ""}
+        >
+            <span>
+                {this.state.list.state.listName}
+            </span>
+        </button>
+    );
+
+  }
+
   render() {
+      console.log("getting:", this.state.list.state.listName)
     return (
       <div
         className="listOption"
-        onClick={() => alert('hi')}
       >
-        <input
-            type="checkbox"
-        >
-        </input>
-        
-        <label>
-            {this.state.list.state.listName}
-        </label>
+        <input id="list" className="checkmark" type="checkbox" />
+        {this.renderButton()}
       </div>
     );
   }
@@ -52,4 +90,4 @@ const mapDispatchToProps = (dispatch: any) => {
     };
   };
 
-export default connect(mapStateToProps, null)(ListOption);
+export default connect(mapStateToProps, mapDispatchToProps)(ListOption);

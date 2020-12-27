@@ -200,6 +200,7 @@ class ListsMenu extends Component<any, ListsMenuState> {
    * @param listOption a displayed selectable list option
    */
   renderListOption = (listOption: ListHandler): JSX.Element => {
+    console.log("passing:", listOption.state.listName)
     return (
       <ListOption list={listOption} />
       // <button
