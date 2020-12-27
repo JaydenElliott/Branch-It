@@ -1,21 +1,20 @@
-import React, { ChangeEvent, Component } from "react";
-import ListHandler from "../../../listHandling/listHandler";
+import React, { Component } from "react";
 import "../../../../componentStyles/homePage/side-container/nav-pages/listOption.css";
+import TreevyList from "../../../listHandling/treevyList";
 
 // Redux
 import { connect } from "react-redux";
 import { setSelected } from "../../../../redux/actions/listsActions";
 
+
 export interface ListOptionState {
-    list: ListHandler;
+    list: TreevyList;
 }
 class ListOption extends Component<any, ListOptionState> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
-        list: props.list || undefined,
-    }
+    // No state
   }
 
   /**
@@ -26,7 +25,7 @@ class ListOption extends Component<any, ListOptionState> {
     return (
         <button
             style={
-            this.state.list === (this.props.selected ? this.props.selected : null)
+            this.props.list === (this.props.selected ? this.props.selected : null)
                 ? {
                     height: "35px",
                     fontSize: "20px",
@@ -49,12 +48,12 @@ class ListOption extends Component<any, ListOptionState> {
                 }
             }
             // Sets redux state
-            onClick={() => this.props.setSelected(this.state.list)}
+            onClick={() => this.props.setSelected(this.props.list)}
             // Displays a title (hover to see) only if the character length would result in an overflow
-            title={this.state.list.state.listName.length > 16 ? this.state.list.state.listName : ""}
+            title={this.props.list.content.length > 16 ? this.props.list.content : ""}
         >
             <span>
-                {this.state.list.state.listName}
+                {this.props.list.content}
             </span>
         </button>
     );
@@ -62,7 +61,7 @@ class ListOption extends Component<any, ListOptionState> {
   }
 
   render() {
-      console.log("getting:", this.state.list.state.listName)
+      console.log("getting:", this.props.list.content)
     return (
       <div
         className="listOption"
@@ -84,7 +83,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-      setSelected: (selected: ListHandler | undefined | null) => {
+      setSelected: (selected: TreevyList | undefined | null) => {
         dispatch(setSelected(selected));
       },
     };
