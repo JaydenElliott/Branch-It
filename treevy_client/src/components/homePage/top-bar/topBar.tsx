@@ -126,10 +126,10 @@ export default class TopBar extends Component<any, any> {
         <div className="maple-button">
           <MapleButton />
         </div>
-        {/* <div className="compact-button">
-          <CompactButton />
-        </div> */}
         <div className="login-button">{this.setLoginAccountButton()}</div>
+        <div className="compact-button">
+          <CompactButton />
+        </div>
       </div>
     );
   }

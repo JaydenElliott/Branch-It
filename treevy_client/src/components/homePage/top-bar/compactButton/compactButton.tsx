@@ -1,6 +1,6 @@
 import React, { ChangeEvent, Component } from "react";
-import Button from "@material-ui/core/Button";
-import DehazeIcon from "@material-ui/icons/Dehaze";
+import CompactButtonSvg from "../../../../componentStyles/homePage/top-bar/compact-button/compactButton.svg";
+
 export default class CompactButton extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -9,13 +9,16 @@ export default class CompactButton extends Component<any, any> {
 
   render() {
     return (
-      <Button
-        startIcon={<DehazeIcon />}
-        variant="contained"
+      <button
+        onClick={this.props.toggleMenuLists}
         style={{
-          height: "80%",
+          backgroundColor: "transparent",
+          border: "none",
+          outline: "none",
         }}
-      />
+      >
+        <img src={CompactButtonSvg} style={{ fill: "white" }} />
+      </button>
     );
   }
 }
