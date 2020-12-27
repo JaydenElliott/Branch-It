@@ -86,7 +86,7 @@ export default class TopBar extends Component<any, any> {
     }
   };
 
-  render() {
+  renderOld = () => {
     return (
       <div className="topbar-container">
         <div className="top-bar-column-1">
@@ -106,6 +106,30 @@ export default class TopBar extends Component<any, any> {
           <CompactButton />
           {this.setLoginAccountButton()}
         </div>
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <div className="topbar-container">
+        <div className="logo">
+          <img src={logo} style={{ fill: "#608c4c" }} />
+        </div>
+        <div className="save-button">
+          <SaveButton />
+        </div>
+        <div className="title">Treevy</div>
+        <div className="share-button">
+          <ShareButton />
+        </div>
+        <div className="maple-button">
+          <MapleButton />
+        </div>
+        {/* <div className="compact-button">
+          <CompactButton />
+        </div> */}
+        <div className="login-button">{this.setLoginAccountButton()}</div>
       </div>
     );
   }

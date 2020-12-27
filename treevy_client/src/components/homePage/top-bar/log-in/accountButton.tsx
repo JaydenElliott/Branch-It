@@ -15,19 +15,17 @@ export default class AccountButton extends Component<any, any> {
 
   render() {
     return (
-      <div className="Log-in">
-        <Button
-          startIcon={<PersonIcon />}
-          variant="contained"
-          style={{
-            backgroundColor: "#608C4C",
-            height: "80%",
-            color: "#ffffff",
-          }}
-        >
-          Account
-        </Button>
-      </div>
+      <Button
+        startIcon={<PersonIcon />}
+        variant="contained"
+        style={{
+          backgroundColor: "#608C4C",
+          height: "80%",
+          color: "#ffffff",
+        }}
+      >
+        Account
+      </Button>
     );
   }
 }
