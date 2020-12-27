@@ -48,6 +48,7 @@ class ListsMenu extends Component<any, ListsMenuState> {
             className="search-bar"
             placeholder="Search or Add"
             onChange={this.onSearchChange}
+            value={this.state.iString}
             style={{ fontSize: "15px" }}
           />
         </form>
@@ -123,6 +124,7 @@ class ListsMenu extends Component<any, ListsMenuState> {
     this.props.setLists(newLists);
     // Update local
     this.setState({
+      iString: "",
       displayedToDoLists: newLists,
       feedback: "", // Set feedback to nothing
     });
