@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import sidebarReducer from "./reducers/sideBarReducer";
+import sidebarReducer from "./reducers/sidebarReducer";
+import listsReducer from "./reducers/listsReducer";
 
 /**
  * TESTING: This logger is for testing purposes only. Using it may result in a significant performance drop.
@@ -11,8 +12,9 @@ const logger = (state) => (next) => (action) => {
 };
 
 export default createStore(
-  combineReducers({ sidebarReducer })
+  combineReducers({ sidebarReducer, listsReducer })
   // Uncomment section below to use logger.
+  // ,
   // {},
   // applyMiddleware(logger)
 );
