@@ -1,8 +1,7 @@
 import React, { ChangeEvent, Component } from "react";
 import "../../../../componentStyles/homePage/side-container/nav-pages/listsMenu.css";
-import ListHandler, {
-  ListHandlerState,
-} from "../../../listHandling/listHandler";
+import ListHandler, { ListHandlerState } from "../../../listHandling/listHandler";
+import ListOption from "./listOption";
 
 // MaterialUI
 import Button from "@material-ui/core/Button";
@@ -202,32 +201,33 @@ class ListsMenu extends Component<any, ListsMenuState> {
    */
   renderListOption = (listOption: ListHandler): JSX.Element => {
     return (
-      <button
-        style={
-          listOption === (this.props.selected ? this.props.selected : null)
-            ? {
-                fontSize: "2vh",
-                textTransform: "none",
-                display: "flex",
-                margin: "4%",
-                width: "90%",
-                boxShadow: "none",
-                backgroundColor: "#608C4C",
-                borderColor: "black",
-                color: "#ffffff",
-              }
-            : {
-                fontSize: "2vh",
-                textTransform: "none",
-                display: "flex",
-                margin: "4%",
-                width: "90%",
-              }
-        }
-        onClick={() => this.props.setSelected(listOption)}
-      >
-        {listOption.state.listName}
-      </button>
+      <ListOption list={listOption} />
+      // <button
+      //   style={
+      //     listOption === (this.props.selected ? this.props.selected : null)
+      //       ? {
+      //           fontSize: "2vh",
+      //           textTransform: "none",
+      //           display: "flex",
+      //           margin: "4%",
+      //           width: "90%",
+      //           boxShadow: "none",
+      //           backgroundColor: "#608C4C",
+      //           borderColor: "black",
+      //           color: "#ffffff",
+      //         }
+      //       : {
+      //           fontSize: "2vh",
+      //           textTransform: "none",
+      //           display: "flex",
+      //           margin: "4%",
+      //           width: "90%",
+      //         }
+      //   }
+      //   onClick={() => this.props.setSelected(listOption)}
+      // >
+      //   {listOption.state.listName}
+      // </button>
     );
   };
 
