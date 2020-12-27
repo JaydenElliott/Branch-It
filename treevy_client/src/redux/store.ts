@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import sidebarReducer from "./reducers/sidebarReducer";
+import sideBarReducer from "./reducers/sideBarReducer";
 import listsReducer from "./reducers/listsReducer";
 
 /**
@@ -12,7 +12,7 @@ const logger = (state) => (next) => (action) => {
 };
 
 export default createStore(
-  combineReducers({ sidebarReducer, listsReducer })
+  combineReducers({ sideBarReducer, listsReducer })
   // Uncomment section below to use logger.
   // ,
   // {},

@@ -5,13 +5,6 @@
   flex-direction: column;
 }
 
-/* Will apply to all items under nav-pages-lists */
-.nav-pages-lists * {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-
 .search-bar {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -20,21 +13,19 @@
   width: 90%;
 
   font-family: "Times New Roman", Times, serif;
-  font-size: 25px;
-  font-size: 27px;
+  font-size: 20px;
 
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
   border: 0;
   border-bottom: 2px solid #608c4c;
-  transition: all 0.15s ease;;
+  transition: all 0.15s ease;
 }
 
 .search-bar:focus {
   background-color: rgba(0, 0, 0, 0.09);
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid #608c4c;
   transition: all 0.15s ease;
   transform-origin: left;
   outline: none;
@@ -46,16 +37,19 @@
 }
 
 /* list items */
-nav ul {
-  /* FIX: height is currently based off view height. 100% causes it to go beyond screen without a stop */
-  height: 90vh;
+.todo-list-container {
+  height: 100%;
   width: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
   padding: 0;
 }
 
-li {
+.todo-list-container li {
   list-style: none;
   padding: 0;
+}
+
+.feedback {
+  text-align: center;
+  font-weight: bold;
+  color: rgb(167, 55, 55);
 }

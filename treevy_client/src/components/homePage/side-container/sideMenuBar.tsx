@@ -85,7 +85,6 @@ export default class SideMenuBar extends Component<any, any> {
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}
           {this.state.menuShared_Open ? <SharedMenu /> : null}
-
           <Draggable
             axis="x"
             onDrag={(data: any) => {

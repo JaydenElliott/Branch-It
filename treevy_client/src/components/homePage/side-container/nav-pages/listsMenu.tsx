@@ -1,6 +1,8 @@
 import React, { ChangeEvent, Component } from "react";
 import "../../../../componentStyles/homePage/side-container/nav-pages/listsMenu.css";
-import ListHandler, { ListHandlerState } from "../../../listHandling/listHandler";
+import ListHandler, {
+  ListHandlerState,
+} from "../../../listHandling/listHandler";
 
 // MaterialUI
 import Button from "@material-ui/core/Button";
@@ -11,7 +13,7 @@ import { setSelected, setLists } from "../../../../redux/actions/listsActions";
 
 export interface ListsMenuState {
   // Input
-  iString: string,
+  iString: string;
 
   // To-do lists
   displayedToDoLists: ListHandler[]; // To-do lists displayed to the user according to the search.
@@ -34,22 +36,19 @@ class ListsMenu extends Component<any, ListsMenuState> {
    */
   renderSearch = (): JSX.Element => {
     return (
-      <div className="sidebar-top-div">
+      <div>
         <form
-          className="side-search-bar"
           onSubmit={(e: any) => {
             e.preventDefault();
             this.addList(this.state.iString);
           }}
         >
           <input
-            id="search-bar"
             type="input"
             className="search-bar"
             placeholder="Search or Add"
             onChange={this.onSearchChange}
             value={this.state.iString}
-            style={{ fontSize: "15px" }}
           />
         </form>
         <div className="feedback">{this.state.feedback}</div>
@@ -100,7 +99,11 @@ class ListsMenu extends Component<any, ListsMenuState> {
     const newList = new ListHandler(state);
     // To ensure alphabetic order, simply insert the newList in the correct sorted position.
     let pos = 0;
-    while (pos < this.props.lists.length && this.props.lists[pos].state.listName.toLowerCase() < listName.toLowerCase()) {
+    while (
+      pos < this.props.lists.length &&
+      this.props.lists[pos].state.listName.toLowerCase() <
+        listName.toLowerCase()
+    ) {
       pos++;
     }
     let newLists = [...this.props.lists];
@@ -182,13 +185,11 @@ class ListsMenu extends Component<any, ListsMenuState> {
       return;
 
     return (
-      <nav>
-        <ul style={{ marginLeft: "auto", marginRight: "auto" }}>
-          {this.state.displayedToDoLists.map((list) => (
-            <li>{this.renderListOption(list)}</li>
-          ))}
-        </ul>
-      </nav>
+      <ul className="todo-list-container">
+        {this.state.displayedToDoLists.map((list) => (
+          <li>{this.renderListOption(list)}</li>
+        ))}
+      </ul>
     );
   };
 
@@ -201,12 +202,9 @@ class ListsMenu extends Component<any, ListsMenuState> {
    */
   renderListOption = (listOption: ListHandler): JSX.Element => {
     return (
-      <Button
-        disableRipple
-        variant="contained"
+      <button
         style={
-          listOption ===
-          (this.props.selected ? this.props.selected : null)
+          listOption === (this.props.selected ? this.props.selected : null)
             ? {
                 fontSize: "2vh",
                 textTransform: "none",
@@ -220,7 +218,6 @@ class ListsMenu extends Component<any, ListsMenuState> {
               }
             : {
                 fontSize: "2vh",
-
                 textTransform: "none",
                 display: "flex",
                 margin: "4%",
@@ -230,7 +227,7 @@ class ListsMenu extends Component<any, ListsMenuState> {
         onClick={() => this.props.setSelected(listOption)}
       >
         {listOption.state.listName}
-      </Button>
+      </button>
     );
   };
 

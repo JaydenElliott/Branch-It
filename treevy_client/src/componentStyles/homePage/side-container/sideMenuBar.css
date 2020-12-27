@@ -58,10 +58,10 @@
   background-color: rgb(207, 207, 207);
   width: 300px;
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
   min-width: 0;
 
-  border-right: rgb(57, 88, 65) solid 1px;
+  border-right: rgb(74, 150, 92) solid 1px;
 }
 
 .resize-panel {
