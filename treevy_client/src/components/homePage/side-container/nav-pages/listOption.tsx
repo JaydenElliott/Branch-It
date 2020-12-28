@@ -61,7 +61,6 @@ class ListOption extends Component<any, ListOptionState> {
   }
 
   render() {
-      console.log("getting:", this.props.list.content)
     return (
       <div
         className="listOption"

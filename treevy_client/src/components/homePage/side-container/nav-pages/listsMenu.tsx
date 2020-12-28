@@ -190,7 +190,6 @@ class ListsMenu extends Component<any, ListsMenuState> {
    * @param listOption a displayed selectable list option
    */
   renderListOption = (listOption: TreevyList): JSX.Element => {
-    console.log("passing:", listOption.content)
     return (
       <ListOption list={listOption} />
       // <button
