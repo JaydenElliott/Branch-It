@@ -1,9 +1,9 @@
-import ListHandler from "../../components/listHandling/listHandler";
+import TreevyList from "../../components/listHandling/treevyList";
 
 // Defines the redux reducer for to-do lists.
 interface ListsState {
-    selected: ListHandler | undefined | null,
-    lists: ListHandler[],
+    selected: TreevyList | undefined | null,
+    lists: TreevyList[],
 }
 const listsReducer = (state: ListsState = {
     selected: undefined,
