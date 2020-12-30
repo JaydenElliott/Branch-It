@@ -176,48 +176,9 @@ class ListsMenu extends Component<any, ListsMenuState> {
     return (
       <ul className="todo-list-container">
         {this.state.displayedToDoLists.map((list) => (
-          <li>{this.renderListOption(list)}</li>
+          <li>{<ListOption list={list} />}</li>
         ))}
       </ul>
-    );
-  };
-
-  /**
-   * RENDERING: displays a button (in the side-search-bar) which can be
-   *            pressed to select that particular list to display
-   *            (in the list-container).
-   *
-   * @param listOption a displayed selectable list option
-   */
-  renderListOption = (listOption: TreevyList): JSX.Element => {
-    return (
-      <ListOption list={listOption} />
-      // <button
-      //   style={
-      //     listOption === (this.props.selected ? this.props.selected : null)
-      //       ? {
-      //           fontSize: "2vh",
-      //           textTransform: "none",
-      //           display: "flex",
-      //           margin: "4%",
-      //           width: "90%",
-      //           boxShadow: "none",
-      //           backgroundColor: "#608C4C",
-      //           borderColor: "black",
-      //           color: "#ffffff",
-      //         }
-      //       : {
-      //           fontSize: "2vh",
-      //           textTransform: "none",
-      //           display: "flex",
-      //           margin: "4%",
-      //           width: "90%",
-      //         }
-      //   }
-      //   onClick={() => this.props.setSelected(listOption)}
-      // >
-      //   {listOption.content}
-      // </button>
     );
   };
 

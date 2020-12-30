@@ -35,6 +35,10 @@ class TreevyList {
   tempString: string;
   width: number;
 
+  set_done(done: boolean) {
+    this.done = done;
+  }
+
   is_root() {
     return this.parent == undefined ? true : false;
   }

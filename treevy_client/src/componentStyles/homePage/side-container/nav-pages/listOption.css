@@ -7,25 +7,59 @@
     margin-top: 10px;
     width: 100%;
     height: 40px;
-} span {
+}
+
+.listOption button {
+    align-self: center;
+    justify-self: center;
+}
+
+.listOption span {
+    align-self: center;
+
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.checkmark {
-    height: 80%;
-    width: 100%;
+.checkbox {
+    justify-self: center;
+    height: 30px;
+    width: 30px;
+    
     border: 1px solid grey;
-    border-radius: 4px;
     appearance: none;
-    outline: 5px black;
+    border-radius: 50%;
+
     cursor: pointer;
 
-    transition: 150ms;
-    grid-area: checkmark;
-}:checked {
+    transition: all 200ms;
+}
+
+.checkbox::before {
+    position: relative;
+    display: block;
+    content: '';
+    top: 2px;
+    left: 9px;
+
+    width: 10px;
+    height: 22px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+
+    opacity: 0;
+    transition: all 200ms;
+}
+
+.checkbox:checked {
     background-color: #608c4c;
-    border-color: #608c4c;
-    background: 608c4c;
+
+    transition: all 200ms;
+}
+
+.checkbox:checked::before {
+    opacity: 1;
 }
