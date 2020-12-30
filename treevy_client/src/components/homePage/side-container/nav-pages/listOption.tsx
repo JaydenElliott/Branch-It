@@ -52,12 +52,11 @@ class ListOption extends Component<any, ListOptionState> {
             // Displays a title (hover to see) only if the character length would result in an overflow
             title={this.props.list.content.length > 16 ? this.props.list.content : ""}
         >
-            <span>
-                {this.props.list.content}
-            </span>
+          <span>
+              {this.props.list.content}
+          </span>
         </button>
     );
-
   }
 
   render() {
@@ -65,7 +64,7 @@ class ListOption extends Component<any, ListOptionState> {
       <div
         className="listOption"
       >
-        <input id="list" className="checkmark" type="checkbox" />
+        <input className="checkbox" type="checkbox" defaultChecked={this.props.list.done} onChange={() => this.props.list.set_done(!this.props.list.done)} />
         {this.renderButton()}
       </div>
     );
