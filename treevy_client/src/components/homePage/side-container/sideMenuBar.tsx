@@ -6,7 +6,7 @@ import Draggable from "react-draggable";
 import NavItemLists from "./nav-menu-items/navItemLists";
 import NavItemShare from "./nav-menu-items/navItemShare";
 import ListsMenu from "./nav-pages/listsMenu";
-import SharedMenu from "./nav-pages/shareMenu";
+import SharedMenu from "./nav-pages/share-menu/shareMenu";
 
 export default class SideMenuBar extends Component<any, any> {
   constructor(props: any) {
