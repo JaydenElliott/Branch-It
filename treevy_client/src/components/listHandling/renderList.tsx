@@ -4,18 +4,6 @@ import "../../componentStyles/listHandling/renderList.css";
 import Modal from "react-modal";
 import TreevyList, { ListState } from "./treevyList";
 
-// Temporary - make an actual style later
-const modalStyle = {
-  content: {
-    top: "80%",
-    left: "10%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-
 export default class RenderList extends Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -24,23 +12,6 @@ export default class RenderList extends Component<any, any> {
       tempString: "",
     };
   }
-
-  /**
-   * Modal Utility Method
-   */
-  setModalOn = () => {
-    this.setState({
-      modalShow: true,
-    });
-  };
-  /**
-   * Modal Utility Method
-   */
-  setModalOff = () => {
-    this.setState({
-      modalShow: false,
-    });
-  };
 
   /**
    * Keyboard Utility Method
@@ -85,6 +56,37 @@ export default class RenderList extends Component<any, any> {
     });
   };
 
+  openModal = () => {
+    if (this.state.modalShow) {
+      return (
+        <div className="list-modal-window">
+          <form onSubmit={this.genChildList}>
+            <input
+              type="text"
+              className="search-bar-modal"
+              placeholder="Add child list"
+              onChange={this.onInputChange}
+              value={this.state.inputRootString}
+              // autoFocus
+            />
+          </form>
+        </div>
+      );
+    }
+  };
+
+  setModalOn = () => {
+    this.setState({
+      modalShow: true,
+    });
+  };
+
+  setModalOff = () => {
+    this.setState({
+      modalShow: false,
+    });
+  };
+
   /**
    * Requires an external function as a conditional is required
    * to avoid rendering the "invisible root node"
@@ -108,22 +110,7 @@ export default class RenderList extends Component<any, any> {
               +
             </button>
           </div>
-          <div className="modal">
-            <Modal isOpen={this.state.modalShow} style={modalStyle}>
-              Add nested item
-              <form onSubmit={this.genChildList}>
-                <input
-                  className="new-todo"
-                  type="text"
-                  onChange={this.onInputChange}
-                  value={this.state.tempString}
-                />
-                <button id="submitBtn" type="submit"></button>
-              </form>
-              <button onClick={this.setModalOff}>Cancel</button>
-            </Modal>
-          </div>
-          <div className="delete-container" id={"goToLeft"}>
+          <div className="delete-container">
             <button
               type="button"
               className="close"
@@ -132,6 +119,7 @@ export default class RenderList extends Component<any, any> {
               -
             </button>
           </div>
+          {this.openModal()}
         </div>
       );
     }

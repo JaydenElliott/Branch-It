@@ -1,9 +1,11 @@
 .lists-container {
   display: grid;
   grid-template-columns: 100px 100px 50px 50px;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 0px;
   gap: 0px 0px;
-  grid-template-areas: "content-container gap add-container delete-container";
+  grid-template-areas:
+    "content-container gap add-container delete-container"
+    "list-modal-window list-modal-window list-modal-window list-modal-window";
 }
 
 .content-container {
@@ -11,6 +13,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  background-color: transparent;
 }
 
 .gap {
@@ -29,4 +32,38 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.list-modal-window {
+  grid-area: list-modal-window;
+  width: 100%;
+}
+
+.search-bar-modal {
+  background-color: transparent;
+  height: 20px;
+  width: 100%;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 0;
+  border-bottom: 2px solid #608c4c;
+  transition: all 0.15s ease;
+}
+
+.search-bar-modal:focus {
+  background-color: rgba(0, 0, 0, 0.09);
+  border-bottom: 2px solid #608c4c;
+  transition: all 0.15s ease;
+  transform-origin: left;
+  outline: none;
+}
+
+.search-bar-modal:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+  transition: all 0.5s ease;
 }

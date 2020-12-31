@@ -11,9 +11,7 @@ export default class ShareMenu extends Component<any, any> {
     super(props);
     this.state = {
       inputRootString: "",
-      inputChildString: "",
       items: [rootNode],
-      inputPlaceholder: "Add a Root List",
     };
   }
 
@@ -178,16 +176,6 @@ export default class ShareMenu extends Component<any, any> {
     ];
   };
 
-  activateKeyboardInput = () => {
-    const searchbar: HTMLElement | null = document.getElementById(
-      "search-bar-focus"
-    );
-    if (searchbar) {
-      searchbar.focus();
-      this.setState({ inputPlaceholder: "Child List Name" });
-    }
-  };
-
   render() {
     return (
       <div className="nav-pages-share">
@@ -195,8 +183,7 @@ export default class ShareMenu extends Component<any, any> {
           <input
             type="text"
             className="search-bar"
-            id="search-bar-focus"
-            placeholder={this.state.inputPlaceholder}
+            placeholder="Add root list"
             onChange={this.onInputChange}
             value={this.state.inputRootString}
           />
@@ -211,7 +198,6 @@ export default class ShareMenu extends Component<any, any> {
               itemCount={this.state.items.length}
             />
           ))}
-          <button onClick={this.activateKeyboardInput}>Hello</button>
         </div>
       </div>
     );
