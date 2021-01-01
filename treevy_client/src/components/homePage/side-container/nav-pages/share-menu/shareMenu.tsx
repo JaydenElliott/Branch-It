@@ -133,7 +133,7 @@ export default class ShareMenu extends Component<any, any> {
    *
    * @param index of item to be deleted
    */
-  deleteList = (index: number) => {
+  deleteList = async (index: number) => {
     // To change the list in an immutable fashion, make a new list.
     let updatedItems: TreevyList[] = this.state.items.slice();
 
@@ -157,7 +157,20 @@ export default class ShareMenu extends Component<any, any> {
     }
 
     // Update the state
-    this.setState({ items: updatedItems });
+    await this._setDeleteStateAsync(updatedItems);
+    this.props.updateFlowJSON(this.getFlowJson());
+    await this._setDeleteStateAsync(updatedItems);
+  };
+
+  /**
+   *  Set state utility function
+   * To prevent asynchronous setState
+   */
+  _setDeleteStateAsync = (updatedItems: any) => {
+    return new Promise((resolve) => {
+      this.setState({ items: updatedItems });
+      this.setState(resolve);
+    });
   };
 
   // Calculate each node's (lists) coordinate
