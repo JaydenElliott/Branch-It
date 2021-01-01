@@ -148,17 +148,21 @@ export default class SideMenuBar extends Component<any, any> {
           <div className="nav-menu-item-4"></div>
           <div className="nav-menu-item-5"></div>
         </div>
-        {this.renderResizePanel()}
-        {console.log(this.state.flowJSON)}
-        <div className="graph-container">
-          <RenderGraph
-            graphElem={this.state.flowJSON}
-            renderPosition={[root_coordinate[0] - 150, root_coordinate[1] - 50]}
-          />
+        <div className="pages-graph-container">
+          {this.renderResizePanel()}
+          <div className="graph-container">
+            <RenderGraph
+              graphElem={this.state.flowJSON}
+              renderPosition={[
+                root_coordinate[0] - 150,
+                root_coordinate[1] - 50,
+              ]}
+            />
+          </div>
         </div>
       </div>
     );
   }
 }
 
-const root_coordinate = [400, 50];
+const root_coordinate = [300, 50];
