@@ -72,10 +72,22 @@ export default class ShareMenu extends Component<any, any> {
           position: { x: item.coordinates[0], y: item.coordinates[1] },
         };
         newGraphElements.push(newElement);
+        if (item.parent != undefined) {
+          let newConnector = {
+            id:
+              "c" + item.parent.location.toString() + item.location.toString(),
+            source: item.parent.location.toString(),
+            target: item.location.toString(),
+          };
+
+          newGraphElements.push(newConnector);
+        }
       }
     }
     return newGraphElements;
   };
+
+  // { id: "e1-2", source: "1", target: "2", animated: true }
 
   /**
    * Takes child list submitted via genChildList and inserts it into
