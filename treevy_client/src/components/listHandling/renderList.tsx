@@ -94,30 +94,30 @@ export default class RenderList extends Component<any, any> {
   renderLists = () => {
     if (this.props.parent.content != "") {
       return (
-        <div
-          className="lists-container"
-          style={{
-            marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
-          }}
-        >
-          <div className="content-container">
-            <span>&#8226;</span>
-            {this.props.parent.content}
-          </div>
-          <div className="gap" />
-          <div className="add-container">
-            <button type="button" className="close" onClick={this.setModalOn}>
-              +
-            </button>
-          </div>
-          <div className="delete-container">
-            <button
-              type="button"
-              className="close"
-              onClick={this.props.onClickDel}
-            >
-              -
-            </button>
+        <div className="list-item">
+          <div
+            className="lists-container"
+            style={{
+              marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
+            }}
+          >
+            <div className="content-container">
+              <span>&#8226; {this.props.parent.content}</span>
+            </div>
+            <div className="add-container">
+              <button type="button" className="close" onClick={this.state.modalShow ? this.setModalOff : this.setModalOn}>
+                +
+              </button>
+            </div>
+            <div className="delete-container">
+              <button
+                type="button"
+                className="close"
+                onClick={this.props.onClickDel}
+              >
+                -
+              </button>
+            </div>
           </div>
           {this.openModal()}
         </div>
