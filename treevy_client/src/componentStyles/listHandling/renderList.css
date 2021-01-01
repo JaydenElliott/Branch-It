@@ -1,41 +1,39 @@
+.list-item {
+  display: inline-flexbox;
+}
+
 .lists-container {
-  display: grid;
-  grid-template-columns: 100px 100px 50px 50px;
-  grid-template-rows: 1fr 0px;
-  gap: 0px 0px;
-  grid-template-areas:
-    "content-container gap add-container delete-container"
-    "list-modal-window list-modal-window list-modal-window list-modal-window";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row;
+}
+
+.close {
+  margin-right: 10px;
 }
 
 .content-container {
-  grid-area: content-container;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   background-color: transparent;
 }
 
-.gap {
-  grid-area: gap;
+.content-container span {
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .add-container {
-  grid-area: add-container;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 
 .delete-container {
-  grid-area: delete-container;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
 }
 
 .list-modal-window {
-  grid-area: list-modal-window;
   width: 100%;
 }
 
