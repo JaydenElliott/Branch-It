@@ -67,7 +67,7 @@ export default class RenderList extends Component<any, any> {
               placeholder="Add child list"
               onChange={this.onInputChange}
               value={this.state.inputRootString}
-              // autoFocus
+              autoFocus
             />
           </form>
         </div>
