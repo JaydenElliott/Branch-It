@@ -102,13 +102,18 @@ export default class ListHandler extends Component<any, ListHandlerState> {
     const thisLocation = this.state.items[index].location;
 
     // Delete from parent list
-    updatedItems[index].parent.lists = updatedItems[index].parent.lists.filter((list : TreevyList) => list.location !== thisLocation);
+    updatedItems[index].parent.lists = updatedItems[index].parent.lists.filter(
+      (list: TreevyList) => list.location !== thisLocation
+    );
 
     // Delete this item
     updatedItems.splice(index, 1);
 
     // Delete children of this item.
-    while (index < updatedItems.length && updatedItems[index].location[0] > thisLocation[0]) {
+    while (
+      index < updatedItems.length &&
+      updatedItems[index].location[0] > thisLocation[0]
+    ) {
       updatedItems.splice(index, 1);
     }
 
@@ -220,12 +225,6 @@ export default class ListHandler extends Component<any, ListHandlerState> {
               />
             ))}
           </div>
-        </div>
-        <div className="graph-container">
-          <RenderGraph
-            graphElem={this.getFlowJson()}
-            renderPosition={[root_coordinate[0] - 150, root_coordinate[1] - 50]}
-          />
         </div>
       </div>
     );

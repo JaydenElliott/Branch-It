@@ -98,14 +98,21 @@ export default class RenderList extends Component<any, any> {
           <div
             className="lists-container"
             style={{
-              marginLeft: (this.props.parent.location[0] * 20).toString() + "px",
+              marginLeft:
+                (this.props.parent.location[0] * 20).toString() + "px",
             }}
           >
             <div className="content-container">
               <span>&#8226; {this.props.parent.content}</span>
             </div>
             <div className="add-container">
-              <button type="button" className="close" onClick={this.state.modalShow ? this.setModalOff : this.setModalOn}>
+              <button
+                type="button"
+                className="close"
+                onClick={
+                  this.state.modalShow ? this.setModalOff : this.setModalOn
+                }
+              >
                 +
               </button>
             </div>

@@ -1,9 +1,9 @@
 .side-menu-bar-container {
   display: grid;
-  grid-template-columns: 60px 100px 500px;
+  grid-template-columns: 60px 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
-  grid-template-areas: "nav-menu nav-pages blank";
+  grid-template-areas: "nav-menu nav-pages graph-container";
   width: 100%;
   height: 100%;
 }
@@ -75,8 +75,7 @@
   grid-area: resize-panel;
 }
 
-.blank {
-  grid-area: resize-panel;
+.graph-container {
   width: 100%;
   height: 100%;
 }

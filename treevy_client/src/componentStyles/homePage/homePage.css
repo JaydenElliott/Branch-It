@@ -21,12 +21,6 @@ Middle styling
   background-color: #ffffff;
 }
 
-.graph-container {
-  grid-area: graph-container;
-  background-color: #ffffff;
-  border-left: #ededed solid 1px;
-}
-
 #login-modal > .MuiDialog-container > .MuiPaper-root {
   position: absolute;
   right: 0;

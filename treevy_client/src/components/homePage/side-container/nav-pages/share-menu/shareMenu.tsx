@@ -44,6 +44,7 @@ export default class ShareMenu extends Component<any, any> {
     await this._setItemStateAsync(updatedItems);
     this.calculateCoordinates();
     await this._setItemStateAsync(updatedItems);
+    this.props.updateFlowJSON(this.getFlowJson());
   };
 
   /**
@@ -111,6 +112,7 @@ export default class ShareMenu extends Component<any, any> {
       await this._setItemStateAsync(updatedItems);
       this.calculateCoordinates();
       await this._setItemStateAsync(updatedItems);
+      this.props.updateFlowJSON(this.getFlowJson());
     }
   };
 

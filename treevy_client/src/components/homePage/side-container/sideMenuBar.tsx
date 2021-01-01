@@ -7,6 +7,7 @@ import NavItemLists from "./nav-menu-items/navItemLists";
 import NavItemShare from "./nav-menu-items/navItemShare";
 import ListsMenu from "./nav-pages/listsMenu";
 import SharedMenu from "./nav-pages/share-menu/shareMenu";
+import RenderGraph from "../../listHandling/renderGraph";
 
 export default class SideMenuBar extends Component<any, any> {
   constructor(props: any) {
@@ -15,6 +16,7 @@ export default class SideMenuBar extends Component<any, any> {
       menuLists_Open: false,
       menuShared_Open: false,
       menuWidth: 300,
+      flowJSON: [],
     };
   }
 
@@ -84,7 +86,9 @@ export default class SideMenuBar extends Component<any, any> {
           }}
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}
-          {this.state.menuShared_Open ? <SharedMenu /> : null}
+          {this.state.menuShared_Open ? (
+            <SharedMenu updateFlowJSON={this.updateFlow} />
+          ) : null}
           <Draggable
             axis="x"
             onDrag={(data: any) => {
@@ -99,6 +103,13 @@ export default class SideMenuBar extends Component<any, any> {
         </div>
       );
     }
+  };
+
+  // Updates the flowJSON for graph rendering
+  updateFlow = (newJson: object) => {
+    this.setState({
+      flowJSON: newJson,
+    });
   };
 
   /**
@@ -138,8 +149,16 @@ export default class SideMenuBar extends Component<any, any> {
           <div className="nav-menu-item-5"></div>
         </div>
         {this.renderResizePanel()}
-        <div className="blank" />
+        {console.log(this.state.flowJSON)}
+        <div className="graph-container">
+          <RenderGraph
+            graphElem={this.state.flowJSON}
+            renderPosition={[root_coordinate[0] - 150, root_coordinate[1] - 50]}
+          />
+        </div>
       </div>
     );
   }
 }
+
+const root_coordinate = [400, 50];
