@@ -1,5 +1,5 @@
 # flask dependencies
-from flask import Flask, Blueprint, request, app, jsonify
+from flask import Flask, Blueprint, json, request, app, jsonify
 from flask_cors import CORS
 
 from mysql_python_handler.mysql_communicator import MySQLCommunicator
@@ -12,11 +12,68 @@ CORS(api)
 # Setting up MySQLCommunicator
 communicator : MySQLCommunicator = MySQLCommunicator()
 
-# FIX: Replace with api.route(). Currrently blueprint is not working as intended.
+@api.route('/lists', methods=['GET'])
+def get_lists():
+    '''
+    @params e: email.
+
+    Returns all lists associated with user
+    '''
+    if request.method == 'GET' and 'e' in request.args:
+        email = request.args['e']
+        usr_id = communicator.get_user_id(email)
+        if (usr_id == None):
+            # Nothing was retrieved form the database for the given parameters. Status code: not found (404)
+            return "Error: email does not exist", 404
+        
+        res = communicator.get_lists(usr_id)
+
+        if (res == None):
+            # Nothing was retrieved form the database for the given parameters. Status code: not found (404)
+            return "Error: no lists found for user", 404
+        else:
+            # FIX: return a json which has appropriate key strings (currently are just numbers: 1, 2, etc.).
+            # lists = []
+            # for list in res:
+            #     lists.append(json.dumps({ # Dumps simply outputs a string from this.
+            #         'list_id':list[0],
+            #         'user_id':list[1],
+            #         'list':list[2]
+            #     }))
+            # print(lists)
+            return jsonify(res), 200
+    else:
+        # No email provided, status code: bad request (400)
+        return "Error: no email provided", 400
+
+# @api.route('lists', method=['POST'])
+# def add_list():
+#     '''
+#     @params e: email and l: json
+
+#     Returns id of newly added list
+#     '''
+
+#     # First checks if email parameter is provided
+#     if request.method == 'POST' and 'e' in request.args:
+#         email = request.args['e']
+#         usr_id = communicator.get_user_id(email)
+#         if (usr_id == None):
+#             return "Error: email does not exist", 404
+        
+#         # Then checks if list is provided
+#         if 'l' in request.args:
+            
+#         else:
+#             return "Error: no list provided", 400
+#     else:
+#         return "Error: no email provided", 400
+
+
 @api.route("/users", methods=['GET'])
 def get_user_details():
     '''
-    @params e: email or id: user id.
+    @params e: email.
 
     Returns user details excluding password
     '''

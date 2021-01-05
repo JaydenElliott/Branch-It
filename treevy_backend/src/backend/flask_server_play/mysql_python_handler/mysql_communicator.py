@@ -172,6 +172,23 @@ class MySQLCommunicator:
             print('Error {}'.format(e))
             return None
 
+    def get_lists(self, user_id) -> Union[list, None]:
+        """
+        Gets all the lists associated with a particular user_id
+        """
+        try:
+            response = self.sql.fetch(
+                'SELECT * FROM ' + util.mysql_details["treevys_table"] + '''
+                WHERE user_id = {user_id} AND time_of_deletion IS NULL
+                '''.format(user_id = user_id)
+            )
+
+            # Check that response is not empty
+            return response if len(response) > 0 else None
+        except Exception as e:
+            print('Error {}'.format(e))
+            return None
+
     def get_treevy_details(self, treevy_id: int) -> Union[list, None]:
         """
         Gets the treevy row details of the given treevy_id.
