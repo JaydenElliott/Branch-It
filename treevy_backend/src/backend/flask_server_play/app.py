@@ -55,7 +55,7 @@ def get_lists():
         @data json: {email: string, list: json}.
 
         Returns id of newly added list.
-        Warning: will not check if list structure or contents.
+        Warning: will not check list structure or contents.
         '''
 
         data = request.get_json()
@@ -73,7 +73,9 @@ def get_lists():
             # Then checks if list is provided
             if 'list' in data:
                 # Insert the list
-                list_id = communicator.insert_treevy(usr_id, data['list'])
+                list_id = communicator.insert_treevy(usr_id, json.dumps(data['list']))
+                if (list_id == None):
+                    return "Error: unable to add list", 403
                 return str(list_id), 200
             else:
                 return "Error: no list provided", 400
