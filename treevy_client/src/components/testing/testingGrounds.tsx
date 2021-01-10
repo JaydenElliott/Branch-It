@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../../componentStyles/testing/testingGrounds.css";
-import { getLists } from "../../logic/lists";
+import { getLists, postList, ListDetails } from "../../logic/lists";
 
 const elements = [
   { id: "1", data: { label: "Parent" }, position: { x: 500, y: 150 } }, // node 1`
@@ -46,11 +46,21 @@ export default class TestingGrounds extends Component<any, any> {
     })
   }
 
+  test2 = (details: ListDetails) => {
+    postList(details).then(res => {
+      console.log("YAY");
+      console.log(res);
+    }).catch(err => {
+      console.log("AWW");
+      console.log(err);
+    })
+  }
+
   render() {
     return (
       <div>
-        <button onClick={() => this.test("John11@gmail.com")}>Get!</button>
-        <button onClick={() => this.test("John11@gmail.com")}>POST!</button>
+        <button onClick={() => this.test("John1@gmail.com")}>Get!</button>
+        <button onClick={() => this.test2({email: "John1@gmail.com", list: {something: "what?"}})}>POST!</button>
       </div>
     );
   }
