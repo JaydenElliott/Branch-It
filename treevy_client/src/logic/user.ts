@@ -1,8 +1,5 @@
 import axios from "axios";
-
-// API urls TODO: placeholders
-const API_BASE_URL = "http://0.0.0.0:" + (process.env.PORT || 5000) + "/";
-const API_LOGIN_URL = API_BASE_URL + "api/users/login";
+import { API_LOGIN_URL } from "./util";
 
 // Defines login/register format to be sent to the backend
 export interface LoginDetails {
@@ -33,7 +30,7 @@ export const loginRequest = async (details: LoginDetails): Promise<boolean | nul
         case 400: throw new Error("Please provide an email and password");                            // Email or password was not provided
         case 404: throw new Error("The email address entered does not match any account");;           // Email does not exist in database
         case 500: throw new Error("Oops, our servers seem to be having a bit of difficulty. Sorry!")  // Internal server error
-        default: throw new Error("Failed to connect, please check your connection and try again")     // Connection error
+        default: throw new Error("Something went wrong...")                                           // Something has gone wrong
       }
     });
 }

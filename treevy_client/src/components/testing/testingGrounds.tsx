@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../componentStyles/testing/testingGrounds.css";
+import { getLists } from "../../logic/lists";
 
 const elements = [
   { id: "1", data: { label: "Parent" }, position: { x: 500, y: 150 } }, // node 1`
@@ -35,21 +36,40 @@ export default class TestingGrounds extends Component<any, any> {
     return newString;
   };
 
+  test = (email: string) => {
+    getLists(email).then(res => {
+      console.log("YAY");
+      console.log(res);
+    }).catch(err => {
+      console.log("AWW");
+      console.log(err);
+    })
+  }
+
   render() {
     return (
-      <div className="grid-container1">
-        <div className="button">
-          <button onClick={this.increaseGrid1}>Increase Grid 1</button>
-          <button onClick={this.decreaseGrid1}>Decrease Grid 1</button>
-        </div>
-        <div
-          className="grid-container2"
-          style={{ gridTemplateColumns: this.stateToString() }}
-        >
-          <div className="grid1">content1</div>
-          <div className="grid2">content2</div>
-        </div>
+      <div>
+        <button onClick={() => this.test("John11@gmail.com")}>Get!</button>
+        <button onClick={() => this.test("John11@gmail.com")}>POST!</button>
       </div>
     );
   }
+
+  // render() {
+  //   return (
+  //     <div className="grid-container1">
+  //       <div className="button">
+  //         <button onClick={this.increaseGrid1}>Increase Grid 1</button>
+  //         <button onClick={this.decreaseGrid1}>Decrease Grid 1</button>
+  //       </div>
+  //       <div
+  //         className="grid-container2"
+  //         style={{ gridTemplateColumns: this.stateToString() }}
+  //       >
+  //         <div className="grid1">content1</div>
+  //         <div className="grid2">content2</div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 }
