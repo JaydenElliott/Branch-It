@@ -16,7 +16,6 @@ export default class SideMenuBar extends Component<any, any> {
       menuLists_Open: false,
       menuShared_Open: false,
       menuWidth: 300,
-      flowJSON: [],
     };
   }
 
@@ -87,7 +86,7 @@ export default class SideMenuBar extends Component<any, any> {
         >
           {this.state.menuLists_Open ? <ListsMenu /> : null}
           {this.state.menuShared_Open ? (
-            <SharedMenu updateFlowJSON={this.updateFlow} />
+            <SharedMenu />
           ) : null}
           <Draggable
             axis="x"
@@ -103,13 +102,6 @@ export default class SideMenuBar extends Component<any, any> {
         </div>
       );
     }
-  };
-
-  // Updates the flowJSON for graph rendering
-  updateFlow = (newJson: object) => {
-    this.setState({
-      flowJSON: newJson,
-    });
   };
 
   /**
@@ -152,7 +144,6 @@ export default class SideMenuBar extends Component<any, any> {
           {this.renderResizePanel()}
           <div className="graph-container">
             <RenderGraph
-              graphElem={this.state.flowJSON}
               renderPosition={[
                 root_coordinate[0] - 150,
                 root_coordinate[1] - 50,

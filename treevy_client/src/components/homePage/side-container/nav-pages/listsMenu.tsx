@@ -1,11 +1,12 @@
 import React, { ChangeEvent, Component } from "react";
 import "../../../../componentStyles/homePage/side-container/nav-pages/listsMenu.css";
 import TreevyList, { ListState } from "../../../listHandling/treevyList";
+import ListContainer from "../../../listHandling/listContainer";
 import ListOption from "./listOption";
 
 // Redux
 import { connect } from "react-redux";
-import { setSelected, setLists } from "../../../../redux/actions/listsActions";
+import { setLists } from "../../../../redux/actions/listsActions";
 
 
 export interface ListsMenuState {
@@ -13,7 +14,7 @@ export interface ListsMenuState {
   iString: string;
 
   // To-do lists
-  displayedToDoLists: TreevyList[]; // To-do lists displayed to the user according to the search.
+  displayedToDoLists: ListContainer[]; // To-do lists displayed to the user according to the search.
 
   // User feedback
   feedback: string;
@@ -69,17 +70,17 @@ class ListsMenu extends Component<any, ListsMenuState> {
 
   /**
    * FUNCTIONALITY: adds a list to the state if it does not already exist
-   * @param content name of list
+   * @param name name of list
    * @returns boolean true if successful, false otherwise
    */
-  addList = (content: string): boolean => {
+  addList = (name: string): boolean => {
     // Ensure that the input string is not empty and that it is not contained already
-    if (content === "") {
+    if (name === "") {
       this.feedback("You must provide a to-do list name");
       return false;
     }
     for (let list of this.props.lists) {
-      if (list.content === content) {
+      if (list.name === name) {
         this.feedback(
           "That to-do list name already exists. You cannot have duplicate to-do list names"
         );
@@ -87,42 +88,39 @@ class ListsMenu extends Component<any, ListsMenuState> {
       }
     }
 
-    // Add list
-    const state: ListState = {
-      content: content,
-      done: false,
-      lists: [],
-      location: [1, 0], // FIX: location should be based on other lists, currently it is fixed
-      coordinates: undefined, //FIX: no coordinates
-      width: 100, //FIX: should be proper.
-    };
+    // Graph settings (make this modular - maybe settings file later)
+    const WIDTH = 2;
+    const root_coordinate = [400, 50];
 
-    const newList = new TreevyList(state);
+    /**
+     * An invisible node is required for the graph generation
+     * All the actual "root" lists need a parent to align themselves with
+     *
+     */
+    const invisibleRootNodeAttributes: ListState = {
+      lists: [],
+      done: false,
+      content: "",
+      location: [0, 0],
+      coordinates: root_coordinate,
+      width: WIDTH,
+      parent: undefined,
+    };
+    const rootNode = new TreevyList(invisibleRootNodeAttributes);
+    
+    let newListContainer = new ListContainer(name, [rootNode], []);
+
     // To ensure alphabetic order, simply insert the newList in the correct sorted position.
     let pos = 0;
     while (
       pos < this.props.lists.length &&
-      this.props.lists[pos].content.toLowerCase() <
-        content.toLowerCase()
+      this.props.lists[pos].name.toLowerCase() <
+        name.toLowerCase()
     ) {
       pos++;
     }
     let newLists = [...this.props.lists];
-    newLists.splice(pos, 0, newList);
-
-    // Alteratively, to sort the whole array:
-    // const newLists = [...this.props.lists, newList];
-    // newLists.sort((list1: TreevyList, list2: TreevyList) => {
-    //   const list1Name = list1.content.toLowerCase();
-    //   const list2Name = list2.content.toLowerCase();
-    //   if (list1Name > list2Name) {
-    //     return 1;
-    //   } else if (list1Name < list2Name) {
-    //     return -1;
-    //   } else {
-    //     return 0;
-    //   }
-    // })
+    newLists.splice(pos, 0, newListContainer);
 
     // Update redux
     this.props.setLists(newLists);
@@ -154,7 +152,7 @@ class ListsMenu extends Component<any, ListsMenuState> {
     // Sets new displayed lists
     this.setState({
       // Finds all lists containing the searched word
-      displayedToDoLists: this.props.lists.filter((list: TreevyList) => list.content.toLowerCase().includes(e.currentTarget.value.toLowerCase())),
+      displayedToDoLists: this.props.lists.filter((list: ListContainer) => list.name.toLowerCase().includes(e.currentTarget.value.toLowerCase())),
       iString: e.currentTarget.value,
     });
   };
@@ -203,10 +201,7 @@ const mapStatesToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    setSelected: (selected: TreevyList | undefined | null) => {
-      dispatch(setSelected(selected));
-    },
-    setLists: (lists: TreevyList[]) => {
+    setLists: (lists: ListContainer[]) => {
       dispatch(setLists(lists));
     },
   };
