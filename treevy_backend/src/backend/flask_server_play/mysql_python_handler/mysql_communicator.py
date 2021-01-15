@@ -1,6 +1,6 @@
 from typing import Union
-from .mysql_handler import MySQLHandler;
-from . import util
+from mysql_handler import MySQLHandler;
+import util
 
 class MySQLCommunicator:
     """

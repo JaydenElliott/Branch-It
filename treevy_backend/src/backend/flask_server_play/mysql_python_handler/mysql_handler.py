@@ -1,7 +1,7 @@
 from logging import exception
 from typing import Union
 import mysql.connector
-from . import util
+import util
 
 class MySQLHandler:
     """
