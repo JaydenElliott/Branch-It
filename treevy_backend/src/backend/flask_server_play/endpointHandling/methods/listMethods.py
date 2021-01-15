@@ -1,9 +1,12 @@
+from flask import json, jsonify
+
 class ListMethods():
     '''
     Class to handle all the to-do list RESTFUL API methods
     '''
-    def __init__(self, httpRequest):
-        self.httpRequest = httpRequest    
+    def __init__(self, httpRequest, communicator):
+        self.httpRequest = httpRequest
+        self.communicator = communicator
 
     def getList(self):
         '''
@@ -13,12 +16,12 @@ class ListMethods():
         '''
         if 'e' in self.httpRequest.args:
             email = self.httpRequest.args['e']
-            usr_id = communicator.get_user_id(email)
+            usr_id = self.communicator.get_user_id(email)
             if (usr_id == None):
                 # Nothing was retrieved form the database for the given parameters. Status code: not found (404)
                 return "Error: email does not exist", 404
             
-            res = communicator.get_lists(usr_id)
+            res = self.communicator.get_lists(usr_id)
 
             if (res == None):
                 # Nothing was retrieved form the database for the given parameters. Status code: not found (404)
@@ -55,14 +58,14 @@ class ListMethods():
         if 'email' in data:
             # Obtain user_id from email
             email = data['email']
-            usr_id = communicator.get_user_id(email)
+            usr_id = self.communicator.get_user_id(email)
             if (usr_id == None):
                 return "Error: email does not exist", 404
             
             # Then checks if list is provided
             if 'list' in data:
                 # Insert the list
-                list_id = communicator.insert_treevy(usr_id, json.dumps(data['list']))
+                list_id = self.communicator.insert_treevy(usr_id, json.dumps(data['list']))
                 if (list_id == None):
                     return "Error: unable to add list", 403
                 return str(list_id), 200

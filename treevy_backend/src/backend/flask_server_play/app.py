@@ -2,11 +2,16 @@
 from flask import Flask, Blueprint, json, request, app, jsonify
 from flask_cors import CORS
 
-# API method factory
-from backend.flask_server_play.endpointHandling.endpointHandler import makeEndpointHandler
+# To set up environment variables (MacOS and Linux, may not work on windows)
+import sys
+import os
+sys.path.append(os.environ['PWD'] + '/endpointHandling')
+sys.path.append(os.environ['PWD'] + '/endpointHandling/methods')
+sys.path.append(os.environ['PWD'] + '/mysql_python_handler')
 
-# SQL
-from backend.flask_server_play.mysql_python_handler.mysql_communicator import MySQLCommunicator
+# API method factory
+# To use: export PYTHONPATH="$PWD/flask_server_play/endpointHandling/" (just ensure you have the endpointHandling directory in your python path variable).
+from endpointHandler import makeEndpointHandler
 
 
 # Flask Setup

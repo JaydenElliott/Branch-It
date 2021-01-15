@@ -1,8 +1,11 @@
 # API method imports
-from backend.flask_server_play.endpointHandling.methods.testMethods import TestMethods
-from backend.flask_server_play.endpointHandling.methods.listMethods import ListMethods
-from backend.flask_server_play.endpointHandling.methods.loginMethods import LoginMethods
-from backend.flask_server_play.endpointHandling.methods.userMethods import UserMethods
+from testMethods import TestMethods
+from listMethods import ListMethods
+from loginMethods import LoginMethods
+from userMethods import UserMethods
+
+# SQL
+from mysql_communicator import MySQLCommunicator
 
 class makeEndpointHandler():
     """
@@ -17,17 +20,25 @@ class makeEndpointHandler():
     def __init__(self, endpointType, httpRequest):
         self.httpRequest = httpRequest
         endpoint_Dict = {"lists": self.lists, "login": self.login, "user": self.user, "test": self.test}
+
+        # MySQL
+        self.communicator = MySQLCommunicator()
+
+        # Handlers
+        self.listMethods = ListMethods(self.httpRequest, self.communicator)
+        self.loginMethods = LoginMethods(self.httpRequest, self.communicator)
+        self.userMethods = UserMethods(self.httpRequest, self.communicator)
+        self.testMethods = TestMethods(self.httpRequest, self.communicator)
+
         self.res = endpoint_Dict[endpointType]()
 
 
     def lists(self):
-        handler = ListMethods(self.httpRequest)
-
         if self.httpRequest.method == "GET":
-            return handler.getList()
+            return self.listMethods.getList()
         
-        elif self.method == "POST":
-            return handler.postList()
+        elif self.httpRequest.method == "POST":
+            return self.listMethods.postList()
         
         else:
             errorDict = {statusCode: 405, errorMessage: "Method {} is not allowd.".format(self.httpRequest.method)}
@@ -36,13 +47,11 @@ class makeEndpointHandler():
 
     
     def login(self):
-        handler = LoginMethods(self.httpRequest)
-
         if self.httpRequest.method == "GET":
-            return handler.getLogin()
+            return self.loginMethods.getLogin()
         
         elif self.method == "POST":
-            return handler.postLogin()
+            return self.loginMethods.postLogin()
         
         else:
             errorDict = {statusCode: 405, errorMessage: "Method {} is not allowd.".format(self.httpRequest.method)}
@@ -50,12 +59,11 @@ class makeEndpointHandler():
     
 
     def user(self):
-        handler = UserMethods(self.httpRequest)
         if self.httpRequest.method == "GET":
-            return handler.getUser()
+            return self.userMethods.getUser()
         
         elif self.method == "POST":
-            return handler.postUser()
+            return self.userMethods.postUser()
         
         else:
             errorDict = {statusCode: 405, errorMessage: "Method {} is not allowd.".format(self.httpRequest.method)}
@@ -63,13 +71,11 @@ class makeEndpointHandler():
 
     
     def test(self):
-        handler = TestMethods(self.httpRequest)
-        
         if self.httpRequest.method == "GET":
-            return handler.getTest()
+            return self.testMethods.getTest()
         
         elif self.method == "POST":
-            return handler.postTest()
+            return self.testMethods.postTest()
         
         else:
             errorDict = {statusCode: 405, errorMessage: "Method {} is not allowd.".format(self.httpRequest.method)}

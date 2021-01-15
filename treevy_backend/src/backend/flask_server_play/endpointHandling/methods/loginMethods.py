@@ -1,9 +1,12 @@
+from flask import jsonify
+
 class LoginMethods():
     '''
     Class to handle all the login RESTFUL API methods
     '''
-    def __init__(self,httpRequest):
-        self.httpRequest = httpRequest    
+    def __init__(self, httpRequest, communicator):
+        self.httpRequest = httpRequest
+        self.communicator = communicator
 
     def getLogin(self):
         return "Login GET successful"
@@ -21,7 +24,7 @@ class LoginMethods():
         
         # Check that the relevant data was provided
         if ('email' in data and 'password' in data):
-            res = communicator.get_user_details_from_email(data['email'])
+            res = self.communicator.get_user_details_from_email(data['email'])
 
             if (res == None):
                 return "Error: email does not exist", 404

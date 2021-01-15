@@ -1,9 +1,12 @@
+from flask import jsonify
+
 class UserMethods():
     '''
     Class to handle all the user RESTFUL API methods
     '''
-    def __init__(self,httpRequest):
-        self.httpRequest = httpRequest    
+    def __init__(self,httpRequest,communicator):
+        self.httpRequest = httpRequest
+        self.communicator = communicator
 
     def getUser(self):
         '''
@@ -13,7 +16,7 @@ class UserMethods():
         '''
         if self.httpRequest.method == 'GET' and 'e' in self.httpRequest.args:
             email = self.httpRequest.args['e']
-            res = communicator.get_user_details_from_email(email)
+            res = self.communicator.get_user_details_from_email(email)
 
             if (res == None):
                 # Nothing was retrieved form the database for the given parameters. Status code: not found (404)
