@@ -5,14 +5,30 @@ import "../../../../../componentStyles/homePage/side-container/nav-pages/shareMe
 import TreevyList, { ListState } from "../../../../listHandling/treevyList";
 import RenderGraph from "../../../../listHandling/renderGraph";
 import RenderList from "../../../../listHandling/renderList";
+import ListContainer from "../../../../listHandling/listContainer";
 
-export default class ShareMenu extends Component<any, any> {
+// Redux
+import { connect } from "react-redux";
+import { updateSelected } from "../../../../../redux/actions/listsActions";
+
+class ShareMenu extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
       inputRootString: "",
-      items: [rootNode],
+      items: this.props.selected ? this.props.selected.items : [],
+      flowJson: [],
     };
+  }
+
+  /**
+   * Updates redux selected with component items state and flowJson
+   */
+  updateRedux = () => {
+    let update = this.props.selected;
+    update.items = this.state.items;
+    update.flowJson = this.state.flowJson;
+    this.props.updateSelected(update);
   }
 
   // Keyboard Input Utility function
@@ -44,7 +60,10 @@ export default class ShareMenu extends Component<any, any> {
     await this._setItemStateAsync(updatedItems);
     this.calculateCoordinates();
     await this._setItemStateAsync(updatedItems);
-    this.props.updateFlowJSON(this.getFlowJson());
+    this.setState({flowJson: this.getFlowJson()});
+
+    // Updating redux
+    this.updateRedux();
   };
 
   /**
@@ -124,7 +143,8 @@ export default class ShareMenu extends Component<any, any> {
       await this._setItemStateAsync(updatedItems);
       this.calculateCoordinates();
       await this._setItemStateAsync(updatedItems);
-      this.props.updateFlowJSON(this.getFlowJson());
+      this.setState({flowJson: this.getFlowJson()})
+      this.updateRedux();
     }
   };
 
@@ -158,8 +178,10 @@ export default class ShareMenu extends Component<any, any> {
 
     // Update the state
     await this._setDeleteStateAsync(updatedItems);
-    this.props.updateFlowJSON(this.getFlowJson());
-    await this._setDeleteStateAsync(updatedItems);
+
+    // Updating redux
+    this.setState({flowJson: this.getFlowJson()})
+    this.updateRedux();
   };
 
   /**
@@ -204,6 +226,13 @@ export default class ShareMenu extends Component<any, any> {
   };
 
   render() {
+    if (!this.props.selected) {
+      return (
+        <div className="nav-pages-share">
+          <strong>Please select a list</strong>
+        </div>
+      )
+    }
     return (
       <div className="nav-pages-share">
         <form onSubmit={this.submitItem}>
@@ -237,18 +266,37 @@ var root_coordinate = [400, 50];
 var xscale = 40;
 var yscale = 60;
 
-/**
- * An invisible node is required for the graph generation
- * All the actual "root" lists need a parent to align themselves with
- *
- */
-const invisibleRootNodeAttributes: ListState = {
-  lists: [],
-  done: false,
-  content: "",
-  location: [0, 0],
-  coordinates: root_coordinate,
-  width: WIDTH,
-  parent: undefined,
+// TODO: Delete commented out code below if unnecessary
+// /**
+//  * An invisible node is required for the graph generation
+//  * All the actual "root" lists need a parent to align themselves with
+//  *
+//  */
+// const invisibleRootNodeAttributes: ListState = {
+//   lists: [],
+//   done: false,
+//   content: "",
+//   location: [0, 0],
+//   coordinates: root_coordinate,
+//   width: WIDTH,
+//   parent: undefined,
+// };
+// var rootNode = new TreevyList(invisibleRootNodeAttributes);
+
+// Redux mapping to props
+const mapStatesToProps = (state: any) => {
+  const { selected } = state.listsReducer;
+  return {
+    selected
+  };
 };
-var rootNode = new TreevyList(invisibleRootNodeAttributes);
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    updateSelected: (updatedSelected: ListContainer) => {
+      dispatch(updateSelected(updatedSelected))
+    },
+  };
+};
+
+export default connect(mapStatesToProps, mapDispatchToProps)(ShareMenu);

@@ -1,9 +1,9 @@
-import TreevyList from "../../components/listHandling/treevyList";
+import ListContainer from "../../components/listHandling/listContainer";
 
 // Defines the redux reducer for to-do lists.
 interface ListsState {
-    selected: TreevyList | undefined | null,
-    lists: TreevyList[],
+    selected: ListContainer | undefined | null,
+    lists: ListContainer[],
 }
 const listsReducer = (state: ListsState = {
     selected: undefined,
@@ -23,6 +23,24 @@ const listsReducer = (state: ListsState = {
             state = {
                 ...state,
                 lists: action.payload,
+            }
+            break;
+        
+        // Updates the currently selected
+        case 'selected/update':
+            if (state.selected !== null && state.selected !== undefined) {
+                // Find index of currently selected in order to change it
+                const index = state.lists.indexOf(state.selected);
+                state = {
+                    ...state,
+                    lists: [
+                        // Maintaining all other lists while immutably changing the selected
+                        ...state.lists.slice(0, index),
+                        action.payload,
+                        ...state.lists.slice(index + 1)
+                    ],
+                    selected: action.payload
+                }
             }
             break;
         default:

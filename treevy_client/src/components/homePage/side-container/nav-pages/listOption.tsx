@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "../../../../componentStyles/homePage/side-container/nav-pages/listOption.css";
-import TreevyList from "../../../listHandling/treevyList";
+import ListContainer from "../../../listHandling/listContainer";
 
 // Redux
 import { connect } from "react-redux";
 import { setSelected } from "../../../../redux/actions/listsActions";
 
 export interface ListOptionState {
-  list: TreevyList;
+  list: ListContainer;
 }
 class ListOption extends Component<any, ListOptionState> {
   constructor(props: any) {
@@ -53,10 +53,10 @@ class ListOption extends Component<any, ListOptionState> {
         onClick={() => this.props.setSelected(this.props.list)}
         // Displays a title (hover to see) only if the character length would result in an overflow
         title={
-          this.props.list.content.length > 16 ? this.props.list.content : ""
+          this.props.list.name.length > 16 ? this.props.list.name : ""
         }
       >
-        <span>{this.props.list.content}</span>
+        <span>{this.props.list.name}</span>
       </button>
     );
   };
@@ -68,7 +68,7 @@ class ListOption extends Component<any, ListOptionState> {
           className="checkbox"
           type="checkbox"
           defaultChecked={this.props.list.done}
-          onChange={() => this.props.list.set_done(!this.props.list.done)}
+          onChange={() => this.props.list.done = (!this.props.list.done)}
         />
         {this.renderButton()}
       </div>
@@ -86,7 +86,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    setSelected: (selected: TreevyList | undefined | null) => {
+    setSelected: (selected: ListContainer | undefined | null) => {
       dispatch(setSelected(selected));
     },
   };
