@@ -36,8 +36,8 @@ export default class App extends Component<{}, { sideBarReducer: any }> {
   render() {
     return (
       <div className="maindiv">
-        <TestingGrounds />
-        {/* <HomePage /> */}
+        {/* <TestingGrounds /> */}
+        <HomePage />
         {/* <ListHandler /> */}
         {/* <SideMenuBar /> */}
         {/* <LoginModal /> */}

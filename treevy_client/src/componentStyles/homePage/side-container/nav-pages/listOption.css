@@ -62,3 +62,15 @@
 .checkbox:checked::before {
   opacity: 1;
 }
+
+.root-choice-button {
+  height: 35px;
+  font-size: 20px;
+  text-transform: none;
+  display: flex;
+  margin: 4%;
+  width: 90%;
+  box-shadow: none;
+  outline: none;
+  border: 1px solid black;
+}

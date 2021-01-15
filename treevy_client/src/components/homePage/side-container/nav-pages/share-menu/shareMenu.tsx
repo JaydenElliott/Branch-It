@@ -29,7 +29,7 @@ class ShareMenu extends Component<any, any> {
     update.items = this.state.items;
     update.flowJson = this.state.flowJson;
     this.props.updateSelected(update);
-  }
+  };
 
   // Keyboard Input Utility function
   onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -60,7 +60,7 @@ class ShareMenu extends Component<any, any> {
     await this._setItemStateAsync(updatedItems);
     this.calculateCoordinates();
     await this._setItemStateAsync(updatedItems);
-    this.setState({flowJson: this.getFlowJson()});
+    this.setState({ flowJson: this.getFlowJson() });
 
     // Updating redux
     this.updateRedux();
@@ -106,8 +106,6 @@ class ShareMenu extends Component<any, any> {
     return newGraphElements;
   };
 
-  // { id: "e1-2", source: "1", target: "2", animated: true }
-
   /**
    * Takes child list submitted via genChildList and inserts it into
    * state.items at the appropriate location.
@@ -143,7 +141,7 @@ class ShareMenu extends Component<any, any> {
       await this._setItemStateAsync(updatedItems);
       this.calculateCoordinates();
       await this._setItemStateAsync(updatedItems);
-      this.setState({flowJson: this.getFlowJson()})
+      this.setState({ flowJson: this.getFlowJson() });
       this.updateRedux();
     }
   };
@@ -180,7 +178,7 @@ class ShareMenu extends Component<any, any> {
     await this._setDeleteStateAsync(updatedItems);
 
     // Updating redux
-    this.setState({flowJson: this.getFlowJson()})
+    this.setState({ flowJson: this.getFlowJson() });
     this.updateRedux();
   };
 
@@ -231,7 +229,7 @@ class ShareMenu extends Component<any, any> {
         <div className="nav-pages-share">
           <strong>Please select a list</strong>
         </div>
-      )
+      );
     }
     return (
       <div className="nav-pages-share">
@@ -266,35 +264,18 @@ var root_coordinate = [400, 50];
 var xscale = 40;
 var yscale = 60;
 
-// TODO: Delete commented out code below if unnecessary
-// /**
-//  * An invisible node is required for the graph generation
-//  * All the actual "root" lists need a parent to align themselves with
-//  *
-//  */
-// const invisibleRootNodeAttributes: ListState = {
-//   lists: [],
-//   done: false,
-//   content: "",
-//   location: [0, 0],
-//   coordinates: root_coordinate,
-//   width: WIDTH,
-//   parent: undefined,
-// };
-// var rootNode = new TreevyList(invisibleRootNodeAttributes);
-
 // Redux mapping to props
 const mapStatesToProps = (state: any) => {
   const { selected } = state.listsReducer;
   return {
-    selected
+    selected,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     updateSelected: (updatedSelected: ListContainer) => {
-      dispatch(updateSelected(updatedSelected))
+      dispatch(updateSelected(updatedSelected));
     },
   };
 };

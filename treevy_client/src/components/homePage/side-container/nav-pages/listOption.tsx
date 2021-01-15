@@ -23,27 +23,14 @@ class ListOption extends Component<any, ListOptionState> {
   renderButton = () => {
     return (
       <button
+        className="root-choice-button"
         style={
           this.props.list === (this.props.selected ? this.props.selected : null)
             ? {
-                height: "35px",
-                fontSize: "20px",
-                textTransform: "none",
-                display: "flex",
-                margin: "4%",
-                width: "90%",
-                boxShadow: "none",
                 backgroundColor: "#608C4C",
                 color: "#ffffff",
-                outline: "none",
               }
             : {
-                height: "35px",
-                fontSize: "20px",
-                textTransform: "none",
-                display: "flex",
-                margin: "4%",
-                width: "90%",
                 outline: "none",
                 backgroundColor: "rgba(255,255,255,0.5)",
                 border: "1px solid grey",
@@ -52,9 +39,7 @@ class ListOption extends Component<any, ListOptionState> {
         // Sets redux state
         onClick={() => this.props.setSelected(this.props.list)}
         // Displays a title (hover to see) only if the character length would result in an overflow
-        title={
-          this.props.list.name.length > 16 ? this.props.list.name : ""
-        }
+        title={this.props.list.name.length > 16 ? this.props.list.name : ""}
       >
         <span>{this.props.list.name}</span>
       </button>
@@ -68,7 +53,7 @@ class ListOption extends Component<any, ListOptionState> {
           className="checkbox"
           type="checkbox"
           defaultChecked={this.props.list.done}
-          onChange={() => this.props.list.done = (!this.props.list.done)}
+          onChange={() => (this.props.list.done = !this.props.list.done)}
         />
         {this.renderButton()}
       </div>
