@@ -2,3 +2,42 @@
   width: 100vw;
   height: 100vh;
 }
+
+:root {
+  --toast-length: 2.5s;
+}
+
+/* Toast that appears at the bottom of the screen */
+#toast {
+  position: fixed;
+  z-index: 1;
+  min-width: 250px;
+  min-height: 60px;
+  margin-left: -125px; /* So as to align it to the centre given the min-wdith */
+  
+  visibility: hidden;
+
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
+  padding: 20px;
+
+  left: 50%;
+  bottom: 30px;
+}
+
+#toast.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s var(--toast-length);
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
