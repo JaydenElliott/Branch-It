@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "../../componentStyles/testing/testingGrounds.css";
 import { getLists, postList, ListDetails } from "../../logic/lists";
 
+// Redux
+import { connect } from "react-redux";
+import { displayToast } from "../../redux/actions/toastActions";
+
 const elements = [
   { id: "1", data: { label: "Parent" }, position: { x: 500, y: 150 } }, // node 1`
   { id: "2", data: { label: "First child" }, position: { x: 400, y: 250 } }, // node 2
@@ -11,7 +15,7 @@ const elements = [
   { id: "e1-3", source: "1", target: "3", animated: false }, // edge
 ];
 
-export default class TestingGrounds extends Component<any, any> {
+class TestingGrounds extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = { grid1Width: 50, grid2Width: 50 };
@@ -59,8 +63,9 @@ export default class TestingGrounds extends Component<any, any> {
   render() {
     return (
       <div>
-        <button onClick={() => this.test("John1@gmail.com")}>Get!</button>
-        <button onClick={() => this.test2({email: "John1@gmail.com", list: {something: "what?"}})}>POST!</button>
+        <button onClick={() => this.props.displayToast("Hello there ;)", 2500)}>Click here from testing</button>
+        {/* <button onClick={() => this.test("John1@gmail.com")}>Get!</button>
+        <button onClick={() => this.test2({email: "John1@gmail.com", list: {something: "what?"}})}>POST!</button> */}
       </div>
     );
   }
@@ -83,3 +88,14 @@ export default class TestingGrounds extends Component<any, any> {
   //   );
   // }
 }
+
+// Redux mapping to props
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    displayToast: (message: string = "", time: number = 3000) => {
+      dispatch(displayToast(message, time));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(TestingGrounds);

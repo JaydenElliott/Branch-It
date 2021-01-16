@@ -25,6 +25,7 @@ var list: ListState = {
 let newList = new TreevyList(list);
 
 export default class App extends Component<{}, { sideBarReducer: any }> {
+
   constructor(props: any) {
     super(props);
 
@@ -33,9 +34,28 @@ export default class App extends Component<{}, { sideBarReducer: any }> {
     };
   }
 
+  // If redux is not working, this will also allow you to use the toast.
+  // /**
+  //  * Displays a toast on the webpage for the provided amount of time.
+  //  * 
+  //  * @param message message to display
+  //  * @param time time in milliseconds the message will be displayed
+  //  */
+  // handleToast = (message: string = "", time: number = 2500) => {
+  //   if (document) {
+  //     const toast = document.getElementById("toast");
+  //     if (toast) {
+  //       toast.innerHTML = message;
+  //       toast.className = "show";
+  //       setTimeout(() => { toast.className = ""; }, time);
+  //     }
+  //   }
+  // }
+
   render() {
     return (
       <div className="maindiv">
+        <div id="toast">Hello there Jayden</div>
         <TestingGrounds />
         {/* <HomePage /> */}
         {/* <ListHandler /> */}
