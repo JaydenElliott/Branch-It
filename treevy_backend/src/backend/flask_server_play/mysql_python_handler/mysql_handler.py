@@ -1,7 +1,8 @@
 from logging import exception
 from typing import Union
 import mysql.connector
-import util
+
+from backend.flask_server_play.mysql_python_handler import util
 
 class MySQLHandler:
     """

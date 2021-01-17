@@ -11,7 +11,7 @@ sys.path.append(os.environ['PWD'] + '/mysql_python_handler')
 
 # API method factory
 # To use: export PYTHONPATH="$PWD/flask_server_play/endpointHandling/" (just ensure you have the endpointHandling directory in your python path variable).
-from endpointHandler import makeEndpointHandler
+from backend.flask_server_play.endpointHandling.endpointHandler import makeEndpointHandler
 
 
 # Flask Setup

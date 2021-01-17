@@ -1,6 +1,6 @@
 from typing import Union
-from mysql_handler import MySQLHandler;
-import util
+from backend.flask_server_play.mysql_python_handler.mysql_handler import MySQLHandler;
+from backend.flask_server_play.mysql_python_handler import util
 
 class MySQLCommunicator:
     """

@@ -1,11 +1,10 @@
 # API method imports
-from testMethods import TestMethods
-from listMethods import ListMethods
-from loginMethods import LoginMethods
-from userMethods import UserMethods
+from backend.flask_server_play.endpointHandling.methods.listMethods import ListMethods
+from backend.flask_server_play.endpointHandling.methods.loginMethods import LoginMethods
+from backend.flask_server_play.endpointHandling.methods.userMethods import UserMethods
 
 # SQL
-from mysql_communicator import MySQLCommunicator
+from backend.flask_server_play.mysql_python_handler.mysql_communicator import MySQLCommunicator
 
 class makeEndpointHandler():
     """
