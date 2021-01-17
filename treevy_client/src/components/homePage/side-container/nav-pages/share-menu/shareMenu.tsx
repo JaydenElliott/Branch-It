@@ -61,8 +61,6 @@ class ShareMenu extends Component<any, any> {
     this.calculateCoordinates();
     await this._setItemStateAsync(updatedItems);
     this.setState({ flowJson: this.getFlowJson() });
-
-    // Updating redux
     this.updateRedux();
   };
 
@@ -176,7 +174,8 @@ class ShareMenu extends Component<any, any> {
 
     // Update the state
     await this._setDeleteStateAsync(updatedItems);
-
+    this.calculateCoordinates();
+    await this._setDeleteStateAsync(updatedItems);
     // Updating redux
     this.setState({ flowJson: this.getFlowJson() });
     this.updateRedux();
@@ -253,6 +252,7 @@ class ShareMenu extends Component<any, any> {
             />
           ))}
         </div>
+        {console.log(this.state.flowJson)}
       </div>
     );
   }
