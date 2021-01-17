@@ -8,7 +8,6 @@ import ListOption from "./listOption";
 import { connect } from "react-redux";
 import { setLists } from "../../../../redux/actions/listsActions";
 
-
 export interface ListsMenuState {
   // Input
   iString: string;
@@ -107,15 +106,14 @@ class ListsMenu extends Component<any, ListsMenuState> {
       parent: undefined,
     };
     const rootNode = new TreevyList(invisibleRootNodeAttributes);
-    
+
     let newListContainer = new ListContainer(name, [rootNode], []);
 
     // To ensure alphabetic order, simply insert the newList in the correct sorted position.
     let pos = 0;
     while (
       pos < this.props.lists.length &&
-      this.props.lists[pos].name.toLowerCase() <
-        name.toLowerCase()
+      this.props.lists[pos].name.toLowerCase() < name.toLowerCase()
     ) {
       pos++;
     }
@@ -152,7 +150,9 @@ class ListsMenu extends Component<any, ListsMenuState> {
     // Sets new displayed lists
     this.setState({
       // Finds all lists containing the searched word
-      displayedToDoLists: this.props.lists.filter((list: ListContainer) => list.name.toLowerCase().includes(e.currentTarget.value.toLowerCase())),
+      displayedToDoLists: this.props.lists.filter((list: ListContainer) =>
+        list.name.toLowerCase().includes(e.currentTarget.value.toLowerCase())
+      ),
       iString: e.currentTarget.value,
     });
   };
@@ -174,7 +174,9 @@ class ListsMenu extends Component<any, ListsMenuState> {
     return (
       <ul className="todo-list-container">
         {this.state.displayedToDoLists.map((list) => (
-          <li>{<ListOption list={list} />}</li>
+          <li>
+            {<ListOption list={list} menuToggle={this.props.menuToggle} />}
+          </li>
         ))}
       </ul>
     );

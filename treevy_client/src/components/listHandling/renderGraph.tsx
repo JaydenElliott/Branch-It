@@ -12,7 +12,10 @@ class RenderGraph extends Component<any, any> {
   render() {
     return (
       <ReactFlow
-        elements={this.props.graphElem || (this.props.selected ? this.props.selected.flowJson : [])} // Will render in order of: provided prop, redux selected, nothing
+        elements={
+          this.props.graphElem ||
+          (this.props.selected ? this.props.selected.flowJson : [])
+        } // Will render in order of: provided prop, redux selected, nothing
         style={{ width: "100%", height: "100%" }}
         nodesDraggable={false}
         nodesConnectable={false}

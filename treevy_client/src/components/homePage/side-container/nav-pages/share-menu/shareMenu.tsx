@@ -259,7 +259,7 @@ class ShareMenu extends Component<any, any> {
 }
 
 // Graph settings (make this modular - maybe settings file later)
-var WIDTH = 2;
+var WIDTH = 1;
 var root_coordinate = [400, 50];
 var xscale = 40;
 var yscale = 60;

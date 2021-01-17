@@ -36,7 +36,7 @@ export default class SideMenuBar extends Component<any, any> {
       } else {
         this.setState({
           menuLists_Open: false,
-          menuShared_Open: false, // safety
+          menuShared_Open: true, // safety
         });
       }
       this.setState(resolve);
@@ -84,9 +84,11 @@ export default class SideMenuBar extends Component<any, any> {
             width: this.checkSnap(70, 1000),
           }}
         >
-          {this.state.menuLists_Open ? <ListsMenu /> : null}
+          {this.state.menuLists_Open ? (
+            <ListsMenu menuToggle={this.toggleMenuLists} />
+          ) : null}
           {this.state.menuShared_Open ? (
-            <SharedMenu />
+            <SharedMenu menuToggle={this.toggleMenuLists} />
           ) : null}
           <Draggable
             axis="x"

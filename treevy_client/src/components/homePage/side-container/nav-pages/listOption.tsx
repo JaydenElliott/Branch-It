@@ -16,6 +16,11 @@ class ListOption extends Component<any, ListOptionState> {
     // No state
   }
 
+  buttonClickHandler = () => {
+    this.props.setSelected(this.props.list);
+    this.props.menuToggle();
+  };
+
   /**
    * RENDERING: displays a button (in the side-search-bar) which can be
    *            pressed to select that particular list to display.
@@ -37,7 +42,7 @@ class ListOption extends Component<any, ListOptionState> {
               }
         }
         // Sets redux state
-        onClick={() => this.props.setSelected(this.props.list)}
+        onClick={this.buttonClickHandler}
         // Displays a title (hover to see) only if the character length would result in an overflow
         title={this.props.list.name.length > 16 ? this.props.list.name : ""}
       >
