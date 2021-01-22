@@ -1,0 +1,12 @@
+.homepage-container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  grid-template-columns: 1fr;
+  grid-template-rows: 47px 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "topbar-container"
+    "content-container";
+}
