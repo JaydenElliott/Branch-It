@@ -5,13 +5,6 @@
   background-color: #dee0e0;
 }
 
-%top-bar-button {
-  background-color: #608c4c;
-  height: 33px;
-  width: 95px;
-  color: white;
-}
-
 .branch-it-logo {
   color: black;
   margin-left: 20px;
@@ -20,24 +13,24 @@
 .save-button {
   margin-left: 100px;
   margin-right: auto;
-
-  @extend %top-bar-button;
+  border-radius: 15px;
 }
 
 .title {
-  position: absolute;
-  transform: translate(-50%);
+  grid-area: top-bar;
+  justify-content: center;
+  align-items: center;
   font-family: "SillyHandScript-Regular";
   font-size: 30px;
-  //   color: branchIt.$theme-green;
+  color: #608c4c;
   letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .share-button {
   margin-left: 20px;
   margin-left: auto;
-
-  @extend %top-bar-button;
+  border-radius: 15px;
 }
 
 @media (max-width: 1100px) {
@@ -48,7 +41,9 @@
 
 .maple-button {
   margin-left: 20px;
-  @extend %top-bar-button;
+
+  background-color: #2196f3;
+  border-radius: 15px;
 }
 @media (max-width: 1100px) {
   .maple-button {
@@ -59,7 +54,7 @@
 .login-button {
   margin-right: 50px;
   margin-left: 20px;
-  @extend %top-bar-button;
+  border-radius: 15px;
 }
 @media (max-width: 1100px) {
   .login-button {

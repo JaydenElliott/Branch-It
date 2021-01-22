@@ -2,8 +2,11 @@ import React, { Component } from "react";
 
 // Styling
 import "./topBar.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
+import ShareIcon from "@material-ui/icons/Share";
+import EcoIcon from "@material-ui/icons/Eco";
+import PersonIcon from "@material-ui/icons/Person";
 
 import logo from "../../../assets/templogo.svg";
 
@@ -18,9 +21,67 @@ class TopBar extends Component {
         <div className="branch-it-logo">
           <img src={logo} style={{ fill: "#608c4c" }} />
         </div>
-        <button className="save-button">
-          <FontAwesomeIcon icon={faInbox} style={{ height: "65%" }} />
-        </button>
+        <div className="save-button">
+          <Button
+            startIcon={<SaveIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#608C4C",
+              height: "33px",
+              width: "95px",
+              color: "#ffffff",
+              fontSize: "10px",
+            }}
+          >
+            Save
+          </Button>
+        </div>
+        <div className="title">Branch-It</div>
+        <div className="share-button">
+          <Button
+            startIcon={<ShareIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#608C4C",
+              color: "#ffffff",
+              height: "33px",
+              width: "95px",
+              fontSize: "10px",
+            }}
+          >
+            Share
+          </Button>
+        </div>
+        <div className="maple-button">
+          <Button
+            startIcon={<EcoIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#2196f3",
+              height: "33px",
+              width: "95px",
+              color: "#ffffff",
+              fontSize: "10px",
+            }}
+          >
+            Maple
+          </Button>
+        </div>
+        <div className="login-button">
+          <Button
+            startIcon={<PersonIcon />}
+            variant="contained"
+            style={{
+              backgroundColor: "#608C4C",
+              height: "33px",
+              width: "95px",
+              color: "#ffffff",
+              fontSize: "10px",
+            }}
+          >
+            Log-in
+          </Button>
+        </div>
       </div>
     );
   }
