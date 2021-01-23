@@ -7,20 +7,27 @@ import SaveIcon from "@material-ui/icons/Save";
 import ShareIcon from "@material-ui/icons/Share";
 import EcoIcon from "@material-ui/icons/Eco";
 import PersonIcon from "@material-ui/icons/Person";
-
 import logo from "../../../assets/templogo.svg";
+
+// Internal Components
+import LoginModal from "./login-modal/loginModal";
 
 class TopBar extends Component {
   constructor(props) {
     super(props);
+    this.state = { loginModalOpen: false };
   }
+
+  toggleLoginModal = () => {
+    let toggle = this.state.loginModalOpen ? false : true;
+    this.setState({
+      loginModalOpen: toggle,
+    });
+  };
 
   render() {
     return (
       <div className="topbar-container">
-        {/* <div className="branch-it-logo">
-          <img src={logo} style={{ fill: "#608c4c" }} />
-        </div> */}
         <div className="save-button">
           <Button
             startIcon={<SaveIcon />}
@@ -78,10 +85,12 @@ class TopBar extends Component {
               color: "#ffffff",
               fontSize: "10px",
             }}
+            onClick={this.toggleLoginModal}
           >
             Log-in
           </Button>
         </div>
+        <LoginModal isOpen={this.state.loginModalOpen} />
       </div>
     );
   }
