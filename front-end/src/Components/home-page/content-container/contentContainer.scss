@@ -1,1 +1,5 @@
-
+.content-container {
+  display: grid;
+  grid-template-columns: 70px 1fr 1fr;
+  grid-template-areas: "side-bar list-nav graph-container";
+}

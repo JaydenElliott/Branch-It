@@ -47,6 +47,7 @@ router.get('/:email', async (req, res) => {
     user[0].password = undefined;
     res.status(200).json(user);
   } catch (err) {
+    console.log(err);
     res.status(500).json({message: 'Something went wrong', error: err});
   }
 });
@@ -65,12 +66,9 @@ router.get('/:email', async (req, res) => {
  *      schema:
  *        type: object
  *        required:
- *          - username
  *          - email
  *          - password
  *        properties:
- *          username:
- *            type: string
  *          email:
  *            type: string
  *          password:
@@ -102,9 +100,10 @@ router.post('/', async (req, res) => {
   try {
     const savedUser = await user.save();
     // Remove password for safety
-    savedUser[0].password = undefined;
+    savedUser.password = undefined;
     res.status(201).json(savedUser);
   } catch (err) {
+    console.log(err);
     res.status(403).json({ message: 'Duplicated email', error: err});
   }
 });
