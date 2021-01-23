@@ -1,8 +1,6 @@
 # IDE
 .DS_Store
 .idea
-*.idea
-
 .vs
 .vscode
 __pycache__
@@ -10,8 +8,7 @@ __pycache__
 # Development folders
 build
 dist
-Backend/node_modules
-front-end/node_modules
+node_modules
 
 # misc
 *.pyc
@@ -20,6 +17,3 @@ front-end/node_modules
 *package-lock.json
 *react-app-env.d.ts
 
-
-.eslintcache
-*.eslintcache

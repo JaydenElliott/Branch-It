@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "contributors": [
+    {
+      "name": "Ethal Askander",
+      "email": "Ethal.Askander@outlook.com"
+    },
+    {
+      "name": "Jayden Elliott",
+      "email": "Jayden.Elliott@outlook.com"
+    }
+  ],
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongodb": "^3.6.3",
+    "morgan": "~1.9.1",
+    "swagger-jsdoc": "^6.0.1",
+    "swagger-ui-express": "^4.1.6"
+  }
+}
