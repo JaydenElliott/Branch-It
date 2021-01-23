@@ -1,0 +1,6 @@
+{
+  "backendEndpoints": {
+    "login": "http://localhost:3003",
+    "user": "http://localhost:3003"
+  }
+}

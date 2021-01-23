@@ -1,6 +1,9 @@
 // External Modules
 import React, { Component } from "react";
 
+// Internal Modules
+import { postLogin } from "../../../../API/login/loginAPI";
+
 // Styling
 import "./loginModal.scss";
 
@@ -22,12 +25,15 @@ class LoginModal extends Component {
     });
   };
 
-  loginFormSubmit = (e) => {
+  loginFormSubmit = async (e) => {
     e.preventDefault();
     let loginObject = {
       email: this.state.email,
       password: this.state.password,
     };
+
+    const req_status = await postLogin(loginObject);
+    console.log(req_status);
 
     this.setState({
       email: "",
