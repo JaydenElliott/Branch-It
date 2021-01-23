@@ -10,6 +10,10 @@ const usersRouter = require('./routes/users');
 // Express
 const app = express();
 
+// Body parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +38,19 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// MongoDB
+const mongoose = require('mongoose');
+mongoose.connect(
+  'mongodb://localhost:27017/branch-it', //Default MongoDB port and local connection
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  },
+  () => {
+    console.log('Connected to DB!');
+  }
+);
 
 // Routes
 app.use('/', indexRouter);

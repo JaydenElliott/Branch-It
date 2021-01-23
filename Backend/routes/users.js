@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-// mongodb
-const mongoClient = require('mongodb').MongoClient;
-const branchItDatabase = 'localhost:27017';
+// MongoDB models
+const User = require('../models/User');
 
 /**
  * @swagger
- * /users:
+ * /users/{email}:
  *  get:
  *    tags:
  *      - users
@@ -22,13 +21,92 @@ const branchItDatabase = 'localhost:27017';
  *      - application/json
  *    responses:
  *      200:
- *        description: ok
+ *        description: Ok
+ *      400:
+ *        description: Bad Request - email not provided
  *      404:
- *        description: failed to find email
+ *        description: Not Found - failed to find email
  */
-router.get('/', function(req, res, next) {
-  // TODO: mongodb
-  res.send('respond with a resource');
+router.get('/:email', async (req, res) => {
+  // Ensure parameters are provided
+  if (!req.params.email) {
+    res.status(400).send('Malformed request');
+    return;
+  }
+
+  // Attempt to get details of user
+  try {
+    // Get data from MongoDB
+    const user = await User.find({email: req.params.email});
+    if (user.length <= 0) {
+      res.status(404).send('Could not find email');
+      return;
+    }
+
+    // Remove password for safety
+    user[0].password = undefined;
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({message: 'Something went wrong', error: err});
+  }
+});
+
+/**
+ * @swagger
+ * /users:
+ *  post:
+ *    tags:
+ *      - users
+ *    summary: Creates a new user
+ *    parameters:
+ *    - in: body
+ *      name: user
+ *      description: The user to create.
+ *      schema:
+ *        type: object
+ *        required:
+ *          - username
+ *          - email
+ *          - password
+ *        properties:
+ *          username:
+ *            type: string
+ *          email:
+ *            type: string
+ *          password:
+ *            type: string
+ *    responses:
+ *      201:
+ *        description: Created
+ *      403:
+ *        description: Forbidden - duplicate details
+ *      400:
+ *        description: Bad request - malformed request
+ */
+router.post('/', async (req, res) => {
+  const body = req.body;
+
+  // Check that all details are provided
+  if (!(body.email && body.password)) {
+    res.status(400).send('Malformed request');
+    return;
+  }
+
+  // Make the request
+  const user = new User({
+    email: body.email,
+    password: body.password,
+  });
+
+  // Attempt to save to database
+  try {
+    const savedUser = await user.save();
+    // Remove password for safety
+    savedUser[0].password = undefined;
+    res.status(201).json(savedUser);
+  } catch (err) {
+    res.status(403).json({ message: 'Duplicated email', error: err});
+  }
 });
 
 module.exports = router;
