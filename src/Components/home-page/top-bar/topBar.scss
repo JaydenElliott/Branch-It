@@ -3,23 +3,23 @@
   flex-direction: row;
   align-items: center;
   background-color: #dee0e0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.262);
 }
 
 .branch-it-logo {
   color: black;
   margin-left: 20px;
+  font-size: 30px;
 }
 
 .save-button {
-  margin-left: 100px;
-  margin-right: auto;
+  margin-left: 70px;
   border-radius: 15px;
 }
 
 .title {
-  grid-area: top-bar;
-  justify-content: center;
-  align-items: center;
+  margin-left: 450px;
+  margin-right: auto;
   font-family: "SillyHandScript-Regular";
   font-size: 30px;
   color: #608c4c;

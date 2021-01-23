@@ -18,9 +18,9 @@ class TopBar extends Component {
   render() {
     return (
       <div className="topbar-container">
-        <div className="branch-it-logo">
+        {/* <div className="branch-it-logo">
           <img src={logo} style={{ fill: "#608c4c" }} />
-        </div>
+        </div> */}
         <div className="save-button">
           <Button
             startIcon={<SaveIcon />}
