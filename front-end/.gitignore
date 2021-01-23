@@ -1,0 +1,24 @@
+# IDE
+.DS_Store
+.idea
+*.idea
+
+.vs
+.vscode
+__pycache__
+
+# Development folders
+build
+dist
+treevy_client/node_modules
+
+# misc
+*.pyc
+*.egg-info/
+*node_modules
+*package-lock.json
+*react-app-env.d.ts
+
+
+.eslintcache
+*.eslintcache
