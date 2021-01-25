@@ -37,14 +37,14 @@ router.get('/:email', async (req, res) => {
   // Attempt to get details of user
   try {
     // Get data from MongoDB
-    const user = await User.find({email: req.params.email});
-    if (user.length <= 0) {
+    const user = await User.findOne({email: req.params.email});
+    if (!user) {
       res.status(404).send('Could not find email');
       return;
     }
 
     // Remove password for safety
-    user[0].password = undefined;
+    user.password = undefined;
     res.status(200).json(user);
   } catch (err) {
     console.log(err);
