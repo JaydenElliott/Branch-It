@@ -55,6 +55,72 @@ router.get('/:email', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /lists:
+ *  post:
+ *      tags:
+ *          - lists
+ *      summary: Creates a new list
+ *      parameters:
+ *          - in: body
+ *            name: list
+ *            description: The list to create and it's associated user.
+ *            schema:
+ *                type: object
+ *                required:
+ *                    - email
+ *                    - list
+ *                properties:
+ *                    email:
+ *                        type: string
+ *                    list:
+ *                        type: object
+ *      responses:
+ *          201:
+ *              description: Created
+ *          400:
+ *              description: Bad request - malformed request
+ *          403:
+ *              description: Forbidden
+ *          404:
+ *              description: Not found - failed to find email
+ */
+router.post('/', async (req, res) => {
+    const body = req.body;
 
+    // Check that all details are provided
+    if (!(body.email && body.list)) {
+      res.status(400).send('Malformed request');
+      return;
+    }
+
+    // Get the associated user_id
+    User.findOne({ email: body.email }, async (err, result) => {
+        if (!result) {
+            res.status(404).send('Failed to find email');
+            return;
+        } else if (err) {
+            console.log(err);
+            res.status(500).json({ message: 'Something went wrong...', error: err});
+            return;
+        }
+
+        // Make the request
+        const list = new List({
+            user_id: result._id,
+            list: body.list,
+        });
+        
+        // Attempt to save to database
+        try {
+            const savedList = await list.save();
+            res.status(201).json(savedList);
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ message: 'Something went wrong...', error: err});
+        }
+    });
+});
 
 module.exports = router;

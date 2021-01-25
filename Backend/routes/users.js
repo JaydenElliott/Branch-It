@@ -76,10 +76,10 @@ router.get('/:email', async (req, res) => {
  *    responses:
  *      201:
  *        description: Created
- *      403:
- *        description: Forbidden - duplicate details
  *      400:
  *        description: Bad request - malformed request
+ *      403:
+ *        description: Forbidden - duplicate details
  */
 router.post('/', async (req, res) => {
   const body = req.body;
