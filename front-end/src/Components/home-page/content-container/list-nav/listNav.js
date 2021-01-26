@@ -23,19 +23,19 @@ class ListNav extends Component {
   renderParentLists = () => {
     return (
       <div className="list-nav-parent-list-container">
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
-        <ParentList listname={"washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
+        <ParentList listname={"Washing"} />
       </div>
     );
   };
@@ -50,13 +50,14 @@ class ListNav extends Component {
         className="list-nav-container"
         style={{ width: `${this.props.navPage.width}px` }}
       >
+        <div className="list-nav-new-list">
+          <form className="nav-new-list-form">
+            <input placeholder="Insert new list" />
+          </form>
+        </div>
         {this.state.renderParentLists
           ? this.renderParentLists()
           : this.renderChildLists()}
-
-        <button onClick={() => this.setState({ renderParentLists: false })}>
-          Child
-        </button>
       </div>
     );
   }
