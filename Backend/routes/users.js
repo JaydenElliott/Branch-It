@@ -108,4 +108,62 @@ router.post('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /users/login:
+ *  post:
+ *    tags:
+ *      - users
+ *    summary: Authenticate user.
+ *    parameters:
+ *    - in: body
+ *      name: user
+ *      description: The user details to login.
+ *      schema:
+ *        type: object
+ *        required:
+ *          - email
+ *          - password
+ *        properties:
+ *          email:
+ *            type: string
+ *          password:
+ *            type: string
+ *    responses:
+ *      200:
+ *        description: Login successful
+ *      400:
+ *        description: Bad request - malformed request
+ *      401:
+ *        description: Unauthorized - incorrect password
+ *      403:
+ *        description: Forbidden - duplicate details
+ */
+router.post('/login', async (req, res) => {
+  const body = req.body;
+
+  // Check that all details are provided
+  if (!(body.email && body.password)) {
+    res.status(400).send('Malformed request');
+    return;
+  }
+
+  // Contact database
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email: body.email});
+    
+    if (!user) {
+      res.status(404).send('Could not find email');
+    } else if (user.password !== body.password) { // Check if passwords match
+      res.status(401).send('Incorrect password');
+    } else {
+      res.status(200).send('Success');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Something went wrong...', error: err});
+  }
+});
+
 module.exports = router;
