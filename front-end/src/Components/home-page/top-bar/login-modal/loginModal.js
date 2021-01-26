@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 
 // Internal Modules
-import { get, login } from "../../../../API/users";
+import { create, get, login } from "../../../../API/users";
 
 // Styling
 import "./loginModal.scss";
@@ -32,13 +32,7 @@ class LoginModal extends Component {
       password: this.state.password,
     };
 
-    // await login(loginObject).then(res => {
-    //   console.log(res);
-    // }).catch(err => {
-    //   console.log(err);
-    // });
-
-    await get(this.state.email).then(res => {
+    await login(loginObject).then(res => {
       console.log(res);
     }).catch(err => {
       console.log(err);
