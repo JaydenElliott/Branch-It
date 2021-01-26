@@ -4,6 +4,10 @@ import React, { Component } from "react";
 import "./parentList.scss";
 
 class ParentList extends Component {
+  state = {
+    newListName: "",
+  };
+
   render() {
     return (
       <button className="parent-list-container">

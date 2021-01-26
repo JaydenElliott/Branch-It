@@ -5,6 +5,10 @@ import { bindActionCreators } from "redux";
 
 // Internal Modules
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
+import { updateParentLists } from "../../../../redux/actions/userActions";
+import TodoList from "../../../list-handling/todoList";
+import ListContainer from "../../../list-handling/listContainer";
+import graphSettings from "../../../../config/graphSettings.json";
 
 // Styling
 import "./listNav.scss";
@@ -17,8 +21,39 @@ class ListNav extends Component {
 
     this.state = {
       renderParentLists: true,
+      newListName: "",
     };
   }
+
+  addNewParentList = (e) => {
+    e.preventDefault();
+    /**
+     * An invisible node is required for the graph generation
+     * All the actual "root" lists need a parent to align themselves with
+     */
+    const invisibleRootNodeAttributes = {
+      lists: [],
+      done: false,
+      content: "",
+      location: [0, 0],
+      coordinates: graphSettings.root_coordinate,
+      width: graphSettings.width,
+      parent: undefined,
+    };
+    const rootNode = new TodoList(invisibleRootNodeAttributes);
+    let newListContainer = new ListContainer(
+      this.state.newListName,
+      [rootNode],
+      []
+    );
+
+    let newListsState = [...this.props.user.lists, newListContainer];
+    this.props.updateParentLists(newListsState);
+
+    this.setState({
+      newListName: "",
+    });
+  };
 
   renderParentLists = () => {
     return (
@@ -44,15 +79,27 @@ class ListNav extends Component {
     return <ChildList />;
   };
 
+  onInputChange = (e) => {
+    this.setState({
+      newListName: e.currentTarget.value,
+    });
+  };
+
   render() {
     return (
       <div
         className="list-nav-container"
         style={{ width: `${this.props.navPage.width}px` }}
       >
+        {console.log(this.props.user)}
         <div className="list-nav-new-list">
-          <form className="nav-new-list-form">
-            <input placeholder="Insert new list" />
+          <form className="nav-new-list-form" onSubmit={this.addNewParentList}>
+            <input
+              type="input"
+              placeholder="Insert new list"
+              value={this.state.newListName}
+              onChange={this.onInputChange}
+            />
           </form>
         </div>
         {this.state.renderParentLists
@@ -64,10 +111,13 @@ class ListNav extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { navPage: state.navPage };
+  return { navPage: state.navPage, user: state.user };
 };
 
 const matchDispatchToProps = (dispatch) => {
-  return bindActionCreators({ setNavWidth: setNavWidth }, dispatch);
+  return bindActionCreators(
+    { setNavWidth: setNavWidth, updateParentLists: updateParentLists },
+    dispatch
+  );
 };
 export default connect(mapStateToProps, matchDispatchToProps)(ListNav);
