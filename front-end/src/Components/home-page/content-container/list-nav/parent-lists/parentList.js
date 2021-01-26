@@ -12,7 +12,7 @@ class ParentList extends Component {
     return (
       <button className="parent-list-container">
         <input className="parent-list-tickbox" type="checkbox" />
-        <div className="parent-list-title"> {this.props.listname}</div>
+        <div className="parent-list-title"> {this.props.list.name}</div>
       </button>
     );
   }

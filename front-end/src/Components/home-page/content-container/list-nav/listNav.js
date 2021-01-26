@@ -58,19 +58,9 @@ class ListNav extends Component {
   renderParentLists = () => {
     return (
       <div className="list-nav-parent-list-container">
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
-        <ParentList listname={"Washing"} />
+        {this.props.user.lists.map((list) => {
+          return <ParentList list={list} />;
+        })}
       </div>
     );
   };
@@ -91,7 +81,6 @@ class ListNav extends Component {
         className="list-nav-container"
         style={{ width: `${this.props.navPage.width}px` }}
       >
-        {console.log(this.props.user)}
         <div className="list-nav-new-list">
           <form className="nav-new-list-form" onSubmit={this.addNewParentList}>
             <input
