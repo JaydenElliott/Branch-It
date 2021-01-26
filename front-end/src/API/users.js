@@ -13,7 +13,7 @@ export function login(credentials) {
   return axios
     .post(loginEndpoint, credentials)
     .then(res => {
-      return { status: res.status, data: res.data };
+      return { status: res.status, data: res.data, headers: res.headers };
     })
     .catch(err => {
       // Check that a response was received
@@ -39,7 +39,7 @@ export function get(email) {
   return axios
     .get(usersEndpoint + '/'+ email)
     .then(res => {
-      return { status: res.status, data: res.data };
+      return { status: res.status, data: res.data, headers: res.headers };
     })
     .catch(err => {
       // Check that a response was received
@@ -65,7 +65,7 @@ export function create(credentials) {
   return axios
   .post(usersEndpoint, credentials)
   .then(res => {
-    return { status: res.status, data: res.data };
+    return { status: res.status, data: res.data, headers: res.headers };
   })
   .catch(err => {
     // Check that a response was received
