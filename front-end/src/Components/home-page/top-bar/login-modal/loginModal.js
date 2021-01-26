@@ -32,8 +32,11 @@ class LoginModal extends Component {
       password: this.state.password,
     };
 
-    const req_status = await postLogin(loginObject);
-    console.log(req_status);
+    await postLogin(loginObject).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
 
     this.setState({
       email: "",
@@ -53,12 +56,13 @@ class LoginModal extends Component {
         <div className="login-title">Welcome, please log-in</div>
         <form className="login-form" onSubmit={this.loginFormSubmit}>
           <div className="login-email">
-            <input placeholder="email" onChange={this.handleLogInEmailChange} />
+            <input placeholder="email" onChange={this.handleLogInEmailChange} value={this.state.email} />
           </div>
           <div className="login-password">
             <input
               placeholder="password"
               onChange={this.handlePasswordEmailChange}
+              value={this.state.password}
             />
           </div>
           <button type="submit" className="login-modal-button">

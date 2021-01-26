@@ -12,6 +12,10 @@ const listsRouter = require('./routes/lists');
 // Express
 const app = express();
 
+// Enabling cross origin requests
+const cors = require('cors');
+app.use(cors());
+
 // Body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
