@@ -1,0 +1,17 @@
+import React, { Component } from "react";
+
+// Styling
+import "./parentList.scss";
+
+class ParentList extends Component {
+  render() {
+    return (
+      <div className="parent-list-container">
+        <input className="parent-list-tickbox" type="checkbox" />
+        <div className="parent-list-title"> {this.props.listname}</div>
+      </div>
+    );
+  }
+}
+
+export default ParentList;

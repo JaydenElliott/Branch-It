@@ -1,0 +1,25 @@
+.parent-list-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px rgba(0, 0, 0, 0.201) solid;
+}
+
+.parent-list-tickbox {
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border-radius: 100%;
+  outline: none;
+  border: 1px solid black;
+}
+
+.parent-list-title {
+  margin-left: 30px;
+  font-weight: 700;
+  font-size: 20px;
+  color: rgb(57, 56, 56);
+}
