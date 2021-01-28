@@ -37,7 +37,7 @@ router.get('/:email', async (req, res) => {
 
     try {
         // Check that user exists
-        const user = await User.findOne({email: req.params.email});
+        const user = await User.findOne({email: req.params.email, date_of_delection: undefined});
         if (!user) {
           res.status(404).send('Could not find email');
           return;
@@ -47,7 +47,7 @@ router.get('/:email', async (req, res) => {
         const userId = user._id;
 
         // Get all user lists provided user_id
-        const lists = await List.find({ user_id: userId })
+        const lists = await List.find({ user_id: userId, date_of_delection: undefined})
         res.status(200).send(lists);    // Could be an empty list
     } catch (err) {
         console.log(err);

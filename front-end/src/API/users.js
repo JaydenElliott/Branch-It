@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const config = require("../config/endpoint_config.json");
 const loginEndpoint = config.backendEndpoints.login;
-const usersEndpoint = config.backendEndpoints.user;
+const usersEndpoint = config.backendEndpoints.users;
 
 /**
  * Login to the backend
