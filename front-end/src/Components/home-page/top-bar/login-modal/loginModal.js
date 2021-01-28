@@ -32,7 +32,7 @@ class LoginModal extends Component {
       password: this.state.password,
     };
 
-    await postLogin(loginObject)
+    await login(loginObject)
       .then((res) => {
         console.log(res);
       })
