@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 
 // Internal Modules
-import { create, get, login } from "../../../../API/users";
+import { login } from "../../../../API/users";
 
 // Styling
 import "./loginModal.scss";
