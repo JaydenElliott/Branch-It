@@ -1,5 +1,6 @@
 // External Modules
 import React, { Component } from "react";
+import { create, get } from "../../../../API/lists";
 
 // Internal Modules
 import { login } from "../../../../API/users";
@@ -39,6 +40,32 @@ class LoginModal extends Component {
       .catch((err) => {
         console.log(err);
       });
+
+      //TODO delete below, for testing only.
+    // let testList = {
+    //   email: 'Test',
+    //   list: {
+    //     name: "what?",
+    //     done: false,
+    //     items: []
+    //   }
+    // }
+
+    // await get(loginObject.email)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+
+    // await create(testList)
+    // .then(res => {
+    //   console.log(res);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
 
     this.setState({
       email: "",
