@@ -30,7 +30,7 @@ const User = require('../models/User');
 router.get('/:email', async (req, res) => {
   // Ensure parameters are provided
   if (!req.params.email) {
-    res.status(400).send('Malformed request');
+    res.status(400).send('Bad request');
     return;
   }
 
@@ -86,7 +86,7 @@ router.post('/', async (req, res) => {
 
   // Check that all details are provided
   if (!(body.email && body.password)) {
-    res.status(400).send('Malformed request');
+    res.status(400).send('Bad request');
     return;
   }
 
@@ -156,7 +156,7 @@ router.delete('/', async (req, res) => {
 
   // Check that all details are provided
   if (!(body.email && body.password)) {
-    res.status(400).send('Malformed request');
+    res.status(400).send('Bad request');
     return;
   }
 
@@ -218,7 +218,7 @@ router.post('/login', async (req, res) => {
 
   // Check that all details are provided
   if (!(body.email && body.password)) {
-    res.status(400).send('Malformed request');
+    res.status(400).send('Bad request');
     return;
   }
 
