@@ -15,6 +15,8 @@ import "./listNav.scss";
 import ParentList from "./parent-lists/parentList";
 import ChildList from "./child-list/childList";
 import ChildListContainer from "./child-list/childListContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 
 class ListNav extends Component {
   constructor(props) {
@@ -73,7 +75,8 @@ class ListNav extends Component {
   };
 
   renderChildLists = () => {
-    return <ChildListContainer />;
+    // return <ChildListContainer />;
+    return;
   };
 
   onInputChange = (e) => {
@@ -82,12 +85,9 @@ class ListNav extends Component {
     });
   };
 
-  render() {
-    return (
-      <div
-        className="list-nav-container"
-        style={{ width: `${this.props.navPage.width}px` }}
-      >
+  renderTopBar = () => {
+    if (this.state.renderParentLists) {
+      return (
         <div className="list-nav-new-list">
           <form className="nav-new-list-form" onSubmit={this.addNewParentList}>
             <input
@@ -98,6 +98,34 @@ class ListNav extends Component {
             />
           </form>
         </div>
+      );
+    } else {
+      return (
+        <div className="list-nav-new-list">
+          <div className="selected-parent-list">
+            {this.props.user.selectedList.name}
+          </div>
+          <button
+            className="back-list-choice-button"
+            onClick={() => this.setState({ renderParentLists: true })}
+          >
+            <FontAwesomeIcon
+              icon={faUndoAlt}
+              style={{ height: "100%", width: "100%" }}
+            />
+          </button>
+        </div>
+      );
+    }
+  };
+
+  render() {
+    return (
+      <div
+        className="list-nav-container"
+        style={{ width: `${this.props.navPage.width}px` }}
+      >
+        {this.renderTopBar()}
         {this.state.renderParentLists
           ? this.renderParentLists()
           : this.renderChildLists()}
@@ -105,7 +133,6 @@ class ListNav extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return { navPage: state.navPage, user: state.user };
 };

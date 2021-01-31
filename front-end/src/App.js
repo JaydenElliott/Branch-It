@@ -2,6 +2,8 @@ import React, { ChangeEvent } from "react";
 import { Component } from "react";
 import "./App.scss";
 
+// Green #608c4c;
+
 // Internal Components
 import HomePage from "./Components/home-page/homepage";
 
@@ -9,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return (
       <div className="app-container">

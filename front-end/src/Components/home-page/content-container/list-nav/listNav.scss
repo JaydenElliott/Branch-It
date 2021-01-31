@@ -47,3 +47,24 @@
   width: 100%;
   padding-top: 30px;
 }
+
+.selected-parent-list {
+  font-size: 25px;
+  font-weight: 550;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.back-list-choice-button {
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  margin-left: auto;
+  margin-right: 30px;
+  color: #608c4c;
+}
