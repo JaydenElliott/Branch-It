@@ -210,8 +210,8 @@ router.delete('/', async (req, res) => {
  *        description: Bad request - malformed request
  *      401:
  *        description: Unauthorized - incorrect password
- *      403:
- *        description: Forbidden - duplicate details
+ *      404:
+ *        description: Forbidden - Email not found
  */
 router.post('/login', async (req, res) => {
   const body = req.body;

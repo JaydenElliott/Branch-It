@@ -11,7 +11,7 @@ import "./loginModal.scss";
 class LoginModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { email: "", password: "", feedback: "" };
   }
 
   handleLogInEmailChange = (e) => {
@@ -35,37 +35,27 @@ class LoginModal extends Component {
 
     await login(loginObject)
       .then((res) => {
-        console.log(res);
+        // 'throw new Error()' breaks the runtime so there is no need for a break underneath.
+        switch (res.status) {
+          case 200: //Successful login
+            break;
+          case 400:
+            throw new Error('Please provide an email and password');
+          case 401:
+            throw new Error('Incorrect password');
+          case 404:
+            throw new Error('Email not found');
+          case 500:
+            throw new Error('Whops, something has gone wrong...');
+          default:
+            throw new Error('Sorry, we seem to be having difficulty processing the request');
+        }
       })
       .catch((err) => {
-        console.log(err);
+        // Displays error message for 8 seconds.
+        this.setState({feedback: err.message});
+        setTimeout(() => this.setState({feedback: ""}), 8000);
       });
-
-      //TODO delete below, for testing only.
-    // let testList = {
-    //   email: 'Test',
-    //   list: {
-    //     name: "what?",
-    //     done: false,
-    //     items: []
-    //   }
-    // }
-
-    // await get(loginObject.email)
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-
-    // await create(testList)
-    // .then(res => {
-    //   console.log(res);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // });
 
     this.setState({
       email: "",
@@ -82,6 +72,7 @@ class LoginModal extends Component {
         }}
       >
         <div className="login-title">Welcome, please log-in</div>
+        <strong className="feedback">{this.state.feedback}</strong>
         <form className="login-form" onSubmit={this.loginFormSubmit}>
           <div className="login-email">
             <input
