@@ -31,13 +31,13 @@ const List = require('../models/List');
 router.get('/:email', async (req, res) => {
     // Ensure parameters are provided
     if (!req.params.email) {
-        res.status(400).send('Malformed request');
+        res.status(400).send('Bad request');
         return;
     }
 
     try {
         // Check that user exists
-        const user = await User.findOne({email: req.params.email});
+        const user = await User.findOne({email: req.params.email, date_of_delection: undefined});
         if (!user) {
           res.status(404).send('Could not find email');
           return;
@@ -47,7 +47,7 @@ router.get('/:email', async (req, res) => {
         const userId = user._id;
 
         // Get all user lists provided user_id
-        const lists = await List.find({ user_id: userId })
+        const lists = await List.find({ user_id: userId, date_of_delection: undefined})
         res.status(200).send(lists);    // Could be an empty list
     } catch (err) {
         console.log(err);
@@ -91,7 +91,7 @@ router.post('/', async (req, res) => {
 
     // Check that all details are provided
     if (!(body.email && body.list)) {
-      res.status(400).send('Malformed request');
+      res.status(400).send('Bad request');
       return;
     }
 
@@ -121,6 +121,69 @@ router.post('/', async (req, res) => {
             res.status(500).json({ message: 'Something went wrong...', error: err});
         }
     });
+});
+
+/**
+ * @swagger
+ * /lists:
+ *  delete:
+ *      tags:
+ *          - lists
+ *      summary: Deletes a list
+ *      parameters:
+ *          - in: body
+ *            name: list
+ *            description: The list to delete.
+ *            schema:
+ *                type: object
+ *                required:
+ *                    - list_id
+ *                properties:
+ *                    list_id:
+ *                        type: string
+ *      responses:
+ *          200:
+ *              description: Success
+ *          400:
+ *              description: Bad request - malformed request
+ *          403:
+ *              description: Forbidden - already deleted
+ *          404:
+ *              description: Not found - failed to find list_id
+ */
+router.delete('/', async (req, res) => {
+    const body = req.body;
+
+    // Check that all details are provided
+    if (!body.list_id) {
+        res.status(400).send('Bad request');
+        return;
+    }
+
+    try {
+        // To prevent double deletion, search for item and ensure that it has not already been deleted.
+        const found = await List.findOne({_id: body.list_id});
+        if (found && found.date_of_delection) {
+            res.status(403).send('Forbidden');
+            return;
+        }
+
+        // Get the associated
+        List.findByIdAndUpdate(body.list_id, { $set: { date_of_delection: Date.now() }}, (err, result) => {
+            if (!result) {
+                res.status(404).send('Not found');
+                return;
+            } else if (err) {
+                console.log(err);
+                res.status(500).json({ message: 'Something went wrong...', error: err});
+            } else {
+                res.status(200).json(result);
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Something went wrong...', error: err});
+    }
 });
 
 module.exports = router;
