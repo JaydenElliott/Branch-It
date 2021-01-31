@@ -1,4 +1,10 @@
+// External Components
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+// Internal Modules
+import { selectedParentList } from "../../../../../redux/actions/userActions";
 
 // Styling
 import "./parentList.scss";
@@ -8,9 +14,16 @@ class ParentList extends Component {
     newListName: "",
   };
 
+  listButtonClick = () => {
+    this.props.selectedParentList(this.props.list);
+  };
+
   render() {
     return (
-      <button className="parent-list-container">
+      <button
+        className="parent-list-container"
+        onClick={() => this.props.swapView()}
+      >
         <input className="parent-list-tickbox" type="checkbox" />
         <div className="parent-list-title"> {this.props.list.name}</div>
       </button>
@@ -18,4 +31,14 @@ class ParentList extends Component {
   }
 }
 
-export default ParentList;
+const mapStateToProps = (state) => {
+  return { navPage: state.navPage, user: state.user };
+};
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    { selectedParentList: selectedParentList },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, matchDispatchToProps)(ParentList);

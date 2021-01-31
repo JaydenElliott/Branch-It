@@ -14,6 +14,7 @@ import graphSettings from "../../../../config/graphSettings.json";
 import "./listNav.scss";
 import ParentList from "./parent-lists/parentList";
 import ChildList from "./child-list/childList";
+import ChildListContainer from "./child-list/childListContainer";
 
 class ListNav extends Component {
   constructor(props) {
@@ -24,6 +25,12 @@ class ListNav extends Component {
       newListName: "",
     };
   }
+
+  alternateListView = () => {
+    this.setState({
+      renderParentLists: !this.state.renderParentLists,
+    });
+  };
 
   addNewParentList = (e) => {
     e.preventDefault();
@@ -59,14 +66,14 @@ class ListNav extends Component {
     return (
       <div className="list-nav-parent-list-container">
         {this.props.user.lists.map((list) => {
-          return <ParentList list={list} />;
+          return <ParentList list={list} swapView={this.alternateListView} />;
         })}
       </div>
     );
   };
 
   renderChildLists = () => {
-    return <ChildList />;
+    return <ChildListContainer />;
   };
 
   onInputChange = (e) => {

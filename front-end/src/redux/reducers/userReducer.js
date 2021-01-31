@@ -1,4 +1,4 @@
-const initialState = { name: "", email: "", lists: [] };
+const initialState = { name: "", email: "", lists: [], selectedList: {} };
 
 const navPageReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,6 +14,9 @@ const navPageReducer = (state = initialState, action) => {
         lists: action.payload,
       };
       break;
+
+    case "select/list":
+      state = { ...state, selectedList: action.payload };
     default:
       break;
   }
