@@ -40,21 +40,23 @@ class LoginModal extends Component {
           case 200: //Successful login
             break;
           case 400:
-            throw new Error('Please provide an email and password');
+            throw new Error("Please provide an email and password");
           case 401:
-            throw new Error('Incorrect password');
+            throw new Error("Incorrect password");
           case 404:
-            throw new Error('Email not found');
+            throw new Error("Email not found");
           case 500:
-            throw new Error('Whops, something has gone wrong...');
+            throw new Error("Whops, something has gone wrong...");
           default:
-            throw new Error('Sorry, we seem to be having difficulty processing the request');
+            throw new Error(
+              "Sorry, we seem to be having difficulty processing the request"
+            );
         }
       })
       .catch((err) => {
         // Displays error message for 8 seconds.
-        this.setState({feedback: err.message});
-        setTimeout(() => this.setState({feedback: ""}), 8000);
+        this.setState({ feedback: err.message });
+        setTimeout(() => this.setState({ feedback: "" }), 8000);
       });
 
     this.setState({
@@ -72,7 +74,7 @@ class LoginModal extends Component {
         }}
       >
         <div className="login-title">Welcome, please log-in</div>
-        <strong className="feedback">{this.state.feedback}</strong>
+        <div className="login-feedback">{this.state.feedback}</div>
         <form className="login-form" onSubmit={this.loginFormSubmit}>
           <div className="login-email">
             <input

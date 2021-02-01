@@ -5,7 +5,10 @@ import { bindActionCreators } from "redux";
 
 // Internal Modules
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
-import { updateParentLists } from "../../../../redux/actions/userActions";
+import {
+  selectedParentList,
+  updateParentLists,
+} from "../../../../redux/actions/userActions";
 import TodoList from "../../../list-handling/todoList";
 import ListContainer from "../../../list-handling/listContainer";
 import graphSettings from "../../../../config/graphSettings.json";
@@ -85,6 +88,11 @@ class ListNav extends Component {
     });
   };
 
+  goBackToSelection = () => {
+    this.props.selectedParentList({});
+    this.setState({ renderParentLists: true });
+  };
+
   renderTopBar = () => {
     if (this.state.renderParentLists) {
       return (
@@ -107,7 +115,7 @@ class ListNav extends Component {
           </div>
           <button
             className="back-list-choice-button"
-            onClick={() => this.setState({ renderParentLists: true })}
+            onClick={this.goBackToSelection}
           >
             <FontAwesomeIcon
               icon={faUndoAlt}
@@ -125,6 +133,7 @@ class ListNav extends Component {
         className="list-nav-container"
         style={{ width: `${this.props.navPage.width}px` }}
       >
+        {console.log(this.props.user.selectedList)}
         {this.renderTopBar()}
         {this.state.renderParentLists
           ? this.renderParentLists()
@@ -139,7 +148,11 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { setNavWidth: setNavWidth, updateParentLists: updateParentLists },
+    {
+      setNavWidth: setNavWidth,
+      updateParentLists: updateParentLists,
+      selectedParentList: selectedParentList,
+    },
     dispatch
   );
 };
