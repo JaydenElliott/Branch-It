@@ -5,75 +5,46 @@ import { bindActionCreators } from "redux";
 
 // Internal Modules
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
-import { updateParentLists } from "../../../../redux/actions/userActions";
+import { updateLists } from "../../../../redux/actions/userActions";
 import TodoList from "../../../list-handling/todoList";
-import ListContainer from "../../../list-handling/listContainer";
-import graphSettings from "../../../../config/graphSettings.json";
 
 // Styling
 import "./listNav.scss";
-import ParentList from "./parent-lists/parentList";
-import ChildList from "./child-list/childList";
-import ChildListContainer from "./child-list/childListContainer";
+import List from "./list/list";
 
 class ListNav extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      renderParentLists: true,
       newListName: "",
     };
   }
 
-  alternateListView = () => {
-    this.setState({
-      renderParentLists: !this.state.renderParentLists,
-    });
-  };
-
-  addNewParentList = (e) => {
+  addList = (e) => {
     e.preventDefault();
-    /**
-     * An invisible node is required for the graph generation
-     * All the actual "root" lists need a parent to align themselves with
-     */
-    const invisibleRootNodeAttributes = {
-      lists: [],
-      done: false,
-      content: "",
-      location: [0, 0],
-      coordinates: graphSettings.root_coordinate,
-      width: graphSettings.width,
-      parent: undefined,
-    };
-    const rootNode = new TodoList(invisibleRootNodeAttributes);
-    let newListContainer = new ListContainer(
-      this.state.newListName,
-      [rootNode],
-      []
-    );
+    
+    // Create a new todo list
+    const newList = new TodoList(this.state.newListName);
+    
+    // Add to redux
+    let newListsState = [...this.props.user.lists, newList];
+    this.props.updateLists(newListsState);
 
-    let newListsState = [...this.props.user.lists, newListContainer];
-    this.props.updateParentLists(newListsState);
-
+    // Clear input
     this.setState({
-      newListName: "",
+      newListName: ''
     });
   };
 
-  renderParentLists = () => {
+  renderLists = () => {
     return (
       <div className="list-nav-parent-list-container">
         {this.props.user.lists.map((list) => {
-          return <ParentList list={list} swapView={this.alternateListView} />;
+          return <List list={list} />;
         })}
       </div>
     );
-  };
-
-  renderChildLists = () => {
-    return <ChildListContainer />;
   };
 
   onInputChange = (e) => {
@@ -89,7 +60,7 @@ class ListNav extends Component {
         style={{ width: `${this.props.navPage.width}px` }}
       >
         <div className="list-nav-new-list">
-          <form className="nav-new-list-form" onSubmit={this.addNewParentList}>
+          <form className="nav-new-list-form" onSubmit={this.addList}>
             <input
               type="input"
               placeholder="Insert new list"
@@ -98,9 +69,7 @@ class ListNav extends Component {
             />
           </form>
         </div>
-        {this.state.renderParentLists
-          ? this.renderParentLists()
-          : this.renderChildLists()}
+        {this.renderLists()}
       </div>
     );
   }
@@ -112,7 +81,7 @@ const mapStateToProps = (state) => {
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { setNavWidth: setNavWidth, updateParentLists: updateParentLists },
+    { setNavWidth: setNavWidth, updateLists: updateLists },
     dispatch
   );
 };
