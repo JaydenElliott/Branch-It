@@ -3,4 +3,21 @@
   grid-template-columns: 70px 1fr 1fr;
   grid-template-areas: "side-bar list-nav graph-container";
   overflow: hidden;
+  z-index: 1;
+}
+
+.item {
+  display: flex;
+  width: min-content;
+  height: min-content;
+  padding: 10px;
+
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: solid 1px black;
+
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
