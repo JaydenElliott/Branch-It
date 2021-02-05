@@ -9,6 +9,7 @@ import "./contentContainer.scss";
 // Internal Components
 import SideBar from "./side-bar/sideBar";
 import ListNav from "./list-nav/listNav";
+import ChildListNav from "./list-nav/childListNav";
 
 class ContentContainer extends Component {
   constructor(props) {
@@ -23,10 +24,12 @@ class ContentContainer extends Component {
     return (
       <div className="content-container">
         <SideBar />
-        <ListNav />
-        <div style={{ zIndex: -1 }}>
+
+        {!this.props.selectedList ? <ListNav /> : <ChildListNav />}
+
+        {/* <div style={{ zIndex: -1 }}>
           {this.props.lists.map((list) => this.displayListItem(list))}
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -34,7 +37,7 @@ class ContentContainer extends Component {
 
 // Redux mappings to props
 const mapStateToProps = (state) => {
-  return { lists: state.user.lists };
+  return { lists: state.user.lists, selectedList: state.user.selectedList };
 };
 
 export default connect(mapStateToProps, undefined)(ContentContainer);

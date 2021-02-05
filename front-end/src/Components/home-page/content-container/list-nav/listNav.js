@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
 import { updateLists } from "../../../../redux/actions/userActions";
 import TodoList from "../../../list-handling/todoList";
+import ChildListNav from "./childListNav";
 
 // Styling
 import "./listNav.scss";
@@ -73,9 +74,7 @@ class ListNav extends Component {
             />
           </form>
         </div>
-        {this.props.user.selectedList === undefined
-          ? this.renderLists()
-          : this.renderChildLists()}
+        {this.renderLists()}
       </div>
     );
   }
