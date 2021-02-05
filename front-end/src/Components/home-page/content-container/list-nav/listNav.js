@@ -75,6 +75,7 @@ class ListNav extends Component {
   }
 }
 
+// Redux mappings to props
 const mapStateToProps = (state) => {
   return { navPage: state.navPage, user: state.user };
 };
