@@ -1,4 +1,9 @@
-const initialState = { name: "", email: "", lists: [], selectedList: {} };
+const initialState = {
+  name: "",
+  email: "",
+  lists: [],
+  selectedList: undefined,
+};
 
 const navPageReducer = (state = initialState, action) => {
   switch (action.type) {

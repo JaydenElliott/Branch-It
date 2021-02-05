@@ -23,17 +23,17 @@ class ListNav extends Component {
 
   addList = (e) => {
     e.preventDefault();
-    
+
     // Create a new todo list
     const newList = new TodoList(this.state.newListName);
-    
+
     // Add to redux
     let newListsState = [...this.props.user.lists, newList];
     this.props.updateLists(newListsState);
 
     // Clear input
     this.setState({
-      newListName: ''
+      newListName: "",
     });
   };
 
@@ -45,6 +45,10 @@ class ListNav extends Component {
         })}
       </div>
     );
+  };
+
+  renderChildLists = () => {
+    return <div></div>;
   };
 
   onInputChange = (e) => {
@@ -69,7 +73,9 @@ class ListNav extends Component {
             />
           </form>
         </div>
-        {this.renderLists()}
+        {this.props.user.selectedList === undefined
+          ? this.renderLists()
+          : this.renderChildLists()}
       </div>
     );
   }
