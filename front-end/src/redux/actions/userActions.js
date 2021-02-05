@@ -1,11 +1,11 @@
-export const updateParentLists = (updatedLists) => {
+export const updateLists = (updatedLists) => {
   return {
     type: "update/lists",
     payload: updatedLists,
   };
 };
 
-export const selectedParentList = (list) => {
+export const selectList = (list) => {
   return {
     type: "select/list",
     payload: list,
