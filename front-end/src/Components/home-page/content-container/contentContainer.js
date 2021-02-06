@@ -25,7 +25,7 @@ class ContentContainer extends Component {
       <div className="content-container">
         <SideBar />
 
-        {!this.props.selectedList ? <ListNav /> : <ChildListNav />}
+        {this.props.selectedList == undefined ? <ListNav /> : <ChildListNav />}
 
         {/* <div style={{ zIndex: -1 }}>
           {this.props.lists.map((list) => this.displayListItem(list))}

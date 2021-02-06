@@ -36,6 +36,14 @@
   border: 1px solid black;
 }
 
+.child-list-top-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
 .child-list-title {
   font-weight: 700;
   font-size: 20px;
@@ -45,7 +53,10 @@
   align-items: center;
   justify-content: center;
   text-decoration: underline;
-  padding-top: 50px;
+}
+
+.back-list-choice-button {
+  cursor: pointer;
 }
 
 .child-list-nav-new-list {

@@ -23,7 +23,6 @@ class List extends Component {
       <button className="list-container" onClick={() => this.listButtonClick()}>
         <input className="list-tickbox" type="checkbox" />
         <div className="list-title">
-          {" "}
           {this.props.list.listName} {this.props.selectList.listName}
         </div>
       </button>
