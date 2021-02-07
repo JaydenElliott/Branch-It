@@ -82,7 +82,14 @@ class DotPointList extends Component {
     return (
       <div>
         <div className="dot-point-container">
-          <div className="dot-point-dot">&#183;</div>
+          <div
+            className="dot-point-dot"
+            style={{
+              marginLeft: (this.props.depth * 20).toString() + "px",
+            }}
+          >
+            &#183;
+          </div>
           <div className="dot-point-title">{this.props.list.listName}</div>
           <div className="dot-point-more">
             <button onClick={this.modalSwitch}>Add</button>
