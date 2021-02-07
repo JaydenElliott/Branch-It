@@ -71,16 +71,6 @@ class ChildListNav extends Component {
             />
           </button>
         </div>
-        <div className="child-list-nav-new-list">
-          <form className="child-nav-new-list-form" onSubmit={this.addList}>
-            <input
-              type="input"
-              placeholder="Insert new list"
-              value={this.state.newListName}
-              onChange={this.onInputChange}
-            />
-          </form>
-        </div>
         <DotPointList list={this.props.user.selectedList} depth={0} />
       </div>
     );

@@ -10,6 +10,7 @@ import "./contentContainer.scss";
 import SideBar from "./side-bar/sideBar";
 import ListNav from "./list-nav/listNav";
 import ChildListNav from "./list-nav/childListNav";
+import Graphing from "./graphing/Graphing";
 
 class ContentContainer extends Component {
   constructor(props) {
@@ -24,12 +25,8 @@ class ContentContainer extends Component {
     return (
       <div className="content-container">
         <SideBar />
-
         {this.props.selectedList == undefined ? <ListNav /> : <ChildListNav />}
-
-        {/* <div style={{ zIndex: -1 }}>
-          {this.props.lists.map((list) => this.displayListItem(list))}
-        </div> */}
+        <Graphing />
       </div>
     );
   }

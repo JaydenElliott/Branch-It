@@ -54,7 +54,7 @@ Modal
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 3;
+  z-index: 30;
 }
 
 .modal-item-close {
@@ -141,7 +141,7 @@ Modal
     width: 23px;
     height: 23px;
     margin-left: 10px;
-    border-radius: 100%;
+    border-radius: 10px;
     border: 1px solid #5a834774;
     background-color: #81b668b9;
     color: white;
