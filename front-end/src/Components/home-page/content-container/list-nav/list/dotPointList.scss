@@ -2,13 +2,35 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 50px;
+  height: 30px;
+  margin-top: 20px;
+  margin-left: 20px;
+  border: 1px solid #608c4c30;
+  border-radius: 3px;
+  margin-right: 20px;
 }
 .dot-point-dot {
+  font-size: 18px;
+  padding-left: 10px;
 }
 .dot-point-title {
+  font-size: 15px;
+  font-weight: 550;
+  padding-left: 2px;
 }
 .dot-point-more {
+  margin-left: auto;
+  margin-right: 10px;
+
+  button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    color: #608c4c;
+  }
 }
 
 /*
@@ -93,11 +115,11 @@ Modal
 
   button {
     position: absolute;
-    left: 55%;
-    width: 28px;
-    height: 28px;
+    left: 50%;
+    width: 23px;
+    height: 23px;
     margin-left: 10px;
-    border-radius: 100%;
+    border-radius: 10px;
     border: 1px solid #5a834774;
     background-color: #81b668b9;
     color: white;
@@ -115,9 +137,9 @@ Modal
 
   button {
     position: absolute;
-    left: 55%;
-    width: 28px;
-    height: 28px;
+    left: 50%;
+    width: 23px;
+    height: 23px;
     margin-left: 10px;
     border-radius: 100%;
     border: 1px solid #5a834774;

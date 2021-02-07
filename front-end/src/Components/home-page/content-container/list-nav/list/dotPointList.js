@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 
 import "./dotPointList.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus, faEllipsisV } from "@fortawesome/free-solid-svg-icons"; // prettier-ignore
 
 class DotPointList extends Component {
   constructor(props) {
@@ -88,11 +88,16 @@ class DotPointList extends Component {
               marginLeft: (this.props.depth * 20).toString() + "px",
             }}
           >
-            &#183;
+            &#8226;
           </div>
           <div className="dot-point-title">{this.props.list.listName}</div>
           <div className="dot-point-more">
-            <button onClick={this.modalSwitch}>Add</button>
+            <button onClick={this.modalSwitch}>
+              <FontAwesomeIcon
+                icon={faEllipsisV}
+                style={{ height: "100%", width: "100%" }}
+              />
+            </button>
           </div>
           {this.state.itemModalOpen && this.renderItemModal()}
         </div>
