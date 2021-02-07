@@ -7,6 +7,8 @@ import { bindActionCreators } from "redux";
 import { updateLists } from "../../../../redux/actions/userActions";
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
 import { selectList } from "../../../../redux/actions/userActions";
+import TodoList from "../../../list-handling/todoList";
+import DotPointList from "./list/dotPointList";
 
 // Styling
 import "./childListNav.scss";
@@ -16,6 +18,28 @@ import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 class ChildListNav extends Component {
   state = {
     newListName: "",
+  };
+
+  /* Submits the main list's children.
+   Granchildren great-granchildren etc...
+   Use another method
+  */
+  addList = (e) => {
+    e.preventDefault();
+
+    // Create a new todo list
+    const newList = new TodoList(this.state.newListName);
+
+    // Add to redux
+    let newChildren = [...this.props.user.selectedList.children, newList];
+    let newParent = this.props.user.selectedList;
+    newParent.children = newChildren;
+    this.props.updateLists(newParent);
+
+    // Clear input
+    this.setState({
+      newListName: "",
+    });
   };
 
   onInputChange = (e) => {
@@ -34,6 +58,7 @@ class ChildListNav extends Component {
         className="child-list-nav-container"
         style={{ width: `${this.props.navPage.width}px` }}
       >
+        {/* {this.enterRecurs()} */}
         <div className="child-list-top-row">
           <div className="child-list-title">
             {this.props.user.selectedList.listName}
@@ -56,6 +81,7 @@ class ChildListNav extends Component {
             />
           </form>
         </div>
+        <DotPointList list={this.props.user.selectedList} depth={0} />
       </div>
     );
   }

@@ -42,7 +42,7 @@ class ListNav extends Component {
     return (
       <div className="list-nav-parent-list-container">
         {this.props.user.lists.map((list) => {
-          return <List list={list} />;
+          return <List isParent list={list} />;
         })}
       </div>
     );

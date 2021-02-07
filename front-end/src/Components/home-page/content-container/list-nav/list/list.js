@@ -18,7 +18,7 @@ class List extends Component {
     this.props.selectList(this.props.list);
   };
 
-  render() {
+  renderParent = () => {
     return (
       <button className="list-container" onClick={() => this.listButtonClick()}>
         <input className="list-tickbox" type="checkbox" />
@@ -27,6 +27,14 @@ class List extends Component {
         </div>
       </button>
     );
+  };
+
+  renderChild = () => {
+    return;
+  };
+
+  render() {
+    return this.props.isParent ? this.renderParent() : this.renderChild();
   }
 }
 
