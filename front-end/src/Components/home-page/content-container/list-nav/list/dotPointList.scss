@@ -10,3 +10,121 @@
 }
 .dot-point-more {
 }
+
+/*
+
+Modal 
+
+
+*/
+
+.item-modal-container {
+  position: absolute;
+  width: 500px;
+  height: 600px;
+  left: 50%;
+  top: 50%;
+  margin-left: -200px;
+  margin-top: -300px;
+  background-color: #a0de8348;
+  border-radius: 10px;
+  border: 2px solid #81b668c1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+
+.modal-item-close {
+  margin-left: auto;
+
+  margin-right: 30px;
+  padding-top: 15px;
+  font-size: 30px;
+  font-weight: 550;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+.item-modal-title {
+  font-size: 30px;
+  font-weight: 550;
+}
+
+.item-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  width: 80%;
+}
+
+.item-modal-content-title {
+  margin-right: 20%;
+  margin-top: 30px;
+  font-weight: 500;
+}
+.item-modal-description {
+  margin-top: 4px;
+  width: 100%;
+  height: 50px;
+  border: solid 1px rgb(108, 108, 108);
+  border-radius: 10px;
+}
+.item-modal-add-child {
+  margin-top: 10px;
+  width: 100%;
+
+  form {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    outline: none;
+    height: 100%;
+    border-radius: 10px;
+    border: solid 1px rgb(108, 108, 108);
+    font-weight: 550;
+    width: 50%;
+  }
+
+  button {
+    position: absolute;
+    left: 55%;
+    width: 28px;
+    height: 28px;
+    margin-left: 10px;
+    border-radius: 100%;
+    border: 1px solid #5a834774;
+    background-color: #81b668b9;
+    color: white;
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+.item-modal-remove-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+
+  button {
+    position: absolute;
+    left: 55%;
+    width: 28px;
+    height: 28px;
+    margin-left: 10px;
+    border-radius: 100%;
+    border: 1px solid #5a834774;
+    background-color: #81b668b9;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    margin-top: 30px;
+  }
+}
