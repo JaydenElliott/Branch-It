@@ -12,27 +12,7 @@ class App extends Component {
     super(props);
   }
 
-  test = () => {
-    const something = {
-      1 : {
-        name: 'test',
-        children: [2, 3],
-      },
-      2 : {
-        name: 'what',
-        children: [],
-      },
-      3 : {
-        name: 'some',
-        children: [],
-      },
-    }
-
-    return something[1];
-  }
-
   render() {
-    // console.log(this.test());
     return (
       <div className="app-container">
         <HomePage />

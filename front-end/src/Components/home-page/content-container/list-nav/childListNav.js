@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 // Internal Modules
-import { updateLists } from "../../../../redux/actions/userActions";
+import { updateLists, selectList, updateGraphFlow } from "../../../../redux/actions/userActions";
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
-import { selectList } from "../../../../redux/actions/userActions";
 import TodoList from "../../../list-handling/todoList";
 import DotPointList from "./list/dotPointList";
 
@@ -50,6 +49,7 @@ class ChildListNav extends Component {
 
   handleBackButton = () => {
     this.props.selectList(undefined);
+    this.props.updateGraphFlow([]);
   };
 
   render() {
@@ -85,9 +85,10 @@ const mapStateToProps = (state) => {
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      setNavWidth: setNavWidth,
-      updateLists: updateLists,
-      selectList: selectList,
+      setNavWidth,
+      updateLists,
+      selectList,
+      updateGraphFlow,
     },
     dispatch
   );

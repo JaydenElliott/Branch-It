@@ -31,28 +31,10 @@ export default class TodoList {
   }
 
   /**
-   * Recursively adds a new list to the list with the given id.
-   * Is Immutable, does not change self, instead returns newly created list.
-   * @param id of list to add to
+   * Adds a child list to the current list
    * @param newList to add
-   * @returns Newly created list with new child placed correctly.
    */
   addList = (newList) => {
     this.children = [...this.children, newList];
-
-    // Immutable approach (requires id input)
-    // Base case
-    // if (id === this.reactFlow.id) {
-    //   return new TodoList(this.listName, this.done, [...this.children, newList], this.reactFlow.position, this.reactFlow.id);
-    // } else if (id !== this.reactFlow.id && this.children.length === 0) {
-    //   // Incorrect path
-    //   return this;
-    // } else {
-    //   // Recursive step
-    //   for (let i = 0; i < this.children.length; i++) {
-    //     this.children[i] = this.children.addList(id, newList);
-    //   }
-    //   return this;
-    // }
   };
 }

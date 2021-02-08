@@ -3,7 +3,7 @@ const initialState = {
   email: "",
   lists: [],
   selectedList: undefined,
-  graphFlow: undefined,
+  graphFlow: [],
 };
 
 const navPageReducer = (state = initialState, action) => {

@@ -19,9 +19,14 @@ class DotPointList extends Component {
       itemModalOpen: false,
       addListInput: "",
     };
+  }
 
-    // Graph self initially
-    this.props.updateGraphFlow(this.genGraph(this.props.list));
+  componentDidMount = () => {
+    // Graph self if root (so that there is a graph initially)
+    if (this.props.selectedList === this.props.list) {
+      // Graph root
+      this.props.updateGraphFlow(this.props.graphFlow.concat(this.genGraph(this.props.list)));
+    }
   }
 
   /**
@@ -51,7 +56,7 @@ class DotPointList extends Component {
   addChildList = (e) => {
     e.preventDefault();
     this.props.list.addList(new TodoList(this.state.addListInput));
-    this.props.updateGraphFlow(this.genGraph(this.props.list));
+    this.props.updateGraphFlow(this.props.graphFlow.concat(this.genGraph(this.props.list)));
 
     // Reset input
     this.setState({
@@ -135,7 +140,7 @@ class DotPointList extends Component {
         </div>
         {this.props.list.children.map((todo) => {
           const key = uuidv4(); // To prevent no key warning/error
-          return <DotPointList key={key} list={todo} depth={this.props.depth + 1} />;
+          return <DotPointList key={key} list={todo} depth={this.props.depth + 1} graphFlow={this.props.graphFlow} updateGraphFlow={this.props.updateGraphFlow}/>;
         })}
       </div>
     );
@@ -144,7 +149,7 @@ class DotPointList extends Component {
 
 // Redux mappings to props
 const mapStateToProps = (state) => {
-  return { selectedList: state.user.selectedList };
+  return { graphFlow: state.user.graphFlow, selectedList: state.user.selectedList };
 };
 
 const matchDispatchToProps = (dispatch) => {
