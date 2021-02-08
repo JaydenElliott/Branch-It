@@ -32,18 +32,23 @@ class Graphing extends Component {
 
     // Base case (no children)
     if (list.children.length === 0) {
+      // console.log('here we are Jayden :D')
+      console.log(list);
       return graph;
     } else {
-      list.children.forEach(child => console.log(child));
+      // list.children.forEach(child => console.log(child));
+      list.children.forEach(child => graph = [...graph, this.genGraph(child)]);
       return graph;
     }
   }
 
   render() {
+    const test = [...this.genGraph(this.props.selectedList)];
+    console.log(test);
     return (
       <div className="graph-container">
         <ReactFlow
-          elements={[...this.genGraph(this.props.selectedList)]}
+          elements={test}
           style={{ width: "100%", height: "100%" }}
           nodesDraggable={true}
           nodesConnectable={false}
