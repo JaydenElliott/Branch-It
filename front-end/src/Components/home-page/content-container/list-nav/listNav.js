@@ -2,6 +2,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { v4 as uuidv4 } from 'uuid';
 
 // Internal Modules
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
@@ -42,7 +43,8 @@ class ListNav extends Component {
     return (
       <div className="list-nav-parent-list-container">
         {this.props.user.lists.map((list) => {
-          return <List isParent list={list} />;
+          const key = uuidv4(); // To prevent no key warning/error
+          return <List key={key} isParent list={list} />;
         })}
       </div>
     );

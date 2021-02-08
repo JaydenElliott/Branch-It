@@ -3,6 +3,7 @@ import TodoList from "../../../../list-handling/todoList";
 import { selectList } from "../../../../../redux/actions/userActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { v4 as uuidv4 } from 'uuid';
 
 import "./dotPointList.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -102,7 +103,8 @@ class DotPointList extends Component {
           {this.state.itemModalOpen && this.renderItemModal()}
         </div>
         {this.props.list.children.map((todo) => {
-          return <DotPointList list={todo} depth={this.props.depth + 1} />;
+          const key = uuidv4(); // To prevent no key warning/error
+          return <DotPointList key={key} list={todo} depth={this.props.depth + 1} />;
         })}
       </div>
     );
