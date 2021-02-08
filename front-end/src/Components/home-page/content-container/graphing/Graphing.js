@@ -4,7 +4,7 @@ import ReactFlow from "react-flow-renderer";
 // Redux
 import { connect } from "react-redux";
 
-import './Graphing.scss';
+import "./Graphing.scss";
 
 class Graphing extends Component {
   // Component state
@@ -16,7 +16,7 @@ class Graphing extends Component {
     return (
       <div className="graph-container">
         <ReactFlow
-          elements={this.props.graphFlow ? [...this.props.graphFlow] : undefined}
+          elements={this.props.graphFlow}
           style={{ width: "100%", height: "100%" }}
           nodesDraggable={true}
           nodesConnectable={false}
