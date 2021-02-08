@@ -3,6 +3,7 @@ const initialState = {
   email: "",
   lists: [],
   selectedList: undefined,
+  graphFlow: undefined,
 };
 
 const navPageReducer = (state = initialState, action) => {
@@ -15,6 +16,9 @@ const navPageReducer = (state = initialState, action) => {
       break;
     case "select/list":
       state = { ...state, selectedList: action.payload };
+      break;
+    case "update/graphFlow":
+      state = { ...state, graphFlow: action.payload };
       break;
     default:
       break;

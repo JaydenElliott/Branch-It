@@ -11,3 +11,10 @@ export const selectList = (list) => {
     payload: list,
   };
 };
+
+export const updateGraphFlow = (graph) => {
+  return {
+    type: "update/graphFlow",
+    payload: graph,
+  };
+};

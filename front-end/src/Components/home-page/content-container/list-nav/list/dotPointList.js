@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import TodoList from "../../../../list-handling/todoList";
 import { selectList } from "../../../../../redux/actions/userActions";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { v4 as uuidv4 } from 'uuid';
 
 import "./dotPointList.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus, faEllipsisV } from "@fortawesome/free-solid-svg-icons"; // prettier-ignore
+
+// Redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { updateGraphFlow } from "../../../../../redux/actions/userActions";
 
 class DotPointList extends Component {
   constructor(props) {
@@ -16,11 +19,39 @@ class DotPointList extends Component {
       itemModalOpen: false,
       addListInput: "",
     };
+
+    // Graph self initially
+    this.props.updateGraphFlow(this.genGraph(this.props.list));
+  }
+
+  /**
+   * Generates graph recursively using TodoList react flow information.
+   * @param list to make into graph. Children will be graphed as well recursively and linked.
+   * @returns graph list of objects for ReactFlow
+   */
+  genGraph = (list) => {
+    // If list is undefined, stop
+    if (!list) {
+      return [];
+    }
+
+    // List to store graph objects
+    // Add self
+    let graph = [list.reactFlow];
+
+    // Base case (no children)
+    if (list.children.length === 0) {
+      return graph;
+    } else {
+      list.children.forEach(child => graph = graph.concat(this.genGraph(child)));
+      return graph;
+    }
   }
 
   addChildList = (e) => {
     e.preventDefault();
     this.props.list.addList(new TodoList(this.state.addListInput));
+    this.props.updateGraphFlow(this.genGraph(this.props.list));
 
     // Reset input
     this.setState({
@@ -120,7 +151,8 @@ const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       //   updateLists: updateLists,
-      selectList: selectList,
+      selectList,
+      updateGraphFlow,
     },
     dispatch
   );
