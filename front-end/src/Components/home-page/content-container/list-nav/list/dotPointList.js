@@ -48,7 +48,15 @@ class DotPointList extends Component {
     if (list.children.length === 0) {
       return graph;
     } else {
-      list.children.forEach(child => graph = graph.concat(this.genGraph(child)));
+      list.children.forEach(child => {
+        // Extend graph to include child
+        graph = graph.concat(this.genGraph(child), {
+          // Create line to child
+          id: uuidv4(),
+          source: list.reactFlow.id,
+          target: child.reactFlow.id,
+        });
+      });
       return graph;
     }
   }
