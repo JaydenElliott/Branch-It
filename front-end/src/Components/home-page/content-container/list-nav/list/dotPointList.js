@@ -41,24 +41,44 @@ class DotPointList extends Component {
     }
 
     // List to store graph objects
-    // Add self
-    let graph = [list.reactFlow];
+    // Add self if not already present
+    let graph = [];
+    if (!this.includesID(list.reactFlow.id, this.props.graphFlow)) {
+      graph = [list.reactFlow];
+    }
+
 
     // Base case (no children)
     if (list.children.length === 0) {
       return graph;
     } else {
       list.children.forEach(child => {
-        // Extend graph to include child
-        graph = graph.concat(this.genGraph(child), {
-          // Create line to child
-          id: uuidv4(),
-          source: list.reactFlow.id,
-          target: child.reactFlow.id,
-        });
+        if (!this.includesID(child.reactFlow.id, this.props.graphFlow)) {
+          // Extend graph to include child
+          graph = graph.concat(this.genGraph(child), {
+            // Create line to child
+            id: uuidv4(),
+            source: list.reactFlow.id,
+            target: child.reactFlow.id,
+          });
+        }
       });
       return graph;
     }
+  }
+
+  /**
+   * returns true if the id is contained in the container
+   * @param id string
+   * @param container list of todo-lists react flows
+   */
+  includesID(id, container) {
+    for (let flow of container) {
+      if (flow.id === id)
+        return true;
+    }
+
+    return false;
   }
 
   addChildList = (e) => {
