@@ -10,7 +10,7 @@ import { faMinus, faPlus, faEllipsisV } from "@fortawesome/free-solid-svg-icons"
 // Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateGraphFlow, deleteList } from "../../../../../redux/actions/userActions"; // prettier-ignore
+import { updateGraphFlow, deleteList, updateLists } from "../../../../../redux/actions/userActions"; // prettier-ignore
 
 class DotPointList extends Component {
   constructor(props) {
@@ -108,6 +108,25 @@ class DotPointList extends Component {
 
   handleDelete = () => {
     this.props.deleteList(this.props.list.reactFlow.id);
+    let newList = this.props.selectedList;
+    for (let i = 0; i < this.props.user.lists.length; i++) {
+      if (this.props.selectedList) {
+        if (
+          this.props.user.lists[i].reactFlow.id ==
+          this.props.selectedList.reactFlow.id
+        ) {
+          let updatedLists = this.props.user.lists
+            .slice(0, i)
+            .push(newList)
+            .push(
+              this.props.user.lists.slice(i + 1, this.props.user.lists.length)
+            );
+
+          this.props.updateLists(updatedLists);
+          return;
+        }
+      }
+    }
     this.modalSwitch();
   };
 
@@ -183,6 +202,7 @@ class DotPointList extends Component {
               graphFlow={this.props.graphFlow}
               updateGraphFlow={this.props.updateGraphFlow}
               deleteList={this.props.deleteList}
+              user={this.props.user}
             />
           );
         })}
@@ -196,13 +216,14 @@ const mapStateToProps = (state) => {
   return {
     graphFlow: state.user.graphFlow,
     selectedList: state.user.selectedList,
+    user: state.user,
   };
 };
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      // updateLists: updateLists,
+      updateLists: updateLists,
       selectList,
       updateGraphFlow,
       deleteList,
