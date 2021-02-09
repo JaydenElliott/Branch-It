@@ -18,6 +18,7 @@ class DotPointList extends Component {
     this.state = {
       itemModalOpen: false,
       addListInput: "",
+      isDone: false,
     };
   }
 
@@ -83,7 +84,11 @@ class DotPointList extends Component {
 
   addChildList = (e) => {
     e.preventDefault();
-    this.props.list.addList(new TodoList(this.state.addListInput));
+    let randX = Math.floor(Math.random() * 500);
+    let Y = (this.props.depth + 1) * 150;
+    console.log(Y);
+    let position = { x: randX, y: Y };
+    this.props.list.addList(new TodoList(this.state.addListInput, position));
     this.props.updateGraphFlow(
       this.props.graphFlow.concat(this.genGraph(this.props.list))
     );
@@ -91,6 +96,7 @@ class DotPointList extends Component {
     // Reset input
     this.setState({
       addListInput: "",
+      itemModalOpen: false,
     });
   };
 
@@ -104,6 +110,14 @@ class DotPointList extends Component {
     this.setState({
       addListInput: e.currentTarget.value,
     });
+  };
+
+  handleCheckBox = () => {
+    this.setState({
+      isDone: !this.state.isDone,
+    });
+
+    this.props.list.done = !this.props.list.done;
   };
 
   handleDelete = () => {
@@ -163,6 +177,14 @@ class DotPointList extends Component {
                 style={{ height: "100%", width: "100%" }}
               />
             </button>
+          </div>
+          <div className="item-modal-checkbox">
+            Finished Task
+            <input
+              type="checkbox"
+              defaultChecked={this.state.isDone}
+              onChange={this.handleCheckBox}
+            />
           </div>
         </div>
       </div>

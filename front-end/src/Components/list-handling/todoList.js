@@ -13,14 +13,17 @@ export default class TodoList {
 
   constructor(
     listName,
+    position = { x: 400, y: 100 },
+    depth,
     done = false,
     children = [],
-    position = { x: 0, y: 0 },
     id = undefined
   ) {
     this.listName = listName;
     this.done = done;
     this.children = children;
+    this.position = position;
+    this.depth = depth;
 
     // ReactFlow
     this.reactFlow = {

@@ -107,18 +107,19 @@ Modal
   input {
     outline: none;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.673);
     border: solid 1px rgb(108, 108, 108);
     font-weight: 550;
-    width: 50%;
+    width: 25%;
   }
 
   button {
     position: absolute;
-    left: 50%;
+    left: 35%;
     width: 23px;
     height: 23px;
-    margin-left: 10px;
+
     border-radius: 10px;
     border: 1px solid #5a834774;
     background-color: #81b668b9;
@@ -137,10 +138,10 @@ Modal
 
   button {
     position: absolute;
-    left: 50%;
+    left: 35%;
     width: 23px;
     height: 23px;
-    margin-left: 10px;
+
     border-radius: 10px;
     border: 1px solid #5a834774;
     background-color: #81b668b9;
@@ -148,5 +149,23 @@ Modal
     outline: none;
     cursor: pointer;
     margin-top: 30px;
+  }
+}
+
+.item-modal-checkbox {
+  font-weight: 500;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  input {
+    position: absolute;
+    left: 34.5%;
+    width: 20px;
+    height: 20px;
+
+    border-radius: 100%;
+    background-color: green;
   }
 }
