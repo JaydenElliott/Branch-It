@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TodoList from "../../../../list-handling/todoList";
 import { selectList } from "../../../../../redux/actions/userActions";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import "./dotPointList.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ import { faMinus, faPlus, faEllipsisV } from "@fortawesome/free-solid-svg-icons"
 // Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateGraphFlow } from "../../../../../redux/actions/userActions";
+import { updateGraphFlow, deleteList } from "../../../../../redux/actions/userActions"; // prettier-ignore
 
 class DotPointList extends Component {
   constructor(props) {
@@ -25,9 +25,11 @@ class DotPointList extends Component {
     // Graph self if root (so that there is a graph initially)
     if (this.props.selectedList === this.props.list) {
       // Graph root
-      this.props.updateGraphFlow(this.props.graphFlow.concat(this.genGraph(this.props.list)));
+      this.props.updateGraphFlow(
+        this.props.graphFlow.concat(this.genGraph(this.props.list))
+      );
     }
-  }
+  };
 
   /**
    * Generates graph recursively using TodoList react flow information.
@@ -48,15 +50,19 @@ class DotPointList extends Component {
     if (list.children.length === 0) {
       return graph;
     } else {
-      list.children.forEach(child => graph = graph.concat(this.genGraph(child)));
+      list.children.forEach(
+        (child) => (graph = graph.concat(this.genGraph(child)))
+      );
       return graph;
     }
-  }
+  };
 
   addChildList = (e) => {
     e.preventDefault();
     this.props.list.addList(new TodoList(this.state.addListInput));
-    this.props.updateGraphFlow(this.props.graphFlow.concat(this.genGraph(this.props.list)));
+    this.props.updateGraphFlow(
+      this.props.graphFlow.concat(this.genGraph(this.props.list))
+    );
 
     // Reset input
     this.setState({
@@ -74,6 +80,11 @@ class DotPointList extends Component {
     this.setState({
       addListInput: e.currentTarget.value,
     });
+  };
+
+  handleDelete = () => {
+    this.props.deleteList(this.props.list.reactFlow.id);
+    this.modalSwitch();
   };
 
   renderItemModal = () => {
@@ -103,7 +114,7 @@ class DotPointList extends Component {
           </div>
           <div className="item-modal-remove-list">
             <div className="item-modal-content-title">Remove List</div>{" "}
-            <button>
+            <button onClick={this.handleDelete}>
               <FontAwesomeIcon
                 icon={faMinus}
                 style={{ height: "100%", width: "100%" }}
@@ -140,7 +151,16 @@ class DotPointList extends Component {
         </div>
         {this.props.list.children.map((todo) => {
           const key = uuidv4(); // To prevent no key warning/error
-          return <DotPointList key={key} list={todo} depth={this.props.depth + 1} graphFlow={this.props.graphFlow} updateGraphFlow={this.props.updateGraphFlow}/>;
+          return (
+            <DotPointList
+              key={key}
+              list={todo}
+              depth={this.props.depth + 1}
+              graphFlow={this.props.graphFlow}
+              updateGraphFlow={this.props.updateGraphFlow}
+              deleteList={this.props.deleteList}
+            />
+          );
         })}
       </div>
     );
@@ -149,15 +169,19 @@ class DotPointList extends Component {
 
 // Redux mappings to props
 const mapStateToProps = (state) => {
-  return { graphFlow: state.user.graphFlow, selectedList: state.user.selectedList };
+  return {
+    graphFlow: state.user.graphFlow,
+    selectedList: state.user.selectedList,
+  };
 };
 
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      //   updateLists: updateLists,
+      // updateLists: updateLists,
       selectList,
       updateGraphFlow,
+      deleteList,
     },
     dispatch
   );

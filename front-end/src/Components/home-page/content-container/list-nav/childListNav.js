@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 // Internal Modules
-import { updateLists, selectList, updateGraphFlow } from "../../../../redux/actions/userActions";
+import {
+  updateLists,
+  selectList,
+  updateGraphFlow,
+} from "../../../../redux/actions/userActions";
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
 import TodoList from "../../../list-handling/todoList";
 import DotPointList from "./list/dotPointList";

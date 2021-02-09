@@ -18,3 +18,10 @@ export const updateGraphFlow = (graph) => {
     payload: graph,
   };
 };
+
+export const deleteList = (id) => {
+  return {
+    type: "delete/lists",
+    payload: id,
+  };
+};
