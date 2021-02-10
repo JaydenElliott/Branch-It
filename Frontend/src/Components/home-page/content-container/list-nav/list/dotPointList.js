@@ -86,10 +86,10 @@ class DotPointList extends Component {
 
   addChildList = (e) => {
     e.preventDefault();
-    // let randX = Math.floor(Math.random() * 500);
-    // let Y = (this.props.depth + 1) * 150;
-    // let position = { x: randX, y: Y };
-    this.props.list.addList(new TodoList(this.state.addListInput));//, position));
+    let randX = Math.floor(Math.random() * 500);
+    let Y = (this.props.depth + 1) * 150;
+    let position = { x: randX, y: Y };
+    this.props.list.addList(new TodoList(this.state.addListInput, position));
     this.props.updateGraphFlow(
       this.props.graphFlow.concat(this.genGraph(this.props.list))
     );
