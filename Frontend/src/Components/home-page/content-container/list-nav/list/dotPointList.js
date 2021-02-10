@@ -10,7 +10,7 @@ import { faMinus, faPlus, faEllipsisV } from "@fortawesome/free-solid-svg-icons"
 // Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateGraphFlow, deleteList, updateLists } from "../../../../../redux/actions/userActions"; // prettier-ignore
+import { updateGraphFlow, deleteList, updateLists, deleteGraphNode } from "../../../../../redux/actions/userActions"; // prettier-ignore
 
 class DotPointList extends Component {
   constructor(props) {
@@ -122,6 +122,7 @@ class DotPointList extends Component {
   };
 
   handleDelete = () => {
+    this.props.deleteGraphNode(this.props.list.reactFlow.id);
     this.props.deleteList(this.props.list.reactFlow.id);
     let newList = this.props.selectedList;
     for (let i = 0; i < this.props.user.lists.length; i++) {
@@ -227,6 +228,7 @@ class DotPointList extends Component {
               updateGraphFlow={this.props.updateGraphFlow}
               deleteList={this.props.deleteList}
               user={this.props.user}
+              deleteGraphNode={this.props.deleteGraphNode}
             />
           );
         })}
@@ -251,6 +253,7 @@ const matchDispatchToProps = (dispatch) => {
       selectList,
       updateGraphFlow,
       deleteList,
+      deleteGraphNode,
     },
     dispatch
   );

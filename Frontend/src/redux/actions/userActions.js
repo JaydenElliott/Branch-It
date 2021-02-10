@@ -32,3 +32,10 @@ export const updatePosition = (id, position) => {
     payload: {id, position},
   }
 }
+
+export const deleteGraphNode = (id) => {
+  return {
+    type: "delete/graphFlow",
+    payload: id,
+  }
+}

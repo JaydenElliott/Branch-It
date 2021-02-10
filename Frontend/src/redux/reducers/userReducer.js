@@ -20,6 +20,9 @@ const navPageReducer = (state = initialState, action) => {
     case "update/graphFlow":
       state = { ...state, graphFlow: action.payload };
       break;
+    case "delete/graphFlow":
+      state = { ...state, graphFlow: deleteGraphNodeReducer(state.graphFlow, action.payload) }
+      break;
     case "delete/lists":
       state = { ...state, lists: deleteListReducer(state.lists, action.payload) };
       break;
@@ -86,4 +89,21 @@ const updatePositionReducer = (todoListList, payload) => {
   }
 
   return todoListList;
+}
+
+/**
+ * Mutably deletes react flow references to particular id.
+ * @param graphFlow: list of react flows
+ * @param id: id of node to delete references to
+ */
+const deleteGraphNodeReducer = (graphFlow, id) => {
+  // Iterate and remove nodes/edges that mention the given id
+  for (let i = 0; i < graphFlow.length; i++) {
+    if (graphFlow[i].id === id || graphFlow[i].source === id || graphFlow[i].target === id) {
+      graphFlow = graphFlow.slice(0, i).concat(graphFlow.slice(i+1, graphFlow.length));
+      i--;
+    }
+  }
+
+  return graphFlow;
 }
