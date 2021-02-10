@@ -25,3 +25,10 @@ export const deleteList = (id) => {
     payload: id,
   };
 };
+
+export const updatePosition = (id, position) => {
+  return {
+    type: "update/position",
+    payload: {id, position},
+  }
+}

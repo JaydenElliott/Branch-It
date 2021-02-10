@@ -4,7 +4,7 @@ import ReactFlow, { useStoreState } from "react-flow-renderer";
 // Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateGraphFlow } from "../../../../redux/actions/userActions";
+import { updatePosition } from "../../../../redux/actions/userActions";
 
 import "./Graphing.scss";
 
@@ -15,19 +15,8 @@ class Graphing extends Component {
   }
 
   onNodeDragStop = (event, node) => {
-    console.log("node", node);
-    console.log("original", this.props.graphFlow);
-
-    // here we use node to update reactFlow
-    let newGraphFlow = this.props.graphFlow;
-
-    for (let i = 0; i < newGraphFlow.length; i++) {
-      if (newGraphFlow[i].id == node.id) {
-        newGraphFlow.splice(i, 1);
-        newGraphFlow.push(node);
-        this.props.updateGraphFlow(newGraphFlow);
-      }
-    }
+    // Updates the position of the node on redux
+    this.props.updatePosition(node.id, node.position);
   };
 
   render() {
@@ -63,7 +52,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      updateGraphFlow,
+      updatePosition,
     },
     dispatch
   );
