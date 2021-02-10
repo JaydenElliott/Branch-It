@@ -1,6 +1,6 @@
 .content-container {
   display: grid;
-  grid-template-columns: 70px 400px 1fr;
+  grid-template-columns: 70px 0px 1fr;
   grid-template-areas: "side-bar list-nav graph-container";
   overflow: hidden;
   background-color: whitesmoke;

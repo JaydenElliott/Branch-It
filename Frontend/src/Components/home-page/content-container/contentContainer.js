@@ -34,7 +34,11 @@ class ContentContainer extends Component {
 
 // Redux mappings to props
 const mapStateToProps = (state) => {
-  return { lists: state.user.lists, selectedList: state.user.selectedList };
+  return {
+    navPage: state.navPage,
+    lists: state.user.lists,
+    selectedList: state.user.selectedList,
+  };
 };
 
 export default connect(mapStateToProps, undefined)(ContentContainer);

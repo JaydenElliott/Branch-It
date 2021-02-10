@@ -8,6 +8,8 @@
   grid-template-rows: 100px 1fr;
   grid-template-areas: "list-nav-new-list" "list-nav-parent-list-container ";
   overflow: hidden;
+
+  z-index: 5;
 }
 
 .list-nav-new-list {
