@@ -48,7 +48,6 @@ class DotPointList extends Component {
     // Add self if not already present
     let graph = [];
     if (!this.includesID(list.reactFlow.id, this.props.graphFlow)) {
-      console.log(list.reactFlow);
       graph = [list.reactFlow];
     }
 
@@ -125,24 +124,30 @@ class DotPointList extends Component {
     this.props.deleteGraphNode(this.props.list.reactFlow.id);
     this.props.deleteList(this.props.list.reactFlow.id);
     let newList = this.props.selectedList;
-    for (let i = 0; i < this.props.user.lists.length; i++) {
-      if (this.props.selectedList) {
-        if (
-          this.props.user.lists[i].reactFlow.id ==
-          this.props.selectedList.reactFlow.id
-        ) {
-          let updatedLists = this.props.user.lists
-            .slice(0, i)
-            .push(newList)
-            .push(
-              this.props.user.lists.slice(i + 1, this.props.user.lists.length)
-            );
 
-          this.props.updateLists(updatedLists);
-          return;
+    if (this.props.user.length > 1) {
+      for (let i = 0; i < this.props.user.lists.length; i++) {
+        if (this.props.selectedList) {
+          if (
+            this.props.user.lists[i].reactFlow.id ==
+            this.props.selectedList.reactFlow.id
+          ) {
+            let updatedLists = this.props.user.lists
+              .slice(0, i)
+              .push(newList)
+              .push(
+                this.props.user.lists.slice(i + 1, this.props.user.lists.length)
+              );
+
+            this.props.updateLists(updatedLists);
+            return;
+          }
         }
       }
+    } else if (this.props.list == this.props.selectedList) {
+      this.props.selectList(undefined);
     }
+
     this.modalSwitch();
   };
 
@@ -188,7 +193,6 @@ class DotPointList extends Component {
               onChange={this.handleCheckBox}
             />
           </div>
-          {console.log(this.props.selectedList)}
         </div>
       </div>
     );
@@ -229,6 +233,7 @@ class DotPointList extends Component {
               deleteList={this.props.deleteList}
               user={this.props.user}
               deleteGraphNode={this.props.deleteGraphNode}
+              selectList={this.props.selectList}
             />
           );
         })}
