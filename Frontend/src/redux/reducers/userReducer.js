@@ -92,16 +92,22 @@ const updatePositionReducer = (todoListList, payload) => {
 }
 
 /**
- * Mutably deletes react flow references to particular id.
+ * Immutably deletes react flow references to particular id.
  * @param graphFlow: list of react flows
  * @param id: id of node to delete references to
  */
 const deleteGraphNodeReducer = (graphFlow, id) => {
   // Iterate and remove nodes/edges that mention the given id
   for (let i = 0; i < graphFlow.length; i++) {
-    if (graphFlow[i].id === id || graphFlow[i].source === id || graphFlow[i].target === id) {
+    if (graphFlow[i].id === id || graphFlow[i].target === id) {
       graphFlow = graphFlow.slice(0, i).concat(graphFlow.slice(i+1, graphFlow.length));
       i--;
+    } else if (graphFlow[i].source === id) {
+      // You being the node. If you are the source of an edge, then the targets are your children and must be deleted when you are deleted.
+      const targetId = graphFlow[i].target;
+      graphFlow = graphFlow.slice(0, i).concat(graphFlow.slice(i+1, graphFlow.length));
+      graphFlow = deleteGraphNodeReducer(graphFlow, targetId);
+      i = 0; // Reset counter as the list length and structure may have been altered greatly by the recursion.
     }
   }
 
