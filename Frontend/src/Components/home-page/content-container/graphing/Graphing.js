@@ -14,8 +14,23 @@ class Graphing extends Component {
     super(props);
   }
 
+  onNodeDragStop = (event, node) => {
+    console.log("node", node);
+    console.log("original", this.props.graphFlow);
+
+    // here we use node to update reactFlow
+    let newGraphFlow = this.props.graphFlow;
+
+    for (let i = 0; i < newGraphFlow.length; i++) {
+      if (newGraphFlow[i].id == node.id) {
+        newGraphFlow.splice(i, 1);
+        newGraphFlow.push(node);
+        this.props.updateGraphFlow(newGraphFlow);
+      }
+    }
+  };
+
   render() {
-    // console.log(this.props.graphFlow);
     return (
       <div className="graph-container">
         <ReactFlow
@@ -23,6 +38,7 @@ class Graphing extends Component {
           style={{ width: "100%", height: "100%" }}
           nodesDraggable={true}
           nodesConnectable={false}
+          onNodeDragStop={this.onNodeDragStop}
         >
           {/* TODO: fix so that we can store the positions of the nodes */}
           {/* <NodesDebugger updateGraphFlow={this.props.updateGraphFlow}/> */}
@@ -48,9 +64,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       updateGraphFlow,
-    }, 
+    },
     dispatch
   );
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Graphing);

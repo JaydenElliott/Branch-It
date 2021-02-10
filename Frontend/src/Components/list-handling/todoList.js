@@ -9,7 +9,12 @@ export default class TodoList {
   children = [];
 
   // ReactFlow
-  reactFlow = { id: undefined, data: { label: "" }, position: { x: 0, y: 0 } };
+
+  reactFlow = {
+    id: undefined,
+    data: { label: "" },
+    position: { x: 0, y: 0 },
+  };
 
   constructor(
     listName,

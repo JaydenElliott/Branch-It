@@ -11,7 +11,7 @@ __pycache__
 build
 dist
 Backend/node_modules
-front-end/node_modules
+Frontend/node_modules
 
 # misc
 *.pyc

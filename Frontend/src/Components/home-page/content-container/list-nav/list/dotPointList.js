@@ -26,6 +26,7 @@ class DotPointList extends Component {
     // Graph self if root (so that there is a graph initially)
     if (this.props.selectedList === this.props.list) {
       // Graph root
+
       this.props.updateGraphFlow(
         this.props.graphFlow.concat(this.genGraph(this.props.list))
       );
@@ -86,7 +87,6 @@ class DotPointList extends Component {
     e.preventDefault();
     let randX = Math.floor(Math.random() * 500);
     let Y = (this.props.depth + 1) * 150;
-    console.log(Y);
     let position = { x: randX, y: Y };
     this.props.list.addList(new TodoList(this.state.addListInput, position));
     this.props.updateGraphFlow(
@@ -186,6 +186,7 @@ class DotPointList extends Component {
               onChange={this.handleCheckBox}
             />
           </div>
+          {console.log(this.props.selectedList)}
         </div>
       </div>
     );
