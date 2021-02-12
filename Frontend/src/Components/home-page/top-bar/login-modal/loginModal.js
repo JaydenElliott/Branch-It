@@ -44,6 +44,7 @@ class LoginModal extends Component {
           case 200: //Successful login
             this.props.updateUserInfo({email: this.state.email});
             this.setState({feedback: 'welcome ' + this.state.email});
+            this.props.setModalState(false);
             break;
           case 400:
             throw new Error("Please provide an email and password");

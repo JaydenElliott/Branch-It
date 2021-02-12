@@ -12,6 +12,9 @@ import logo from "../../../assets/templogo.svg";
 // Internal Components
 import LoginModal from "./login-modal/loginModal";
 
+// Redux
+import { connect } from "react-redux";
+
 class TopBar extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +27,14 @@ class TopBar extends Component {
       loginModalOpen: toggle,
     });
   };
+
+  /**
+   * Sets the login modal state.
+   * @param bool true or false.
+   */
+  setModalState = (bool) => {
+    this.setState({loginModalOpen: bool});
+  }
 
   render() {
     return (
@@ -78,22 +89,43 @@ class TopBar extends Component {
           <Button
             startIcon={<PersonIcon />}
             variant="contained"
-            style={{
-              backgroundColor: "#608C4C",
-              height: "33px",
-              width: "95px",
-              color: "#ffffff",
-              fontSize: "10px",
-            }}
+            disabled={this.props.userInfo}
+            style={
+              this.props.userInfo ?
+                {
+                  backgroundColor: "grey",
+                  height: "33px",
+                  width: "95px",
+                  color: "#ffffff",
+                  fontSize: "10px",
+                  width: "100%",
+                }
+              :
+                {
+                  backgroundColor: "#608C4C",
+                  height: "33px",
+                  width: "95px",
+                  color: "#ffffff",
+                  fontSize: "10px",
+                  width: "100%",
+                }
+          }
             onClick={this.toggleLoginModal}
           >
-            Log-in
+            {this.props.userInfo ? this.props.userInfo.email : "Log-in"}
           </Button>
         </div>
-        <LoginModal isOpen={this.state.loginModalOpen} />
+        <LoginModal isOpen={this.state.loginModalOpen} setModalState={this.setModalState} />
       </div>
     );
   }
 }
 
-export default TopBar;
+// Redux mappings to props
+
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.user.userInfo,
+  };
+};
+export default connect(mapStateToProps)(TopBar);
