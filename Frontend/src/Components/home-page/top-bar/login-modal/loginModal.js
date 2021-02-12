@@ -44,7 +44,11 @@ class LoginModal extends Component {
           case 401:
             throw new Error("Incorrect password");
           case 404:
-            throw new Error("Email not found");
+            // Use if condition to determine if connection failed or email could not be found.
+            if (!res.data.includes('Cannot POST'))
+              throw new Error("Email not found");
+            else
+              throw new Error("Failed to connect to backend");
           case 500:
             throw new Error("Whops, something has gone wrong...");
           default:
