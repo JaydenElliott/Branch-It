@@ -243,6 +243,7 @@ class DotPointList extends Component {
 }
 
 // Redux mappings to props
+
 const mapStateToProps = (state) => {
   return {
     graphFlow: state.user.graphFlow,

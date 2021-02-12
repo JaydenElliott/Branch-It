@@ -37,5 +37,12 @@ export const deleteGraphNode = (id) => {
   return {
     type: "delete/graphFlow",
     payload: id,
-  }
-}
+  };
+};
+
+export const updateUserInfo = (user) => {
+  return {
+    type: "update/user",
+    payload: user,
+  };
+};

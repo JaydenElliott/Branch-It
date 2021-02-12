@@ -1,12 +1,16 @@
 // External Modules
 import React, { Component } from "react";
-import { create, get } from "../../../../API/lists";
 
 // Internal Modules
 import { login } from "../../../../API/users";
 
 // Styling
 import "./loginModal.scss";
+
+// Redux
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { updateUserInfo } from "../../../../redux/actions/userActions";
 
 class LoginModal extends Component {
   constructor(props) {
@@ -38,6 +42,8 @@ class LoginModal extends Component {
         // 'throw new Error()' breaks the runtime so there is no need for a break underneath.
         switch (res.status) {
           case 200: //Successful login
+            this.props.updateUserInfo({email: this.state.email});
+            this.setState({feedback: 'welcome ' + this.state.email});
             break;
           case 400:
             throw new Error("Please provide an email and password");
@@ -63,10 +69,10 @@ class LoginModal extends Component {
         setTimeout(() => this.setState({ feedback: "" }), 8000);
       });
 
-    this.setState({
-      email: "",
-      password: "",
-    });
+      this.setState({
+        email: "",
+        password: "",
+      });
   };
 
   render() {
@@ -104,4 +110,20 @@ class LoginModal extends Component {
   }
 }
 
-export default LoginModal;
+// Redux mappings to props
+
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.user.userInfo,
+  };
+};
+
+const matchDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      updateUserInfo,
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, matchDispatchToProps)(LoginModal);

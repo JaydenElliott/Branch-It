@@ -1,6 +1,5 @@
 const initialState = {
-  name: "",
-  email: "",
+  userInfo: undefined,
   lists: [],
   selectedList: undefined,
   graphFlow: [],
@@ -27,7 +26,10 @@ const navPageReducer = (state = initialState, action) => {
       state = { ...state, lists: deleteListReducer(state.lists, action.payload) };
       break;
     case "update/position":
-      state = { ...state, lists: updatePositionReducer(state.lists, action.payload) }
+      state = { ...state, lists: updatePositionReducer(state.lists, action.payload) };
+      break;
+    case "update/user":
+      state = { ...state, userInfo: action.payload};
       break;
     default:
       break;
