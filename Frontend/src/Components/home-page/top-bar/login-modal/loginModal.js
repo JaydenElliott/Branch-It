@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 // Internal Modules
 import { login } from "../../../../API/users";
+import { get } from "../../../../API/lists";
 
 // Styling
 import "./loginModal.scss";
@@ -10,7 +11,7 @@ import "./loginModal.scss";
 // Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateUserInfo } from "../../../../redux/actions/userActions";
+import { updateUserInfo, updateLists } from "../../../../redux/actions/userActions";
 
 class LoginModal extends Component {
   constructor(props) {
@@ -44,6 +45,24 @@ class LoginModal extends Component {
           case 200: //Successful login
             this.props.updateUserInfo({email: this.state.email});
             this.setState({feedback: 'welcome ' + this.state.email});
+
+            // Load in user lists
+            get(this.state.email).then(res => {
+              switch (res.status) {
+                case 200:
+                  // Get all the lists from the response
+                  const databaseLists = [...res.data.map(el => el.list)];
+                  // Update redux lists
+                  this.props.updateLists(this.props.lists.concat(databaseLists));
+                  return res;
+                case 404:
+                  throw new Error("Email not found when retrieving lists");
+                case 400:
+                  throw new Error("Email not provided");
+                default:
+                  throw new Error("Unable to get user todo-lists");
+              };
+            });
             this.props.setModalState(false);
             break;
           case 400:
@@ -75,7 +94,7 @@ class LoginModal extends Component {
         password: "",
       });
   };
-
+  
   render() {
     return (
       <div
@@ -115,6 +134,7 @@ class LoginModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    lists: state.user.lists,
     userInfo: state.user.userInfo,
   };
 };
@@ -122,6 +142,7 @@ const mapStateToProps = (state) => {
 const matchDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      updateLists,
       updateUserInfo,
     },
     dispatch

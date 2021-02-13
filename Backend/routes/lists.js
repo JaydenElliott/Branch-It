@@ -47,7 +47,7 @@ router.get('/:email', async (req, res) => {
         const userId = user._id;
 
         // Get all user lists provided user_id
-        const lists = await List.find({ user_id: userId, date_of_delection: undefined})
+        const lists = await List.find({ user_id: userId, date_of_delection: undefined});
         res.status(200).send(lists);    // Could be an empty list
     } catch (err) {
         console.log(err);
