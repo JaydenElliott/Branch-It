@@ -186,4 +186,76 @@ router.delete('/', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /lists:
+ *  put:
+ *      tags:
+ *          - lists
+ *      summary: Updates or creates a new list
+ *      parameters:
+ *          - in: body
+ *            name: list
+ *            description: The list to create/update and it's associated user.
+ *            schema:
+ *                type: object
+ *                required:
+ *                    - email
+ *                    - list
+ *                properties:
+ *                    email:
+ *                        type: string
+ *                    list:
+ *                        type: object
+ *      responses:
+ *          201:
+ *              description: Created
+ *          204:
+ *              description: Updated
+ *          400:
+ *              description: Bad request - malformed request
+ *          404:
+ *              description: Not found - failed to find email
+ */
+router.put('/', async (req, res) => {
+    const body = req.body;
+
+    // Check that all details are provided
+    if (!body.list || !body.list.reactFlow || !body.list.reactFlow.id || !body.email) {
+        res.status(400).send('Bad request, must contain reactFlow id and email');
+        return;
+    }
+
+    try {
+        // Check that user exists
+        const user = await User.findOne({email: body.email, date_of_delection: undefined});
+        if (!user) {
+          res.status(404).send('Could not find email');
+          return;
+        }
+
+        // Find whether the list exists
+        const id = body.list.reactFlow.id;
+        const list = await List.findOne({ 'list.reactFlow.id': id });
+        if (!list) {
+            // make a new list
+            const newList = new List({
+                user_id: user._id,
+                list: body.list,
+            });
+
+            newList.save();
+            res.status(201).json(newList);
+            return;
+        }
+
+        // Update the list
+        const updatedList = await List.updateOne({ 'list.reactFlow.id': id }, {$set: {list: body.list}});
+        res.status(204).json({message: 'List updated', data: updatedList});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Something went wrong...', error: err});
+    }
+});
+
 module.exports = router;
