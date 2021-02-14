@@ -19,7 +19,7 @@ import {
 class LoginModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "", feedback: "" };
+    this.state = { email: "string", password: "string", feedback: "" };
   }
 
   handleLogInEmailChange = (e) => {

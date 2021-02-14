@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import TodoList from "../../../../list-handling/todoList";
 import { selectList } from "../../../../../redux/actions/userActions";
 import { v4 as uuidv4 } from "uuid";
-import { put } from "../../../../../API/lists";
+import { put, _delete } from "../../../../../API/lists";
 
 import "./dotPointList.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -134,11 +134,44 @@ class DotPointList extends Component {
     this.props.list.done = !this.props.list.done;
   };
 
-  handleDelete = () => {
+  // Delete list from frontend and backend
+  handleDelete = async () => {
+    // Delete from backend
+    if (this.props.user.userInfo) {
+      console.log("2");
+      try {
+        console.log("3");
+
+        let sendObj = {
+          list_id: this.props.list.reactFlow.id,
+        };
+        console.log("list id = ", sendObj);
+        await _delete(sendObj).then((res) => {
+          switch (res.status) {
+            case 200:
+              return;
+            case 404:
+              throw new Error("List not found");
+            case 500:
+              throw new Error(res.data);
+            case 503:
+              throw new Error(res.data);
+            default:
+              throw new Error("Unable to delete list");
+          }
+        });
+      } catch (err) {
+        console.log("Error deleting list: ", err);
+      }
+    }
+
+    // Delete list and graph flow from redux
     this.props.deleteGraphNode(this.props.list.reactFlow.id);
     this.props.deleteList(this.props.list.reactFlow.id);
     let newList = this.props.selectedList;
 
+    console.log("4");
+    // Update redux
     if (this.props.user.length > 1) {
       for (let i = 0; i < this.props.user.lists.length; i++) {
         if (this.props.selectedList) {
@@ -154,6 +187,7 @@ class DotPointList extends Component {
               );
 
             this.props.updateLists(updatedLists);
+
             return;
           }
         }
