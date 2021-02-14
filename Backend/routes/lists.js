@@ -250,8 +250,8 @@ router.put('/', async (req, res) => {
         }
 
         // Update the list
-        const updatedList = await List.updateOne({ 'list.reactFlow.id': id }, {$set: {list: body.list}});
-        res.status(204).json({message: 'List updated', data: updatedList});
+        await List.updateOne({ 'list.reactFlow.id': id }, {$set: {list: body.list}});
+        res.status(200).send('Updated');
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Something went wrong...', error: err});
