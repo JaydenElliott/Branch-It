@@ -2,11 +2,12 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 // Internal Modules
 import { setNavWidth } from "../../../../redux/actions/listNavActions";
 import { updateLists } from "../../../../redux/actions/userActions";
+import { put } from "../../../../API/lists";
 import TodoList from "../../../list-handling/todoList";
 import ChildListNav from "./childListNav";
 
@@ -23,7 +24,7 @@ class ListNav extends Component {
     };
   }
 
-  addList = (e) => {
+  addList = async (e) => {
     e.preventDefault();
 
     // Create a new todo list
@@ -33,10 +34,22 @@ class ListNav extends Component {
     let newListsState = [...this.props.user.lists, newList];
     this.props.updateLists(newListsState);
 
-    // Clear input
-    this.setState({
-      newListName: "",
-    });
+    // Send list to mongo db
+    if (this.props.user.userInfo) {
+      let sendObject = { email: this.props.user.userInfo.email, list: newList };
+      await put(sendObject)
+        .then((res) => {
+          console.log("success: ", res);
+        })
+        .catch((err) => console.log("error: ", err));
+
+      // Clear input
+      this.setState({
+        newListName: "",
+      });
+    } else {
+      console.log("User not logged in, cannot store lists in cloud.");
+    }
   };
 
   renderLists = () => {

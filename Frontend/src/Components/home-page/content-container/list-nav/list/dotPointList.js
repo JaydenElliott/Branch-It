@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TodoList from "../../../../list-handling/todoList";
 import { selectList } from "../../../../../redux/actions/userActions";
 import { v4 as uuidv4 } from "uuid";
+import { put } from "../../../../../API/lists";
 
 import "./dotPointList.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,7 +84,7 @@ class DotPointList extends Component {
     return false;
   }
 
-  addChildList = (e) => {
+  addChildList = async (e) => {
     e.preventDefault();
     let randX = Math.floor(Math.random() * 500);
     let Y = (this.props.depth + 1) * 150;
@@ -92,6 +93,19 @@ class DotPointList extends Component {
     this.props.updateGraphFlow(
       this.props.graphFlow.concat(this.genGraph(this.props.list))
     );
+
+    // Send list to mongo db
+    if (this.props.user.userInfo) {
+      let sendObject = {
+        email: this.props.user.userInfo.email,
+        list: this.props.user.selectedList,
+      };
+      await put(sendObject)
+        .then((res) => {
+          console.log("success: ", res);
+        })
+        .catch((err) => console.log("error: ", err));
+    }
 
     // Reset input
     this.setState({
