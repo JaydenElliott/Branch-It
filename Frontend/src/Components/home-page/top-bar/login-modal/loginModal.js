@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 // Internal Modules
 import { login } from "../../../../API/users";
-import { get } from "../../../../API/lists";
+import { get, put } from "../../../../API/lists";
 
 // Styling
 import "./loginModal.scss";
@@ -11,7 +11,10 @@ import "./loginModal.scss";
 // Redux
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { updateUserInfo, updateLists } from "../../../../redux/actions/userActions";
+import {
+  updateUserInfo,
+  updateLists,
+} from "../../../../redux/actions/userActions";
 
 class LoginModal extends Component {
   constructor(props) {
@@ -43,17 +46,30 @@ class LoginModal extends Component {
         // 'throw new Error()' breaks the runtime so there is no need for a break underneath.
         switch (res.status) {
           case 200: //Successful login
-            this.props.updateUserInfo({email: this.state.email});
-            this.setState({feedback: 'welcome ' + this.state.email});
+            this.props.updateUserInfo({ email: this.state.email });
+            this.setState({ feedback: "welcome " + this.state.email });
 
+            // Update lists that were generated prior to user logging in
+            this.props.lists.forEach((list) => {
+              let sendObject = {
+                email: this.state.email,
+                list: list,
+              };
+
+              put(sendObject)
+                .then((res) => {})
+                .catch((err) => console.log("error: ", err));
+            });
             // Load in user lists
-            get(this.state.email).then(res => {
+            get(this.state.email).then((res) => {
               switch (res.status) {
                 case 200:
                   // Get all the lists from the response
-                  const databaseLists = [...res.data.map(el => el.list)];
+                  const databaseLists = [...res.data.map((el) => el.list)];
                   // Update redux lists
-                  this.props.updateLists(this.props.lists.concat(databaseLists));
+                  this.props.updateLists(
+                    this.props.lists.concat(databaseLists)
+                  );
                   return res;
                 case 404:
                   throw new Error("Email not found when retrieving lists");
@@ -61,7 +77,7 @@ class LoginModal extends Component {
                   throw new Error("Email not provided");
                 default:
                   throw new Error("Unable to get user todo-lists");
-              };
+              }
             });
             this.props.setModalState(false);
             break;
@@ -71,10 +87,9 @@ class LoginModal extends Component {
             throw new Error("Incorrect password");
           case 404:
             // Use if condition to determine if connection failed or email could not be found.
-            if (!res.data.includes('Cannot POST'))
+            if (!res.data.includes("Cannot POST"))
               throw new Error("Email not found");
-            else
-              throw new Error("Failed to connect to backend");
+            else throw new Error("Failed to connect to backend");
           case 500:
             throw new Error("Whops, something has gone wrong...");
           default:
@@ -89,12 +104,12 @@ class LoginModal extends Component {
         setTimeout(() => this.setState({ feedback: "" }), 8000);
       });
 
-      this.setState({
-        email: "",
-        password: "",
-      });
+    this.setState({
+      email: "",
+      password: "",
+    });
   };
-  
+
   render() {
     return (
       <div
