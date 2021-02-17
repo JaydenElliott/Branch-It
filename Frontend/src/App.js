@@ -8,10 +8,6 @@ import "./App.scss";
 import HomePage from "./Components/home-page/homepage";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="app-container">

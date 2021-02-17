@@ -17,10 +17,6 @@ class ContentContainer extends Component {
     super(props);
   }
 
-  displayListItem = (list) => {
-    return;
-  };
-
   render() {
     return (
       <div className="content-container">

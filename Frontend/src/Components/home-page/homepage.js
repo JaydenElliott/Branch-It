@@ -9,10 +9,6 @@ import TopBar from "./top-bar/topBar";
 import ContentContainer from "./content-container/contentContainer";
 
 class HomePage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="homepage-container">

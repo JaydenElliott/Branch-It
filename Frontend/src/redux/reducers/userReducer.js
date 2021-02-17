@@ -20,16 +20,16 @@ const navPageReducer = (state = initialState, action) => {
       state = { ...state, graphFlow: action.payload };
       break;
     case "delete/graphFlow":
-      state = { ...state, graphFlow: deleteGraphNodeReducer(state.graphFlow, action.payload) }
+      state = { ...state, graphFlow: deleteGraphNodeReducer(state.graphFlow, action.payload) } // prettier-ignore
       break;
     case "delete/lists":
-      state = { ...state, lists: deleteListReducer(state.lists, action.payload) };
+      state = { ...state, lists: deleteListReducer(state.lists, action.payload) }; // prettier-ignore
       break;
     case "update/position":
-      state = { ...state, lists: updatePositionReducer(state.lists, action.payload) };
+      state = { ...state, lists: updatePositionReducer(state.lists, action.payload) }; // prettier-ignore
       break;
     case "update/user":
-      state = { ...state, userInfo: action.payload};
+      state = { ...state, userInfo: action.payload };
       break;
     default:
       break;
@@ -39,7 +39,7 @@ const navPageReducer = (state = initialState, action) => {
 
 export default navPageReducer;
 
-/** 
+/**
  * Mutably deletes a todo list.
  * @param todoListList: list of todo lists.
  * @param id: id of todo list to delete.
@@ -55,7 +55,10 @@ const deleteListReducer = (todoListList, id) => {
               .concat(todoListList.slice(i + 1, todoListList.length))
           : [];
       } else {
-        todoListList[i].children = deleteListReducer(todoListList[i].children, id);
+        todoListList[i].children = deleteListReducer(
+          todoListList[i].children,
+          id
+        );
       }
     }
   }
@@ -70,7 +73,12 @@ const deleteListReducer = (todoListList, id) => {
  */
 const updatePositionReducer = (todoListList, payload) => {
   // Base case
-  if (todoListList.length === 0 || !payload || !payload.id || !payload.position) {
+  if (
+    todoListList.length === 0 ||
+    !payload ||
+    !payload.id ||
+    !payload.position
+  ) {
     return todoListList;
   }
 
@@ -84,14 +92,17 @@ const updatePositionReducer = (todoListList, payload) => {
     // Match ids
     if (todoListList[i].reactFlow.id === id) {
       todoListList[i].reactFlow.position = position;
-      return todoListList
+      return todoListList;
     } else {
-      todoListList[i].children = updatePositionReducer(todoListList[i].children, payload);
+      todoListList[i].children = updatePositionReducer(
+        todoListList[i].children,
+        payload
+      );
     }
   }
 
   return todoListList;
-}
+};
 
 /**
  * Immutably deletes react flow references to particular id.
@@ -102,16 +113,20 @@ const deleteGraphNodeReducer = (graphFlow, id) => {
   // Iterate and remove nodes/edges that mention the given id
   for (let i = 0; i < graphFlow.length; i++) {
     if (graphFlow[i].id === id || graphFlow[i].target === id) {
-      graphFlow = graphFlow.slice(0, i).concat(graphFlow.slice(i+1, graphFlow.length));
+      graphFlow = graphFlow
+        .slice(0, i)
+        .concat(graphFlow.slice(i + 1, graphFlow.length));
       i--;
     } else if (graphFlow[i].source === id) {
       // You being the node. If you are the source of an edge, then the targets are your children and must be deleted when you are deleted.
       const targetId = graphFlow[i].target;
-      graphFlow = graphFlow.slice(0, i).concat(graphFlow.slice(i+1, graphFlow.length));
+      graphFlow = graphFlow
+        .slice(0, i)
+        .concat(graphFlow.slice(i + 1, graphFlow.length));
       graphFlow = deleteGraphNodeReducer(graphFlow, targetId);
       i = 0; // Reset counter as the list length and structure may have been altered greatly by the recursion.
     }
   }
 
   return graphFlow;
-}
+};

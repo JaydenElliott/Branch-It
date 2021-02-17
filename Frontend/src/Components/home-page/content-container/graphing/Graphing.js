@@ -1,3 +1,4 @@
+// External Moudles
 import React, { Component } from "react";
 import ReactFlow, { useStoreState } from "react-flow-renderer";
 
@@ -6,16 +7,17 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { updatePosition } from "../../../../redux/actions/userActions";
 
+// Styling
 import "./Graphing.scss";
 
 class Graphing extends Component {
-  // Component state
   constructor(props) {
     super(props);
   }
 
-  onNodeDragStop = (event, node) => {
-    // Updates the position of the node on redux
+  // When graph "node" moves, it updates it's
+  // position in redux's user graphFlow state
+  onNodeDragStop = (node) => {
     this.props.updatePosition(node.id, node.position);
   };
 

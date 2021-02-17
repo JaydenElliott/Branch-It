@@ -33,8 +33,8 @@ class TopBar extends Component {
    * @param bool true or false.
    */
   setModalState = (bool) => {
-    this.setState({loginModalOpen: bool});
-  }
+    this.setState({ loginModalOpen: bool });
+  };
 
   render() {
     return (
@@ -91,31 +91,33 @@ class TopBar extends Component {
             variant="contained"
             disabled={this.props.userInfo}
             style={
-              this.props.userInfo ?
-                {
-                  backgroundColor: "grey",
-                  height: "33px",
-                  width: "95px",
-                  color: "#ffffff",
-                  fontSize: "10px",
-                  width: "100%",
-                }
-              :
-                {
-                  backgroundColor: "#608C4C",
-                  height: "33px",
-                  width: "95px",
-                  color: "#ffffff",
-                  fontSize: "10px",
-                  width: "100%",
-                }
-          }
+              this.props.userInfo
+                ? {
+                    backgroundColor: "grey",
+                    height: "33px",
+                    width: "95px",
+                    color: "#ffffff",
+                    fontSize: "10px",
+                    width: "100%",
+                  }
+                : {
+                    backgroundColor: "#608C4C",
+                    height: "33px",
+                    width: "95px",
+                    color: "#ffffff",
+                    fontSize: "10px",
+                    width: "100%",
+                  }
+            }
             onClick={this.toggleLoginModal}
           >
             {this.props.userInfo ? this.props.userInfo.email : "Log-in"}
           </Button>
         </div>
-        <LoginModal isOpen={this.state.loginModalOpen} setModalState={this.setModalState} />
+        <LoginModal
+          isOpen={this.state.loginModalOpen}
+          setModalState={this.setModalState}
+        />
       </div>
     );
   }

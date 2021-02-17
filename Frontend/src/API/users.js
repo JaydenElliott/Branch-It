@@ -6,26 +6,30 @@ const usersEndpoint = config.backendEndpoints.users;
 
 /**
  * Login to the backend
- * @param { email: string, password: string } credentials 
+ * @param { email: string, password: string } credentials
  * @returns { status: number, data: string, headers: object }
  */
 export function login(credentials) {
   return axios
     .post(loginEndpoint, credentials)
-    .then(res => {
+    .then((res) => {
       return { status: res.status, data: res.data, headers: res.headers };
     })
-    .catch(err => {
+    .catch((err) => {
       // Check that a response was received
       if (err.response) {
-        return { status: err.response.status, data: err.response.data, headers: err.response.headers }
+        return {
+          status: err.response.status,
+          data: err.response.data,
+          headers: err.response.headers,
+        };
       } else if (err.request) {
         // Request made but no response, most likely a connection failure.
-        return { status: 503, data: 'Service unavailable' }
+        return { status: 503, data: "Service unavailable" };
       } else {
         // Something else happened.
         console.log(err);
-        return { data: 'Something went wrong...' }
+        return { data: "Something went wrong..." };
       }
     });
 }
@@ -37,21 +41,25 @@ export function login(credentials) {
  */
 export function get(email) {
   return axios
-    .get(usersEndpoint + '/'+ email)
-    .then(res => {
+    .get(usersEndpoint + "/" + email)
+    .then((res) => {
       return { status: res.status, data: res.data, headers: res.headers };
     })
-    .catch(err => {
+    .catch((err) => {
       // Check that a response was received
       if (err.response) {
-        return { status: err.response.status, data: err.response.data, headers: err.response.headers }
+        return {
+          status: err.response.status,
+          data: err.response.data,
+          headers: err.response.headers,
+        };
       } else if (err.request) {
         // Request made but no response, most likely a connection failure.
-        return { status: 503, data: 'Service unavailable' }
+        return { status: 503, data: "Service unavailable" };
       } else {
         // Something else happened.
         console.log(err);
-        return { data: 'Something went wrong...' }
+        return { data: "Something went wrong..." };
       }
     });
 }
@@ -63,21 +71,25 @@ export function get(email) {
  */
 export function create(credentials) {
   return axios
-  .post(usersEndpoint, credentials)
-  .then(res => {
-    return { status: res.status, data: res.data, headers: res.headers };
-  })
-  .catch(err => {
-    // Check that a response was received
-    if (err.response) {
-      return { status: err.response.status, data: err.response.data, headers: err.response.headers }
-    } else if (err.request) {
-      // Request made but no response, most likely a connection failure.
-      return { status: 503, data: 'Service unavailable' }
-    } else {
-      // Something else happened.
-      console.log(err);
-      return { data: 'Something went wrong...' }
-    }
-  });
+    .post(usersEndpoint, credentials)
+    .then((res) => {
+      return { status: res.status, data: res.data, headers: res.headers };
+    })
+    .catch((err) => {
+      // Check that a response was received
+      if (err.response) {
+        return {
+          status: err.response.status,
+          data: err.response.data,
+          headers: err.response.headers,
+        };
+      } else if (err.request) {
+        // Request made but no response, most likely a connection failure.
+        return { status: 503, data: "Service unavailable" };
+      } else {
+        // Something else happened.
+        console.log(err);
+        return { data: "Something went wrong..." };
+      }
+    });
 }
