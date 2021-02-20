@@ -70,7 +70,7 @@ export function put(listDetails) {
  */
 export function _delete(list_id) {
   return axios
-    .delete(listsEndpoint, list_id)
+    .delete(listsEndpoint, {data: list_id})
     .then((res) => {
       return { status: res.status, data: res.data, headers: res.headers };
     })

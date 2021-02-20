@@ -142,7 +142,6 @@ class DotPointList extends Component {
         let sendObj = {
           list_id: this.props.list.reactFlow.id,
         };
-        console.log("list id = ", sendObj);
         await _delete(sendObj).then((res) => {
           switch (res.status) {
             case 200:
@@ -160,14 +159,13 @@ class DotPointList extends Component {
       } catch (err) {
         console.log("Error deleting list: ", err);
       }
-    }
+    } 
 
     // Delete list and graph flow from redux
     this.props.deleteGraphNode(this.props.list.reactFlow.id);
     this.props.deleteList(this.props.list.reactFlow.id);
     let newList = this.props.selectedList;
 
-    console.log("4");
     // Update redux
     if (this.props.user.length > 1) {
       for (let i = 0; i < this.props.user.lists.length; i++) {

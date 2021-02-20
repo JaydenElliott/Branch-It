@@ -159,8 +159,6 @@ router.post("/", async (req, res) => {
  */
 router.delete("/", async (req, res) => {
   const body = req.body;
-  console.log(body);
-
   // Check that all details are provided
   if (!body.list_id) {
     res.status(400).send("Bad request");
@@ -182,7 +180,7 @@ router.delete("/", async (req, res) => {
       { "list.reactFlow.id": id },
       { $set: { date_of_delection: Date.now() } },
       (err, result) => {
-        if (!result) {
+        if (result.nModified === 0) {
           res.status(404).send("Not found");
           return;
         } else if (err) {
