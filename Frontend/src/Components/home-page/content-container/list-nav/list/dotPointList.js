@@ -89,7 +89,7 @@ class DotPointList extends Component {
     let randX = Math.floor(Math.random() * 500);
     let Y = (this.props.depth + 1) * 150;
     let position = { x: randX, y: Y };
-    this.props.list.addList(new TodoList(this.state.addListInput, position));
+    this.props.list.children = [...this.props.list.children, new TodoList(this.state.addListInput, position)];
     this.props.updateGraphFlow(
       this.props.graphFlow.concat(this.genGraph(this.props.list))
     );
@@ -138,10 +138,7 @@ class DotPointList extends Component {
   handleDelete = async () => {
     // Delete from backend
     if (this.props.user.userInfo) {
-      console.log("2");
       try {
-        console.log("3");
-
         let sendObj = {
           list_id: this.props.list.reactFlow.id,
         };

@@ -63,10 +63,6 @@ class ListNav extends Component {
     );
   };
 
-  renderChildLists = () => {
-    return <div></div>;
-  };
-
   onInputChange = (e) => {
     this.setState({
       newListName: e.currentTarget.value,

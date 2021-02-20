@@ -9,7 +9,6 @@ export default class TodoList {
   children = [];
 
   // ReactFlow
-
   reactFlow = {
     id: undefined,
     data: { label: "" },
@@ -37,12 +36,4 @@ export default class TodoList {
       position: position,
     };
   }
-
-  /**
-   * Adds a child list to the current list
-   * @param newList to add
-   */
-  addList = (newList) => {
-    this.children = [...this.children, newList];
-  };
 }
