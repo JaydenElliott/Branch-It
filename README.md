@@ -10,9 +10,20 @@ Welcome to Branch-It, the todo list application that renders your tasks into a d
 - React Sass
 - React Flow Renderer
 
-## For Devs
+## Installation
 
-### File Structure
+After cloning the project
+
+```
+cd FrontEnd
+
+npm install
+
+npm start
+
+```
+
+## File Structure
 
     .
     ├── FrontEnd
