@@ -28,7 +28,10 @@ class ListNav extends Component {
     e.preventDefault();
 
     // Create a new todo list
-    const newList = new TodoList(this.state.newListName);
+    const newList = new TodoList(this.state.newListName, {
+      x: (window.innerWidth + 230) / 2,
+      y: 50,
+    });
 
     // Add to redux
     let newListsState = [...this.props.user.lists, newList];

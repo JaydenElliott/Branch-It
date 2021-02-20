@@ -17,7 +17,7 @@ class Graphing extends Component {
 
   // When graph "node" moves, it updates it's
   // position in redux's user graphFlow state
-  onNodeDragStop = (node) => {
+  onNodeDragStop = (event, node) => {
     this.props.updatePosition(node.id, node.position);
   };
 

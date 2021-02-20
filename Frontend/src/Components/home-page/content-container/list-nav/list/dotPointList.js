@@ -86,10 +86,13 @@ class DotPointList extends Component {
 
   addChildList = async (e) => {
     e.preventDefault();
-    let randX = Math.floor(Math.random() * 500);
+    let randX = Math.floor(Math.random() * 600 + 400);
     let Y = (this.props.depth + 1) * 150;
     let position = { x: randX, y: Y };
-    this.props.list.children = [...this.props.list.children, new TodoList(this.state.addListInput, position)];
+    this.props.list.children = [
+      ...this.props.list.children,
+      new TodoList(this.state.addListInput, position),
+    ];
     this.props.updateGraphFlow(
       this.props.graphFlow.concat(this.genGraph(this.props.list))
     );
@@ -159,7 +162,7 @@ class DotPointList extends Component {
       } catch (err) {
         console.log("Error deleting list: ", err);
       }
-    } 
+    }
 
     // Delete list and graph flow from redux
     this.props.deleteGraphNode(this.props.list.reactFlow.id);
