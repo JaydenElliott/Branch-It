@@ -70,6 +70,7 @@ export function get(email) {
  * @returns { status: number, data: string, headers: object }
  */
 export function create(credentials) {
+  console.log(usersEndpoint, "endpiint");
   return axios
     .post(usersEndpoint, credentials)
     .then((res) => {

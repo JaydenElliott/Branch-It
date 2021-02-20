@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 
 // Internal Modules
-import { login } from "../../../../API/users";
+import { login, create } from "../../../../API/users";
 import { get, put } from "../../../../API/lists";
 
 // Styling
@@ -110,6 +110,34 @@ class LoginModal extends Component {
     });
   };
 
+  signupFormSubmit = async (e) => {
+    e.preventDefault();
+    const signupObject = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+
+    await create(signupObject)
+      .then((res) => {
+        switch (res.status) {
+          case 201:
+            this.loginFormSubmit(e);
+            return;
+          case 400:
+            throw new Error("Email or password not provided");
+          case 403:
+            throw new Error("Email already exists");
+          default:
+            throw new Error("Something went wrong");
+        }
+      })
+      .catch((err) => {
+        // Displays error message for 8 seconds.
+        this.setState({ feedback: err.message });
+        setTimeout(() => this.setState({ feedback: "" }), 8000);
+      });
+  };
+
   render() {
     return (
       <div
@@ -136,9 +164,18 @@ class LoginModal extends Component {
               value={this.state.password}
             />
           </div>
-          <button type="submit" className="login-modal-button">
-            Login
-          </button>
+          <div className="login-signup-button">
+            <button type="submit" className="login-modal-button">
+              Login
+            </button>
+            <button
+              type="submit"
+              className="signup-modal-button"
+              onClick={this.signupFormSubmit}
+            >
+              Sign-up
+            </button>
+          </div>
         </form>
       </div>
     );
