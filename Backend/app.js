@@ -18,8 +18,8 @@ app.use(cors());
 
 // Body parser
 const bodyParser = require("body-parser");
+// Express settings
 app.use(bodyParser.json());
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,7 +28,7 @@ app.use(cookieParser());
 // View engine
 app.set("view engine", "html");
 
-// Swagger
+/*    Swagger   */
 // Swagger will allow us to both document and test api.
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");

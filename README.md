@@ -26,8 +26,8 @@ npm start
 ## File Structure
 
     .
-    ├── FrontEnd
-    │       ├── src                          # Source files
+    ├── Frontend
+    │       ├── src                          # Frontend source files
     │       │    ├─── API                    # Front-end <-> back-end communication
     │       │    ├─── assets                 # Images and icons
     │       │    ├─── Components             # App components
@@ -38,4 +38,5 @@ npm start
     │       |    └─── App.js                 # Root component
     │       ├─── public                      # Public assets and html
     │       └─── package.json                # Front-end <-> back-end communication
+    ├── Backend                              # Backend source files
     └── README.md                            # Project use basics
