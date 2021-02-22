@@ -12,12 +12,32 @@ Welcome to Branch-It, the todo list application that renders your tasks into a d
 
 ## Installation
 
-After cloning the project
+After cloning the project, install the appropriate modules in the frontend and backend
 
 ```
-cd FrontEnd
+cd Frontend
 
 npm install
+
+cd ../Backend
+
+npm install
+
+```
+
+Start the backend server
+
+```
+cd Backend
+
+nodemon
+
+```
+
+Start the frontend client on a different port to the backend server.
+
+```
+cd ../Frontend
 
 npm start
 
